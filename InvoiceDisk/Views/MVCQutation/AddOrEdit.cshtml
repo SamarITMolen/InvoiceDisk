@@ -318,19 +318,5 @@
 
 
   
-@*table *@
-@*<script>
 
-
-    $('#Rate').keyup(function () {
-        var currentRow = $(this).closest("tr");
-        var quantity = currentRow.find("td:eq(1)").find('input').val(); // get current row 1st TD value
-        var Price = $(this).val();
-        var total = quantity * Price;
-        currentRow.find('td:eq(3)').find('input').val(total);
-    })
-
-
-
-</script>*@
 
