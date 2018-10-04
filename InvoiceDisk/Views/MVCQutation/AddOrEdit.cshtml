@@ -171,7 +171,9 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    @Html.EditorFor(model => model.Total, new { htmlAttributes = new { @class = " FTotal form-control", id = "FTotal" } })
+                                                    <input type="text"  maxlength="50000"/>
+                                                   
+                                                    @Html.EditorFor(model => model.Total, new { htmlAttributes = new {@readonly="readonly", @class = " FTotal form-control", id = "FTotal",m } })
                                                     @Html.ValidationMessageFor(model => model.Total, "", new { @class = "text-danger" })
                                                 </td>
                                                 <td>
