@@ -1,0 +1,124 @@
+﻿@model InvoiceDisk.Models.MVCCompanyModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MVCCompanyModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Id
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompanyId)
+        </dd>
+
+        <dt>
+           Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ComapanyName)
+        </dd>
+
+        <dt>
+           Address
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompanyAddress)
+        </dd>
+
+        <dt>
+         Phone
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompanyPhone)
+        </dd>
+
+        <dt>
+           Cell
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompanyCell)
+        </dd>
+
+        <dt>
+           Email
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompanyEmail)
+        </dd>      
+
+        <dt>
+            TRN
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompanyTRN)
+        </dd>
+
+        <dt>
+           Fax
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ComapnyFax)
+        </dd>
+
+        <dt>
+          Sub Title
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompanySubTitile)
+        </dd>
+
+        <dt>
+            City
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompanyCity)
+        </dd>
+
+        <dt>
+       State
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompanyState)
+        </dd>
+
+        <dt>
+          Country
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompanyCountry)
+        </dd>       
+        <dt>
+            Logo
+        </dt>
+
+        <dd>
+            <img src="@Url.Content(Model.CompanyLogo)" class="img-responsive" id="targetImg" style="height:50px; width:50px;border:none" />
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <a href="@Url.Action("Index","Company")" class="btn btn-info"> <i style="color:yellow" class="glyphicon glyphicon-backward"></i>Back to list</a> |
+    <a href="@Url.Action("AddOrEdit","Company",new { id = Model.CompanyId})" class="btn btn-info"> <i style="color:yellow" class="glyphicon glyphicon-pencil"></i>Edit</a> 
+   
+   
+
+</p>

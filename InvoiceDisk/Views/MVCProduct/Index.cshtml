@@ -1,0 +1,109 @@
+﻿@model IEnumerable<InvoiceDisk.Models.MVCProductModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a href="@Url.Action("AddOrEdit","MVCProduct")" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>Create New</a>
+</p>
+<table class="table">
+
+    <thead class="table-heading" style="background-color:black;color:white">
+        <tr>
+            <th>
+            Id
+            </th>
+            <th>
+               Name
+            </th>
+            <th>
+               Description
+            </th>
+            <th>
+           Sale Price
+            </th>
+            <th>
+              Purchase Price
+            </th>
+            <th>
+               Type
+            </th>
+            <th>
+             Opening Quantity
+            </th>
+
+            <th>
+             Date
+            </th>
+            <th>Action</th>
+        </tr>
+
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SalePrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PurchasePrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OpeningQuantity)
+                </td>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.AddedDate)
+                </td>
+                <td>
+                    <a href="@Url.Action("AddOrEdit","MVCProduct",new { id = item.ProductId})" class="btn btn-info"> <i style="color:yellow" class="glyphicon glyphicon-pencil"></i>Edit</a> |
+                    <a onclick="Delete(@item.ProductId)" class="btn btn-info"> <i style="color:red" class="glyphicon glyphicon-trash"></i>Delete</a> |
+                    <a href="@Url.Action("Details","MVCProduct",new { id = item.ProductId})" class="btn btn-info"> <i style="color:yellow" class="glyphicon glyphicon-forward"></i>Details</a> 
+                </td>
+            </tr>
+        }
+
+</table>
+
+
+@section scripts{
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]'
+            if(successMessage != '')
+            {
+                alertify.success(successMessage);
+
+            }
+            successMessage = '';
+        });
+
+
+        function Delete(id)
+        {
+
+            alertify.confirm('Company Information','Are you sure to delete this record ?',function(){
+
+                window.location.href = '@Url.Action("Delete","MVCProduct")/'+id;
+
+            },null);
+        }
+    </script>
+
+}

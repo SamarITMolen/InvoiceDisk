@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ContactsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ContactsTable">
+          <Key>
+            <PropertyRef Name="ContactsId" />
+          </Key>
+          <Property Name="ContactsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ContactName" Type="varchar" MaxLength="100" />
+          <Property Name="ContactAddress" Type="nvarchar" MaxLength="400" />
+          <Property Name="Company_Id" Type="int" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="Type" Type="varchar" MaxLength="10" />
+          <Property Name="BillingPersonName" Type="varchar" MaxLength="70" />
+          <Property Name="BillingCompanyName" Type="nvarchar" MaxLength="100" />
+          <Property Name="BillingAddress" Type="nvarchar" MaxLength="300" />
+          <Property Name="BillingCity" Type="varchar" MaxLength="50" />
+          <Property Name="BillingState" Type="varchar" MaxLength="50" />
+          <Property Name="BillingCountry" Type="varchar" MaxLength="50" />
+          <Property Name="BillingZibCode" Type="nvarchar" MaxLength="25" />
+          <Property Name="BillingEmail" Type="nvarchar" MaxLength="50" />
+          <Property Name="BillingVatTRN" Type="nvarchar" MaxLength="40" />
+          <Property Name="BillingPhone" Type="nvarchar" MaxLength="20" />
+          <Property Name="BillingMobile" Type="nvarchar" MaxLength="20" />
+          <Property Name="BillingFax" Type="nvarchar" MaxLength="20" />
+          <Property Name="ShippingPersonName" Type="varchar" MaxLength="70" />
+          <Property Name="ShippingAddress" Type="nvarchar" MaxLength="300" />
+          <Property Name="ShippingCompanyName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ShippingCity" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShippingState" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShippingCountry" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShippingZIP" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShippingEmail" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShippingVatTRN" Type="nvarchar" MaxLength="40" />
+          <Property Name="ShippingMobile" Type="nvarchar" MaxLength="20" />
+          <Property Name="ShippingPhone" Type="nvarchar" MaxLength="20" />
+          <Property Name="ShippingFax" Type="nvarchar" MaxLength="20" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="350" />
+          <Property Name="Addeddate" Type="date" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityContainer Name="ContactsModelStoreContainer">
+          <EntitySet Name="ContactsTable" EntityType="Self.ContactsTable" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ContactsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ContactsTable">
+          <Key>
+            <PropertyRef Name="ContactsId" />
+          </Key>
+          <Property Name="ContactsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ContactName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ContactAddress" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="Company_Id" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="Type" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="BillingPersonName" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="BillingCompanyName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BillingAddress" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="BillingCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BillingState" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BillingCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BillingZibCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="BillingEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BillingVatTRN" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="BillingPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="BillingMobile" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="BillingFax" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ShippingPersonName" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="ShippingAddress" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="ShippingCompanyName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ShippingCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShippingState" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShippingCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShippingZIP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShippingEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShippingMobile" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ShippingPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ShippingFax" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="Addeddate" Type="DateTime" Precision="0" />
+          <Property Name="ShippingVatTRN" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="ContactsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ContactsTables" EntityType="Self.ContactsTable" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ContactsModelStoreContainer" CdmEntityContainer="ContactsEntities">
+          <EntitySetMapping Name="ContactsTables">
+            <EntityTypeMapping TypeName="ContactsModel.ContactsTable">
+              <MappingFragment StoreEntitySet="ContactsTable">
+                <ScalarProperty Name="ShippingVatTRN" ColumnName="ShippingVatTRN" />
+                <ScalarProperty Name="Addeddate" ColumnName="Addeddate" />
+                <ScalarProperty Name="ContactsId" ColumnName="ContactsId" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="ContactAddress" ColumnName="ContactAddress" />
+                <ScalarProperty Name="Company_Id" ColumnName="Company_Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="BillingPersonName" ColumnName="BillingPersonName" />
+                <ScalarProperty Name="BillingCompanyName" ColumnName="BillingCompanyName" />
+                <ScalarProperty Name="BillingAddress" ColumnName="BillingAddress" />
+                <ScalarProperty Name="BillingCity" ColumnName="BillingCity" />
+                <ScalarProperty Name="BillingState" ColumnName="BillingState" />
+                <ScalarProperty Name="BillingCountry" ColumnName="BillingCountry" />
+                <ScalarProperty Name="BillingZibCode" ColumnName="BillingZibCode" />
+                <ScalarProperty Name="BillingEmail" ColumnName="BillingEmail" />
+                <ScalarProperty Name="BillingVatTRN" ColumnName="BillingVatTRN" />
+                <ScalarProperty Name="BillingPhone" ColumnName="BillingPhone" />
+                <ScalarProperty Name="BillingMobile" ColumnName="BillingMobile" />
+                <ScalarProperty Name="BillingFax" ColumnName="BillingFax" />
+                <ScalarProperty Name="ShippingPersonName" ColumnName="ShippingPersonName" />
+                <ScalarProperty Name="ShippingAddress" ColumnName="ShippingAddress" />
+                <ScalarProperty Name="ShippingCompanyName" ColumnName="ShippingCompanyName" />
+                <ScalarProperty Name="ShippingCity" ColumnName="ShippingCity" />
+                <ScalarProperty Name="ShippingState" ColumnName="ShippingState" />
+                <ScalarProperty Name="ShippingCountry" ColumnName="ShippingCountry" />
+                <ScalarProperty Name="ShippingZIP" ColumnName="ShippingZIP" />
+                <ScalarProperty Name="ShippingEmail" ColumnName="ShippingEmail" />
+                <ScalarProperty Name="ShippingMobile" ColumnName="ShippingMobile" />
+                <ScalarProperty Name="ShippingPhone" ColumnName="ShippingPhone" />
+                <ScalarProperty Name="ShippingFax" ColumnName="ShippingFax" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

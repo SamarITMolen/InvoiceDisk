@@ -1,0 +1,364 @@
+﻿@model InvoiceDisk.Models.MVCContactsModel
+
+@{
+    ViewBag.Title = "AddOrEdit";
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.HiddenFor(Model => Model.ContactsId);
+
+        <div class="shadow-lg p-3 mb-5 bg-white rounded">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="color:white;font-weight:bold;background-color:skyblue">Contacts Info</div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-sm-2">Name:</div>
+                        <div class="col-sm-4">
+                            @Html.EditorFor(model => model.ContactName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ContactName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-sm-2">Address:</div>
+                        <div class="col-sm-4">
+                            @Html.EditorFor(model => model.ContactAddress, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ContactAddress, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-sm-2">Type</div>
+                        <div class="col-sm-10">
+                       
+                            @Html.DropDownListFor(model => model.Type, new List<SelectListItem>
+                                {
+                                    new SelectListItem { Text = "Customer", Value = "Customer", Selected=true},
+                                    new SelectListItem { Text = "Vender", Value = "Vender"},
+
+                                }, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })                                                    
+
+                        </div>
+                    </div>
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" style="color:skyblue;font-weight:bold">Billing Address</div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-4">Person Name:</div>
+                                        <div class="col-sm-8">
+                                            @Html.EditorFor(model => model.BillingPersonName, new { htmlAttributes = new { @class = "form-control",id= "BillingPersonName" } })
+                                            @Html.ValidationMessageFor(model => model.BillingPersonName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-top:8px">
+                                        <div class="col-sm-4">
+                                            Company Name:
+                                        </div>
+                                        <div class="col-sm-8">
+                                            @Html.EditorFor(model => model.BillingCompanyName, new { htmlAttributes = new { @class = "form-control",id= "BillingCompanyName" } })
+                                            @Html.ValidationMessageFor(model => model.BillingCompanyName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-top:8px">
+                                        <div class="col-sm-4">Address:</div>
+                                        <div class="col-sm-8">
+                                            @Html.EditorFor(model => model.BillingAddress, new { htmlAttributes = new { @class = "form-control", id = "BillingAddress" } })
+                                            @Html.ValidationMessageFor(model => model.BillingAddress, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-top:8px">
+                                        <div class="col-sm-4">
+                                            City:
+                                        </div>
+                                        <div class="col-sm-8">
+                                            @Html.EditorFor(model => model.BillingCity, new { htmlAttributes = new { @class = "form-control",id= "BillingCity" } })
+                                            @Html.ValidationMessageFor(model => model.BillingCity, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-top:8px">
+                                        <div class="col-sm-4">
+                                            State
+                                        </div>
+                                        <div class="col-sm-8">
+                                            @Html.EditorFor(model => model.BillingState, new { htmlAttributes = new { @class = "form-control",id= "BillingState" } })
+                                            @Html.ValidationMessageFor(model => model.BillingState, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-top:8px">
+                                        <div class="col-sm-4">Country:</div>
+                                        <div class="col-sm-8">
+                                            @Html.EditorFor(model => model.BillingCountry, new { htmlAttributes = new { @class = "form-control",id= "BillingCountry" } })
+                                            @Html.ValidationMessageFor(model => model.BillingCountry, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-top:8px">
+                                        <div class="col-sm-4">ZIP Code:</div>
+                                        <div class="col-sm-8">
+                                            @Html.EditorFor(model => model.BillingZibCode, new { htmlAttributes = new { @class = "form-control",id= "BillingZibCode" } })
+                                            @Html.ValidationMessageFor(model => model.BillingZibCode, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-top:8px">
+                                        <div class="col-sm-4">Email:</div>
+                                        <div class="col-sm-8">
+                                            @Html.EditorFor(model => model.BillingEmail, new { htmlAttributes = new { @class = "form-control",id= "BillingEmail" } })
+                                            @Html.ValidationMessageFor(model => model.BillingEmail, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-top:8px">
+                                        <div class="col-sm-4">VAT TRN:</div>
+                                        <div class="col-sm-8">
+                                            @Html.EditorFor(model => model.BillingVatTRN, new { htmlAttributes = new { @class = "form-control",id= "BillingVatTRN" } })
+                                            @Html.ValidationMessageFor(model => model.BillingVatTRN, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-top:8px">
+                                        <div class="col-sm-4">Phone:</div>
+                                        <div class="col-sm-8">
+                                            @Html.EditorFor(model => model.BillingPhone, new { htmlAttributes = new { @class = "form-control",id= "BillingPhone" } })
+                                            @Html.ValidationMessageFor(model => model.BillingPhone, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-top:8px">
+                                        <div class="col-sm-4">Mobile:</div>
+                                        <div class="col-sm-8">
+                                            @Html.EditorFor(model => model.BillingMobile, new { htmlAttributes = new { @class = "form-control",id= "BillingMobile" } })
+                                            @Html.ValidationMessageFor(model => model.BillingMobile, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-top:8px">
+                                        <div class="col-sm-4">FAX:</div>
+                                        <div class="col-sm-8">
+                                            @Html.EditorFor(model => model.BillingFax, new { htmlAttributes = new { @class = "form-control",id= "BillingFax" } })
+                                            @Html.ValidationMessageFor(model => model.BillingFax, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-sm-6" style="color:skyblue;font-weight:bold">Shipping Address</div>
+                                    <div class="col-sm-6" style="color:brown;font-weight:bold"><input type="checkbox" value="SameAsBillingAddress" id="sameasBilling" />Same as billing address
+                                    </div>
+                                </div>
+                                    </div>
+                                
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-4">Person Name:</div>
+                                        <div class="col-sm-8">
+                                            @Html.EditorFor(model => model.ShippingPersonName, new { htmlAttributes = new { @class = "form-control",id= "ShippingPersonName" } })
+                                            @Html.ValidationMessageFor(model => model.ShippingPersonName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-top:8px">
+                                        <div class="col-sm-4">
+                                            Company Name:
+                                        </div>
+                                        <div class="col-sm-8">
+                                            @Html.EditorFor(model => model.ShippingCompanyName, new { htmlAttributes = new { @class = "form-control",id= "ShippingCompanyName" } })
+                                            @Html.ValidationMessageFor(model => model.ShippingCompanyName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-top:8px">
+                                        <div class="col-sm-4">Address:</div>
+                                        <div class="col-sm-8">
+                                            @Html.EditorFor(model => model.ShippingAddress, new { htmlAttributes = new { @class = "form-control", name = "ShippingAddress" } })
+                                            @Html.ValidationMessageFor(model => model.ShippingAddress, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-top:8px">
+                                        <div class="col-sm-4">
+                                            City:
+                                        </div>
+                                        <div class="col-sm-8">
+                                            @Html.EditorFor(model => model.ShippingCity, new { htmlAttributes = new { @class = "form-control",id= "ShippingCity" } })
+                                            @Html.ValidationMessageFor(model => model.ShippingCity, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-top:8px">
+                                        <div class="col-sm-4">
+                                            State
+                                        </div>
+                                        <div class="col-sm-8">
+                                            @Html.EditorFor(model => model.ShippingState, new { htmlAttributes = new { @class = "form-control",id= "ShippingState" } })
+                                            @Html.ValidationMessageFor(model => model.ShippingState, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-top:8px">
+                                        <div class="col-sm-4">Country:</div>
+                                        <div class="col-sm-8">
+                                            @Html.EditorFor(model => model.ShippingCountry, new { htmlAttributes = new { @class = "form-control",id= "ShippingCountry" } })
+                                            @Html.ValidationMessageFor(model => model.ShippingCountry, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-top:8px">
+                                        <div class="col-sm-4">ZIP Code:</div>
+                                        <div class="col-sm-8">
+                                            @Html.EditorFor(model => model.ShippingZIP, new { htmlAttributes = new { @class = "form-control",id= "ShippingZIP" } })
+                                            @Html.ValidationMessageFor(model => model.ShippingZIP, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-top:8px">
+                                        <div class="col-sm-4">Email:</div>
+                                        <div class="col-sm-8">
+                                            @Html.EditorFor(model => model.ShippingEmail, new { htmlAttributes = new { @class = "form-control",id= "ShippingEmail" } })
+                                            @Html.ValidationMessageFor(model => model.ShippingEmail, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-top:8px">
+                                        <div class="col-sm-4">VAT TRN:</div>
+                                        <div class="col-sm-8">
+                                            @Html.EditorFor(model => model.ShippingVatTRN, new { htmlAttributes = new { @class = "form-control",id= "ShippingVatTRN" } })
+                                            @Html.ValidationMessageFor(model => model.ShippingVatTRN, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-top:8px">
+                                        <div class="col-sm-4">Phone:</div>
+                                        <div class="col-sm-8">
+                                            @Html.EditorFor(model => model.ShippingPhone, new { htmlAttributes = new { @class = "form-control",id= "ShippingPhone" } })
+                                            @Html.ValidationMessageFor(model => model.ShippingPhone, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-top:8px">
+                                        <div class="col-sm-4">Mobile:</div>
+                                        <div class="col-sm-8">
+                                            @Html.EditorFor(model => model.ShippingMobile, new { htmlAttributes = new { @class = "form-control",id= "ShippingMobile" } })
+                                            @Html.ValidationMessageFor(model => model.ShippingMobile, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-top:8px">
+                                        <div class="col-sm-4">FAX:</div>
+                                        <div class="col-sm-8">
+                                            @Html.EditorFor(model => model.ShippingFax, new { htmlAttributes = new { @class = "form-control",id= "ShippingFax" } })
+                                            @Html.ValidationMessageFor(model => model.ShippingFax, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-2">remarks:</div>
+                        <div class="col-sm-4">
+                            @Html.EditorFor(model => model.Remarks, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-sm-2">Status:</div>
+                        <div class="col-sm-4">
+                            @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+                <div class="panel panel-footer pull-right">
+                    <div class="input-group-btn">
+                        <button type="submit" class="btn btn-success">
+                            <i class="glyphicon glyphicon-floppy-saved"></i>
+                        </button>
+                        <button type="submit" value="Submit" class="btn btn-success">Submit</button>
+
+                        <button type="reset" value="Reset" class="btn btn-default">Reset</button>
+                    </div>
+                    <div class="input-group-btn">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+@section scripts{
+
+    @Scripts.Render("~/bundles/jqueryval");
+
+<script>
+    $(document).ready(function (){
+        $("#sameasBilling").change(function ()
+        {
+            if ($("#sameasBilling").is(':checked'))
+            {
+
+                $("#ShippingPersonName").val($("#BillingPersonName").val());
+                $("#ShippingCompanyName").val($("#BillingCompanyName").val());
+                $("#ShippingAddress").val($("#BillingAddress").val());
+                $("#ShippingCity").val($("#BillingCity").val());
+                $("#ShippingState").val($("#BillingState").val());
+                $("#ShippingCountry").val($("#BillingCountry").val());
+                $("#ShippingZIP").val($("#BillingZibCode").val());
+                $("#ShippingEmail").val($("#BillingEmail").val());
+                $("#ShippingVatTRN").val($("#BillingVatTRN").val());
+                $("#ShippingPhone").val($("#BillingPhone").val());
+                $("#ShippingMobile").val($("#BillingMobile").val());
+                $("#ShippingFax").val($("#BillingFax").val());               
+            }
+            else
+            {
+                $("#ShippingPersonName").val('');
+                $("#ShippingCompanyName").val('');
+                $("#ShippingAddress").val('');
+
+                $("#ShippingCity").val('');
+                $("#ShippingState").val('');
+                $("#ShippingCountry").val('');
+                $("#ShippingZIP").val('');
+                $("#ShippingEmail").val('');
+                // $("#BillingVatTRN").val('');
+                $("#ShippingPhone").val('');
+                $("#ShippingMobile").val('');
+                $("#ShippingFax").val('');
+
+            }
+        });
+    });
+</script>
+}

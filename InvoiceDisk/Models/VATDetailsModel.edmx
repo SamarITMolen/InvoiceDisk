@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="VatDetailsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="VatDetailsTable">
+          <Key>
+            <PropertyRef Name="VatID" />
+          </Key>
+          <Property Name="VatID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VatPercentage" Type="float" />
+          <Property Name="Amount" Type="float" />
+          <Property Name="QutationId" Type="int" />
+          <Property Name="CompanyId" Type="int" />
+          <Property Name="AddedBy" Type="int" />
+          <Property Name="AddedDate" Type="date" />
+          <Property Name="ClientId" Type="int" />
+        </EntityType>
+        <EntityContainer Name="VatDetailsModelStoreContainer">
+          <EntitySet Name="VatDetailsTable" EntityType="Self.VatDetailsTable" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VatDetailsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="VatDetailsTable">
+          <Key>
+            <PropertyRef Name="VatID" />
+          </Key>
+          <Property Name="VatID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VatPercentage" Type="Double" />
+          <Property Name="Amount" Type="Double" />
+          <Property Name="QutationId" Type="Int32" />
+          <Property Name="CompanyId" Type="Int32" />
+          <Property Name="AddedBy" Type="Int32" />
+          <Property Name="AddedDate" Type="DateTime" Precision="0" />
+          <Property Name="ClientId" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="InvoiceDiskEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="VatDetailsTables" EntityType="Self.VatDetailsTable" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VatDetailsModelStoreContainer" CdmEntityContainer="InvoiceDiskEntities">
+          <EntitySetMapping Name="VatDetailsTables">
+            <EntityTypeMapping TypeName="VatDetailsModel.VatDetailsTable">
+              <MappingFragment StoreEntitySet="VatDetailsTable">
+                <ScalarProperty Name="VatID" ColumnName="VatID" />
+                <ScalarProperty Name="VatPercentage" ColumnName="VatPercentage" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="QutationId" ColumnName="QutationId" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,177 @@
+﻿@model InvoiceDisk.Models.MVCCompanyModel
+@{
+    ViewBag.Title = "AddOrEdit";
+}
+
+<div class="form-body" style="margin-top:20px">
+    @using (Html.BeginForm("AddOrEdit", "Company", FormMethod.Post,new { enctype =  "multipart/form-data"}))
+    {
+        @Html.HiddenFor(Model => Model.CompanyId);
+
+        <div class="shadow-lg p-3 mb-5 bg-white rounded">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="color:white;font-weight:bold;background-color:skyblue">Company</div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-sm-1"><label>Name:</label></div>
+                        <div class="col-sm-5">
+                            @Html.TextBoxFor(Model => Model.ComapanyName, new { @class = " form-control" })
+                            @Html.ValidationMessageFor(Model => Model.ComapanyName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-sm-1"><label>Address:</label></div>
+                        <div class="col-sm-5">
+                            @Html.TextBoxFor(Model => Model.CompanyAddress, new { @class = " form-control" })
+                            @Html.ValidationMessageFor(Model => Model.CompanyAddress, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-sm-1"><label>Phone:</label></div>
+                        <div class="col-sm-5">
+                            @Html.TextBoxFor(Model => Model.CompanyPhone, new { @class = " form-control" })
+                            @Html.ValidationMessageFor(Model => Model.CompanyPhone)
+                        </div>
+                        <div class="col-sm-1"><label>Cell</label></div>
+                        <div class="col-sm-5">
+                            @Html.TextBoxFor(Model => Model.CompanyCell, new { @class = " form-control" })
+                            @Html.ValidationMessageFor(Model => Model.CompanyCell)
+                        </div>
+                    </div>
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-sm-1"><label>Email:</label></div>
+                        <div class="col-sm-5">
+                            @Html.TextBoxFor(Model => Model.CompanyEmail, new { @class = " form-control" })
+                            @Html.ValidationMessageFor(Model => Model.CompanyEmail)
+                        </div>
+                        <div class="col-sm-1"><label>Fax:</label></div>
+                        <div class="col-sm-5">
+                            @Html.TextBoxFor(Model => Model.ComapnyFax, new { @class = " form-control" })
+                            @Html.ValidationMessageFor(Model => Model.ComapnyFax)
+                        </div>
+                    </div>
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-sm-1"><label>SubTitle:</label></div>
+                        <div class="col-sm-5">
+                            @Html.TextBoxFor(Model => Model.CompanySubTitile, new { @class = " form-control" })
+                            @Html.ValidationMessageFor(Model => Model.CompanySubTitile)
+                        </div>
+                        <div class="col-sm-1"><label>TRN:</label></div>
+                        <div class="col-sm-5">
+                            @Html.TextBoxFor(Model => Model.CompanyTRN, new { @class = " form-control" })
+                            @Html.ValidationMessageFor(Model => Model.CompanyTRN)
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-sm-1"><label>City:</label></div>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(Model => Model.CompanyCity, new { @class = " form-control" })
+                            @Html.ValidationMessageFor(Model => Model.CompanyCity)
+                        </div>
+                        <div class="col-sm-1"><label>State:</label></div>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(Model => Model.CompanyState, new { @class = " form-control" })
+                            @Html.ValidationMessageFor(Model => Model.CompanyState)
+                        </div>
+                        <div class="col-sm-1"><label>Country:</label></div>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(Model => Model.CompanyCountry, new { @class = " form-control" })
+                            @Html.ValidationMessageFor(Model => Model.CompanyCountry)
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">                       
+                        <div class="col-sm-5"><label>Logo:</label></div>
+                        <div class="col-sm-4">
+                            @*@Html.TextBoxFor(Model => Model.CompanyLogo, new { @class = " form-control" })*@
+
+                            @if (Model.CompanyLogo != null)
+                            {
+                                <img src="@Url.Content(Model.CompanyLogo)" class="img-responsive" id="targetImg" style="height:100px; width:100px;border:solid" />
+                                <input type="file" name="file" id="BrowsImage" style="margin-top:5px" />
+                                @Html.HiddenFor(Model => Model.CompanyLogo);
+                            }
+                            else
+                            {
+                            <img class="img-responsive" id="targetImg" style="height:100px; width:100px;border:solid" />
+                            <input type="file" name="file" id="BrowsImage" required style="margin-top:5px"/>   
+                            @Html.ValidationMessageFor(Model => Model.CompanyLogo, "", new { @class = "text-danger" })
+                            }
+                        </div>
+                            <div class="col-sm-3">                               
+                            </div>
+                        
+                    </div>
+
+
+                   
+                </div>
+                <div class="panel panel-footer pull-right">
+                    <div class="input-group-btn">
+                        <button type="submit" class="btn btn-success">
+                            <i class="glyphicon glyphicon-floppy-saved"></i>
+                        </button>
+                        <button type="submit" value="Submit" class="btn btn-success">Submit</button>
+
+
+                        @*<button type="submit" class="btn btn-default">
+                                <i class="glyphicon glyphicon-fire"></i>
+                            </button>*@
+                        <button type="reset" value="Reset" class="btn btn-default">Reset</button>
+                    </div>
+                    <div class="input-group-btn">
+
+                    </div>
+                </div>
+            </div>
+        </div>        
+    }
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    @section scripts{
+
+        @Scripts.Render("~/bundles/jqueryval");
+
+        <script>
+            $(document).ready(function () {
+
+                function readURL(input) {
+
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('#targetImg').attr('src', e.target.result);
+                        }
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+
+                $("#BrowsImage").change(function () {
+                    readURL(this);
+                });
+            });
+
+
+        </script>
+
+
+    }

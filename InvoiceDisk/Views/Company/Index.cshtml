@@ -1,0 +1,116 @@
+﻿@model IEnumerable<InvoiceDisk.Models.MVCCompanyModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 style="color:skyblue">Company List</h2>
+
+<p>
+    <a href="@Url.Action("AddOrEdit","Company")" class="btn btn-default"><i class="glyphicon glyphicon-plus"></i>Create New</a>
+</p>
+
+
+
+<table class="table" id="CompanyListTable">
+    <thead class="table-heading" style="background-color:black;color:white">
+        <tr>
+            <th>
+               ID
+            </th>
+            <th>
+            Name
+            </th>
+            <th>
+              Address
+            </th>
+            <th>
+              Phone
+            </th>
+            <th>
+              Cell
+            </th>
+            <th>
+               Email
+            </th>
+            <th>
+               Logo
+            </th>
+            <th>
+               TRN 
+            </th>
+            <th>Action</th>
+           
+        </tr>
+        </thead>
+
+   
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ComapanyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyPhone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyCell)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyEmail)
+                </td>
+                <td>
+                    @*if(item.CompanyLogo != "")*@
+                    <img src="@Url.Content(item.CompanyLogo)" class="img-responsive" id="targetImg" style="height:50px; width:50px;border:none" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyTRN)
+                </td>
+              
+                <td>                  
+
+                    <a href="@Url.Action("AddOrEdit","Company",new { id = item.CompanyId})" class="btn btn-info" > <i style="color:yellow" class="glyphicon glyphicon-pencil"></i>Edit</a> |
+                    <a onclick="Delete(@item.CompanyId)" class="btn btn-info"> <i style="color:red" class="glyphicon glyphicon-trash"></i>Delete</a> |
+                    <a href="@Url.Action("Details","Company",new { id = item.CompanyId})" class="btn btn-info"> <i style="color:yellow" class="glyphicon glyphicon-forward"></i>Details</a> 
+                  
+                </td>
+            </tr>
+        }
+
+
+</table>
+
+
+
+
+@section scripts{
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]'
+            if(successMessage != '')
+            {
+                alertify.success(successMessage);
+                
+            }
+            successMessage = '';
+        });
+
+        function Delete(id)
+        {
+
+            alertify.confirm('Company Information','Are you sure to delete this record ?',function(){
+            
+                window.location.href = '@Url.Action("Delete","Company")/'+id;
+
+            },null);
+        }
+</script>
+    
+    }

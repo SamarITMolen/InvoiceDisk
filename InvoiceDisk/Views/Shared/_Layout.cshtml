@@ -1,0 +1,411 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>
+
+
+<script>
+    var currentRow1 = "";
+
+    $(document).ready(function () {
+        $("#CompanyListTable").dataTable();
+
+        function myFunction() {
+            document.getElementById('CurrentDate').value = Date();
+        }
+
+        LoadProduct();
+
+        $("#add").click(function () {
+
+            currentRow1 = $(this).closest("tr");
+
+            //if ($("#SelectVAT").val() != "" )
+            //{
+            //    $("#AddVAt").append('<input type="text" name="txt" />').addClass($("#SelectVAT").val());
+            //}
+
+
+            var isAllValid = true;
+            if ($("#SelectProductQutation").val() == "0") {
+                isAllValid = false;
+                alert("Please select Item");
+            }
+
+            if (isAllValid) {
+                var $newRow = $("#mainrow").clone().removeAttr('id');
+                $('.product', $newRow).val($("#SelectProductQutation").val());
+                $('.VAT', $newRow).val($("#SelectVAT").val());
+
+                //Replace add button with remove button
+                $("#add", $newRow).addClass('remove').val('Remove').removeClass('btn-success').addClass('btn-danger');
+
+                //Remove id attribute from new clone row
+
+                $("#SelectProductQutation,#Quantity,#Rate,#FTotal,#SelectVAT", $newRow).removeAttr('id');
+                $('span.error', $newRow).remove();
+
+                $('#orderdetailsitems').append($newRow);
+
+                $('#SelectProductQutation').val('0');
+                $('#Quantity').val('');
+                $('#Rate').val('');
+                $('#FTotal').val('');
+
+                if ($('#orderItemError').text != '') {
+                    $('#orderItemError').text('');
+                }
+
+            }
+
+            //else
+            //{
+
+            //}
+
+            //if ($('#txtLevel').val().trim() == "") {
+            //    $('#txtLevel').css('border-color', 'Red');
+            //    isValid = false;
+            //}
+            //else {
+            //    $('#txtLevel').css('border-color', 'lightgrey');
+            //}
+
+            var sum = 0;
+            $('#orderdetailsitems tr').each(function () {
+                debugger;
+                var vatValue = currentRow1.find('#SelectVAT option:selected').val();
+                if (vatValue == 0) {
+                    $('#btwo').val('0.00');
+                }
+
+                if (vatValue == 6) {
+
+                    $('#orderdetailsitems td').each(function () {
+
+                        var va = $(this).find('#SelectVAT option:selected').val();
+                        alert(va);
+
+                    })
+
+                    var currentRow = $(this).closest('tr');
+                    var total = currentRow.find('td:eq(3)').find('input').val();
+                    if (!isNaN(total) && total.length != 0) {
+                       sum += parseInt(total);
+                    }
+                    $('#SubTotal').val();
+                    var totalfor6 = parseInt(sum / 100 * 6 + sum - sum);                 
+                    $("#BTW6").text(totalfor6);
+                    //$('#SubTotal').text(sum);
+
+                    
+                }
+
+                if (vatValue == 21) {
+                    var currentRow = $(this).closest('tr');
+                    var total = currentRow.find('td:eq(3)').find('input').val();
+                    if (!isNaN(total) && total.length != 0) {
+                        sum += parseInt(total);
+                    }
+                    $('#SubTotal').val();
+                    var totalfor6 = parseInt(sum / 100 * 21 + sum - sum);
+                    $("#BTW21").text(totalfor6);
+                }
+
+
+                //var currentRow = $(this).closest('tr');
+                //var total = currentRow.find('td:eq(3)').find('input').val();
+                //if (!isNaN(total) && total.length != 0) {
+                //    sum += parseInt(total);
+                //}
+                //$('#SubTotal').val();
+                //$('#SubTotal').text(sum);
+            });
+
+
+        });
+
+
+
+        $('#orderdetailsitems').on('click', '.remove', function () {
+
+            $(this).parents('tr').remove();
+        });
+
+
+        $("#Submit").click(function () {
+
+            var isAllValid = true;
+            $('#orderItemError').text('');
+
+            var list = [];
+            var errorItemCount = 0;
+            $('#orderdetailsitems tbody tr').each(function (index, ele) {
+
+                if ($('#SelectProductQutation', this).val() == '0' ||
+                    (parseInt($('.quantity', this).val()) || 0) == 0 ||
+                    $('.rate', this).val() == "" ||
+                    isNaN($('.rate', this).val())
+                    ) {
+                    errorItemCount++;
+                    $(this).addClass('error');
+                }
+                else {
+                    var orderItem = {
+                        ItemId: $('select.product', this).val(),
+                        Quantity: parseInt($('.quantity', this).val()),
+                        Rate: parseFloat($('.rate', this).val()),
+                        TotalAmount: parseFloat($('.FTotal', this).val()),
+                        Vat: parseFloat($('.VAT', this).val())
+                    }
+                    list.push(orderItem);
+                }
+            });
+
+            if (errorItemCount > 0) {
+                $("#orderItemError").text(errorItemCount + "Invalid entry in order itme list.");
+                isAllValid = false;
+            }
+
+            if (list.length == 0) {
+
+                $("#orderItemError").text("At least one order item required.");
+                isAllValid = false;
+            }
+
+
+            if (isAllValid) {
+                $(this).val("please wait...");
+                var empObj = {
+
+                    Qutation_ID: $('#Qutation_ID').val(),
+                    RefNumber: $('#RefNumber').val(),
+                    QutationDate: $('#QutationDate').val(),
+                    DueDate: $('#DueDate').val(),
+                    SubTotal: $('#SubTotal').val(),
+                    DiscountAmount: $('#DiscountAmount').val(),
+
+                    Vat: $('#Vat').val(),
+                    Total: $('#Total').val(),
+                    CustomerNote: $('#CustomerNote').val(),
+                    QutationDetailslist: list
+
+                };
+                $.ajax({
+                    url: "/MVCQutation/Save",
+                    data: JSON.stringify(empObj),
+                    type: "POST",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    success: function (result) {
+                        if (result != 0) {
+                            alert('Successfully saved');
+                            list = [];
+                            $('#Qutation_ID,#RefNumber,#SubTotal,#DiscountAmount,#Vat,#TotalAmount,#CustomerNote').val('');
+                            $('#orderdetailsitems').empty();
+                            $("#Submit").val('Save');
+                        }
+
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+
+                });
+
+                //console.log(data)
+
+
+
+                //$.ajax({
+                //    url: "/MVCQutation/Save",
+                //    traditional: true,
+                //    type: "POST",
+                //    contentType: false, // Not to set any content header
+                //    processData: false, //
+                //    data: data,
+                //    success: function (status)
+                //    {
+                //        if (status != 0)
+                //        {
+                //            alert('Successfully saved');
+                //            list = [];
+                //            $('#Qutation_ID,#RefNumber,#SubTotal,#DiscountAmount,#Vat,#TotalAmount,#CustomerNote').val('');
+                //            $('#orderdetailsitems').empty();
+                //            $("#Submit").val('Save');
+                //        }
+                //        else
+                //        {
+                //            alert('Error');
+                //        }
+                //        $('#Submit').text('Save');
+                //    },
+                //    error: function(error)
+                //    {
+                //        console.log(error);
+                //        $('#Submit').text('Save');
+                //    }
+
+
+                //});
+
+            }
+
+        });
+    });
+
+    $(function () {
+        $(".datepicker").datepicker({
+            dateFormat: "dd-mm-yy",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-10:+10",
+            //buttonText: "Select"
+            //showOn: 'both',
+            //buttonText: 'Calendar'
+
+        });
+    });
+
+
+
+
+</script>
+
+
+@*<script>
+    $(function(){
+        $('#addMore').on('click', function() {
+            var data = $("#maintableQutation tr:eq(1)").clone(true).appendTo("#maintableQutation");
+                  data.find("input").val('');
+         });
+         $(document).on('click', '.remove', function() {
+             var trIndex = $(this).closest("tr").index();
+                if(trIndex>1) {
+                 $(this).closest("tr").remove();
+               } else {
+                 alert("Sorry!! Can't remove first row!");
+               }
+          });
+    });
+    </script>*@
+
+
+
+<script>
+    function LoadProduct() {
+        $("#SelectProductQutation").find("option").remove();
+        $("#SelectProductQutation").prepend("<option value=0>" + 'Select Item' + "</option>");
+
+        $.ajax({
+            url: "/MVCProduct/GetProduct",
+            type: "Get",
+            async: false,
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+
+                $.each(data, function (key, item) {
+
+                    $('#SelectProductQutation').append($('<option></option>').val(item.ProductId).html(item.ProductName));
+
+                });
+
+            },
+            Error: function (errormessage) {
+                alert(errormessage);
+            }
+
+        });
+    }
+
+
+</script>
+
+
+<script>
+
+    $('#Rate').keyup(function () {
+        var currentRow = $(this).closest("tr");
+        var quantity = currentRow.find("td:eq(1)").find('input').val(); // get current row 1st TD value
+        var Price = $(this).val();
+        var total = quantity * Price;
+        currentRow.find('td:eq(3)').find('input').val(total);
+    })
+
+
+
+    $('#Quantity').keyup(function () {
+        var currentRow = $(this).closest("tr");
+        var quantity = $(this).val();  // get current row 1st TD value
+        var Price = currentRow.find("td:eq(2)").find('input').val();
+        var total = quantity * Price;
+        currentRow.find('td:eq(3)').find('input').val(total);
+    })
+
+
+
+    //function VatSitting() {
+    //    var vatValue = currentRow1.find('#SelectVAT option:selected').val();
+    //    if (vatValue == 0) {
+    //        var newElement='<div class="row"><div class="col-sm-8"></div><div class="col-sm-2"></div><div class="col-sm-2"> </div></div><div class="row" style="margin-top:3px"><div class="col-sm-8"></div><div class="col-sm-2"></div><div class="col-sm-2" id="AddVAt"></div></div><div class="row" style="margin-top:3px"><div class="col-sm-2">Cutomer Note:</div><div class="col-sm-6"> <input type="text"  id = "CustomerNote"/></div><div class="col-sm-2">Total:</div> <div class="col-sm-2"><input type="text" id="Totalss"/></div></div>';
+    //        $('#vatsitting').append(newElement);
+    //    }
+
+    //    if (vatValue == 6) {
+    //        var newElement = '<hr/><div class="row"><div class="col-sm-8"></div><div class="col-sm-2">Sub Total:</div><div class="col-sm-2"> <input type="text"  id="SubTotal"/> </div></div><div class="row" style="margin-top:3px"><div class="col-sm-8"></div><div class="col-sm-2">Vat6%:</div><div class="col-sm-2" id="AddVAt"> <input type="text"  id = "Vat"/></div></div><div class="row" style="margin-top:3px"><div class="col-sm-2"></div><div class="col-sm-6"></div><div class="col-sm-2">Total:</div> <div class="col-sm-2"><input type="text" id="Totalss"/></div></div>';
+    //        $('#vatsitting').append(newElement);
+    //    }
+    //    if (vatValue == 21) {
+    //        var newElement = '<hr/><div class="row"><div class="col-sm-8"></div><div class="col-sm-2">Sub Total:</div><div class="col-sm-2"> <input type="text"  id="SubTotal"/> </div></div><div class="row" style="margin-top:3px"><div class="col-sm-8"></div><div class="col-sm-2">Va25%:</div><div class="col-sm-2" id="AddVAt"> <input type="text"  id = "Vat"/></div></div><div class="row" style="margin-top:3px"><div class="col-sm-2"></div><div class="col-sm-6"></div><div class="col-sm-2">Total:</div> <div class="col-sm-2"><input type="text" id="Totalss"/></div></div>';
+    //        $('#vatsitting').append(newElement);
+    //    }
+
+    //  console.log(vatValue);
+    //  alert(vatValue);
+    //}
+</script>
+
+
+

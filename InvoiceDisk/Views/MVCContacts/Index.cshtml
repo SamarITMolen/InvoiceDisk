@@ -1,0 +1,122 @@
+﻿@model IEnumerable<InvoiceDisk.Models.MVCContactsModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a href="@Url.Action("AddOrEdit","MVCContacts")" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>Create New</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+          Id
+        </th>
+        <th>
+         Name
+        </th>
+        <th>
+         Address
+        </th>
+      
+        <th>
+           Type
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BillingPersonName)
+        </th>
+        <th>
+          Company Name
+        </th>
+       
+      
+        <th>
+        Billing TRN
+        </th>
+     
+      
+        <th>
+            @Html.DisplayNameFor(Model => Model.Status)
+        </th>
+       
+        <th>Action</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContactsId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContactName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContactAddress)
+        </td>
+      
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BillingPersonName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BillingCompanyName)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.BillingVatTRN)
+        </td>      
+      
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            <a href="@Url.Action("AddOrEdit","MVCContacts",new { id = item.ContactsId})" class="btn btn-info"> <i style="color:yellow" class="glyphicon glyphicon-pencil"></i>Edit</a> |
+            <a onclick="Delete(@item.ContactsId)" class="btn btn-info"> <i style="color:red" class="glyphicon glyphicon-trash"></i>Delete</a> |
+            <a href="@Url.Action("Details","MVCContacts",new { id = item.ContactsId})" class="btn btn-info"> <i style="color:yellow" class="glyphicon glyphicon-forward"></i>Details</a> 
+        </td>
+    </tr>
+}
+
+</table>
+
+
+
+@section scripts{
+    <script>
+
+        
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]'                                       
+               
+            if(successMessage != '')
+            {
+                alertify.success(successMessage);
+
+             
+            }
+
+            if(successMessage != '')
+            {
+                successMessage = '';
+                delete('@TempData["SuccessMessage"]');
+            }
+             
+        });
+       
+
+        function Delete(id)
+        {
+
+            alertify.confirm('Company Information','Are you sure to delete this record ?',function(){
+
+                window.location.href = '@Url.Action("Delete","MVCContacts")/'+id;
+
+            },null);
+        }
+    </script>
+
+}
