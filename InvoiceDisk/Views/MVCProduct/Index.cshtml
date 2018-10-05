@@ -42,7 +42,9 @@
         </tr>
 
         </thead>
-        @foreach (var item in Model)
+    @if (Model != null)
+    {
+        foreach (var item in Model)
         {
             <tr>
                 <td>
@@ -72,12 +74,13 @@
                     @Html.DisplayFor(modelItem => item.AddedDate)
                 </td>
                 <td>
-                    <a href="@Url.Action("AddOrEdit","MVCProduct",new { id = item.ProductId})" class="btn btn-info"> <i style="color:yellow" class="glyphicon glyphicon-pencil"></i>Edit</a> |
+                    <a href="@Url.Action("AddOrEdit", "MVCProduct", new { id = item.ProductId })" class="btn btn-info"> <i style="color:yellow" class="glyphicon glyphicon-pencil"></i>Edit</a> |
                     <a onclick="Delete(@item.ProductId)" class="btn btn-info"> <i style="color:red" class="glyphicon glyphicon-trash"></i>Delete</a> |
-                    <a href="@Url.Action("Details","MVCProduct",new { id = item.ProductId})" class="btn btn-info"> <i style="color:yellow" class="glyphicon glyphicon-forward"></i>Details</a> 
+                    <a href="@Url.Action("Details", "MVCProduct", new { id = item.ProductId })" class="btn btn-info"> <i style="color:yellow" class="glyphicon glyphicon-forward"></i>Details</a> 
                 </td>
             </tr>
         }
+    }
 
 </table>
 

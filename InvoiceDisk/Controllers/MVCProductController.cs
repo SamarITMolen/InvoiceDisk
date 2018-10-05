@@ -18,7 +18,14 @@ namespace InvoiceDisk.Controllers
                 IEnumerable<MVCProductModel> ProductList;
                 HttpResponseMessage response = GlobalVeriables.WebApiClient.GetAsync("Product").Result;
                 ProductList = response.Content.ReadAsAsync<IEnumerable<MVCProductModel>>().Result;
-                return View(ProductList);
+                if (response.StatusCode == System.Net.HttpStatusCode.Accepted)
+                {
+                    return View(ProductList);
+                }
+                else
+                {
+                    return View("~/Shared/StatusCode501.cshtml");
+                }
             }
             catch(Exception ex)
             {

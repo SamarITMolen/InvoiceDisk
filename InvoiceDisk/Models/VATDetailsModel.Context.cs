@@ -25,6 +25,6 @@ namespace InvoiceDisk.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<VatDetailsTable> VatDetailsTables { get; set; }
+      
     }
 }
