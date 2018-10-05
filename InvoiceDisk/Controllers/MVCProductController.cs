@@ -13,18 +13,20 @@ namespace InvoiceDisk.Controllers
         // GET: MVCProduct
         public ActionResult Index()
         {
+
+            IEnumerable<MVCProductModel> ProductList;
+            HttpResponseMessage response = GlobalVeriables.WebApiClient.GetAsync("Product").Result;
+            ProductList = response.Content.ReadAsAsync<IEnumerable<MVCProductModel>>().Result;
             try
             {
-                IEnumerable<MVCProductModel> ProductList;
-                HttpResponseMessage response = GlobalVeriables.WebApiClient.GetAsync("Product").Result;
-                ProductList = response.Content.ReadAsAsync<IEnumerable<MVCProductModel>>().Result;
-                if (response.StatusCode == System.Net.HttpStatusCode.Accepted)
+               
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     return View(ProductList);
                 }
                 else
                 {
-                    return View("~/Shared/StatusCode501.cshtml");
+                    return View("~/Views/Shared/StatusCode501.cshtml");
                 }
             }
             catch(Exception ex)
@@ -47,7 +49,7 @@ namespace InvoiceDisk.Controllers
                 return Json(ProductList, JsonRequestBehavior.AllowGet);
             }
             
-            return View("");
+            return View();
         }
 
         [HttpGet]
