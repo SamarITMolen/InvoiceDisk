@@ -299,6 +299,24 @@
       <DependentUpon>QutationModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MVCQutationViewModel.cs" />
+    <Compile Include="Models\SalesModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SalesModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SalesModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SalesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SalesModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SalesModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SalesTable.cs">
+      <DependentUpon>SalesModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\VATDetailsModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -585,6 +603,16 @@
       <DependentUpon>QutationModel.edmx</DependentUpon>
       <LastGenOutput>QutationModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\SalesModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SalesModel.edmx</DependentUpon>
+      <LastGenOutput>SalesModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\SalesModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SalesModel.edmx</DependentUpon>
+      <LastGenOutput>SalesModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Models\VATDetailsModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>VATDetailsModel.edmx</DependentUpon>
@@ -654,6 +682,13 @@
     </EntityDeploy>
     <Content Include="Models\VATDetailsModel.edmx.diagram">
       <DependentUpon>VATDetailsModel.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\SalesModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SalesModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\SalesModel.edmx.diagram">
+      <DependentUpon>SalesModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
