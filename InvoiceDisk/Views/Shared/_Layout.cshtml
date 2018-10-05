@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
+  
     @Scripts.Render("~/bundles/modernizr")
-
+     
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -39,6 +41,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+   
     @RenderSection("scripts", required: false)
 
 </body>
@@ -47,10 +50,10 @@
 
 <script>
     var currentRow1 = "";
-
+    var r="";
     $(document).ready(function () {
         $("#CompanyListTable").dataTable();
-
+       
         function myFunction() {
             document.getElementById('CurrentDate').value = Date();
         }
@@ -74,6 +77,7 @@
             }
 
             if (isAllValid) {
+                debugger;
                 var $newRow = $("#mainrow").clone().removeAttr('id');
                 $('.product', $newRow).val($("#SelectProductQutation").val());
                 $('.VAT', $newRow).val($("#SelectVAT").val());
@@ -84,8 +88,9 @@
                 //Remove id attribute from new clone row
 
                 $("#SelectProductQutation,#Quantity,#Rate,#FTotal,#SelectVAT", $newRow).removeAttr('id');
+               
                 $('span.error', $newRow).remove();
-
+                
                 $('#orderdetailsitems').append($newRow);
 
                 $('#SelectProductQutation').val('0');
@@ -97,6 +102,8 @@
                     $('#orderItemError').text('');
                 }
 
+                calucteVatFunction();
+                
             }
 
             //else
@@ -112,65 +119,107 @@
             //    $('#txtLevel').css('border-color', 'lightgrey');
             //}
 
-            var sum = 0;
-            $('#orderdetailsitems tr').each(function () {
-                debugger;
+           
+            });
+
+      //  });
+
+
+        function calucteVatFunction() {
+
+            if ($('#orderdetailsitems tr').length == 0) {
+                $('#btwo').text('0.00');
+                 $('#BTW6').text('0.00');
+                 $('#BTW21').text('0.00');
+            }
+            else {
+
+                var sum = 0;
                 var vatValue = currentRow1.find('#SelectVAT option:selected').val();
                 if (vatValue == 0) {
-                    $('#btwo').val('0.00');
+                    $('#btwo').text('0.00');
                 }
 
                 if (vatValue == 6) {
-
-                    $('#orderdetailsitems td').each(function () {
-
-                        var va = $(this).find('#SelectVAT option:selected').val();
-                        alert(va);
+                    var sum6 = 0;
+                    var total6 = 0;
+                    $('#orderdetailsitems tr').each(function () {
+                        $('#BTW6').text();
+                        debugger;
+                        r = $(this).closest('tr');
+                        var value = r.find('.VAT  option:selected').val();
+                        if (r.find('.VAT  option:selected').val() == 6) {
+                            total6 = r.find('td:eq(3)').find('input').val();
+                            if (!isNaN(total6) && total6.length != 0) {
+                                sum6 += parseInt(total6);
+                            }
+                            var totalvat6 = parseFloat(sum6 / 100 * 6 + sum6 - sum6);
+                            var totalr = Math.round(totalvat6, 2);
+                            $('#BTW6').text(totalvat6.toFixed(2));
+                        }
+                        else {
+                            $('#BTW6').text('0.00');
+                        }
+                    })
+                }
+                if (vatValue == 21) {
+                    var sum21 = 0;
+                    var total21 = 0;
+                    $('#orderdetailsitems tr').each(function () {
+                        $('#BTW21').text();
+                        var r = $(this).closest('tr');
+                        var value = r.find('.VAT  option:selected').val();
+                        if (r.find('.VAT  option:selected').val() == 21) {
+                            total21 = r.find('td:eq(3)').find('input').val();
+                            if (!isNaN(total21) && total21.length != 0) {
+                                sum21 += parseInt(total21);
+                            }
+                            var totalvat21 = parseFloat(sum21 / 100 * 21 + sum21 - sum21);
+                            var totalr = Math.round(totalvat21, 2);
+                            $('#BTW21').text(totalr);
+                        }
+                        else {
+                            $('#BTW21').text('0.00');
+                        }
 
                     })
 
-                    var currentRow = $(this).closest('tr');
-                    var total = currentRow.find('td:eq(3)').find('input').val();
-                    if (!isNaN(total) && total.length != 0) {
-                       sum += parseInt(total);
-                    }
-                    $('#SubTotal').val();
-                    var totalfor6 = parseInt(sum / 100 * 6 + sum - sum);                 
-                    $("#BTW6").text(totalfor6);
-                    //$('#SubTotal').text(sum);
-
-                    
                 }
-
-                if (vatValue == 21) {
-                    var currentRow = $(this).closest('tr');
-                    var total = currentRow.find('td:eq(3)').find('input').val();
-                    if (!isNaN(total) && total.length != 0) {
-                        sum += parseInt(total);
-                    }
-                    $('#SubTotal').val();
-                    var totalfor6 = parseInt(sum / 100 * 21 + sum - sum);
-                    $("#BTW21").text(totalfor6);
-                }
-
-
-                //var currentRow = $(this).closest('tr');
-                //var total = currentRow.find('td:eq(3)').find('input').val();
-                //if (!isNaN(total) && total.length != 0) {
-                //    sum += parseInt(total);
-                //}
-                //$('#SubTotal').val();
-                //$('#SubTotal').text(sum);
-            });
-
-
-        });
-
-
+            }
+        }
 
         $('#orderdetailsitems').on('click', '.remove', function () {
+            debugger;
+            var currentRow = $(this).closest('tr');
+            var vat = currentRow.find('.VAT  option:selected').val();
+            var Total = currentRow.find('.FTotal').val();
+            if (vat == 6) {
+                var totalvat6 = parseInt(Total / 100) * 6 + (Total - Total);
+               
+                var BTW6 = $('#BTW6').text();
+                $('#BTW6').text();
+                $('#BTW6').text(parseInt(BTW6-totalvat6));
+     
+            }
+            if (vat == 21) {
+                var currentRow = $(this).closest('tr');
+                var vat21 = currentRow.find('.VAT  option:selected').val();
+                var Total21 = currentRow.find('.FTotal').val();
+                if (vat == 21) {
+                    var totalvat21 = parseFloat(Total21 / 100) * 21 + (Total21 - Total21);
 
+                    var BTW21 = $('#BTW21').text();
+                    $('#BTW21').text();
+                    $('#BTW21').text(parseFloat(BTW21 - totalvat21));
+
+                }
+            }
             $(this).parents('tr').remove();
+                
+           
+            //calucteVatFunction();
+
+
         });
 
 
@@ -311,7 +360,7 @@
 
 
 
-</script>
+    </script>
 
 
 @*<script>
@@ -367,12 +416,193 @@
 <script>
 
     $('#Rate').keyup(function () {
+        currentRow1 = $(this).closest("tr");
         var currentRow = $(this).closest("tr");
         var quantity = currentRow.find("td:eq(1)").find('input').val(); // get current row 1st TD value
         var Price = $(this).val();
         var total = quantity * Price;
         currentRow.find('td:eq(3)').find('input').val(total);
+        var sum = 0;    
+        var vatValue = currentRow1.find('#SelectVAT option:selected').val();
+        if (vatValue == 0) {
+            $('#btwo').text('0.00');
+        }
+        if (vatValue == 6) {
+            var sum6 = 0;
+            var total6 = 0;
+            $('#orderdetailsitems tr').each(function () {
+                debugger;
+                r = $(this).closest('tr');
+                var value = r.find('.VAT  option:selected').val();
+                if (r.find('.VAT  option:selected').val() == 6) {
+                    total6 = r.find('td:eq(3)').find('input').val();
+                    if (!isNaN(total6) && total6.length != 0) {
+                        sum6 += parseInt(total6);
+                    }
+                    var totalvat6 = parseFloat(sum6 / 100 * 6 + sum6 - sum6);
+                    
+                    $('#BTW6').text(totalvat6.toFixed(2));
+                }             
+            })
+        }
+
+
+        if (vatValue == 21) {
+            var sum21 = 0;
+            var total21 = 0;
+            $('#orderdetailsitems tr').each(function () {
+                debugger;
+                r = $(this).closest('tr');
+                var value = r.find('.VAT  option:selected').val();
+                if (r.find('.VAT  option:selected').val() == 21) {
+                    total21 = r.find('td:eq(3)').find('input').val();
+                    if (!isNaN(total21) && total21.length != 0) {
+                        sum21 += parseInt(total21);
+                    }
+                    var totalvat21 = parseFloat(sum21 / 100 * 21 + sum21 - sum21);
+                    $('#BTW21').text(totalvat21.toFixed(2));
+                }
+
+            })
+
+          
+
+        }
+
     })
+
+    $(document).on('keyup', '#orderdetailsitems .rate', function () {
+        debugger;
+       var currentRow1 = $(this).closest("tr");
+        var currentRow = $(this).closest("tr");
+        var quantity = currentRow.find("td:eq(1)").find('input').val(); // get current row 1st TD value
+        var Price = $(this).val();
+        var total = quantity * Price;
+        currentRow.find('td:eq(3)').find('input').val(total);
+        var sum = 0;
+        var vatValue = currentRow1.find('.VAT  option:selected').val();
+        if (vatValue == 0) {
+            $('#btwo').text('0.00');
+        }
+        if (vatValue == 6) {
+            var sum6 = 0;
+            var total6 = 0;
+            $('#orderdetailsitems tr').each(function () {
+                debugger;
+                r = $(this).closest('tr');
+                var value = r.find('.VAT  option:selected').val();
+                if (r.find('.VAT  option:selected').val() == 6) {
+                    total6 = r.find('td:eq(3)').find('input').val();
+                    if (!isNaN(total6) && total6.length != 0) {
+                        sum6 += parseInt(total6);
+                    }
+                    var totalvat6 = parseFloat(sum6 / 100 * 6 + sum6 - sum6);
+                   
+                    $('#BTW6').text(totalvat6.toFixed(2));
+                }
+            })
+        }
+
+
+        if (vatValue == 21) {
+            var sum21 = 0;
+            var total21 = 0;
+            $('#orderdetailsitems tr').each(function () {
+                debugger;
+                r = $(this).closest('tr');
+                var value = r.find('.VAT  option:selected').val();
+                if (r.find('.VAT  option:selected').val() == 21) {
+                    total21 = r.find('td:eq(3)').find('input').val();
+                    if (!isNaN(total21) && total21.length != 0) {
+                        sum21 += parseInt(total21);
+                    }
+                    var totalvat21 = parseFloat(sum21 / 100 * 21 + sum21 - sum21);
+                    $('#BTW21').text(totalvat21.toFixed(2));
+                }
+
+            })
+
+
+
+        }
+    });
+
+
+
+
+
+
+
+    var vatValue=0;
+    $(document).on('keyup', '#orderdetailsitems .quantity ', function () {
+        debugger;
+       
+        var currentRow = $(this).closest("tr");
+        var quantity = currentRow.find("td:eq(1)").find('input').val(); // get current row 1st TD value
+        var Price = $(this).val();
+        var total = quantity * Price;
+        currentRow.find('td:eq(3)').find('input').val(total);
+        var sum = 0;
+        vatValue = currentRow.find('.VAT  option:selected').val();
+        if (vatValue == 0) {
+            $('#btwo').text('0.00');
+        }
+        if (vatValue == 6) {
+            var sum6 = 0;
+            var total6 = 0;
+            $('#orderdetailsitems tr').each(function () {
+                debugger;
+                var r = $(this).closest('tr');
+                var value = r.find('.VAT  option:selected').val();
+                if (r.find('.VAT  option:selected').val() == 6) {
+                    total6 = r.find('td:eq(2)').find('input').val();
+                    var quantit = r.find('td:eq(1)').find('input').val();
+
+                    totalvat6 = parseFloat(quantit * total6);
+                    //if (!isNaN(total21) && total21.length != 0) {
+                    //    sum21 += parseInt(total21);
+                    //}
+                    var totalvat6 = parseFloat(totalvat6 / 100 * 6 + totalvat6 - totalvat6);
+                    $('#BTW6').text(totalvat6.toFixed(2));
+                }
+
+            })
+
+
+
+        }
+
+
+
+        if (vatValue == 21) {
+            var sum21 = 0;
+            var total21 = 0;
+            $('#orderdetailsitems tr').each(function () {
+                debugger;
+               var r = $(this).closest('tr');
+                var value = r.find('.VAT  option:selected').val();
+                if (r.find('.VAT  option:selected').val() == 21) {
+                    total21 = r.find('td:eq(2)').find('input').val();
+                    var quantit = r.find('td:eq(1)').find('input').val();
+
+                    totalvat21 = parseFloat(quantit * total21);
+                    //if (!isNaN(total21) && total21.length != 0) {
+                    //    sum21 += parseInt(total21);
+                    //}
+                    var totalvat21 = parseFloat(totalvat21 / 100 * 21 + totalvat21 - totalvat21);
+                    $('#BTW21').text(totalvat21.toFixed(2));
+                }
+
+            })
+
+
+
+        }
+    });
+
+
+
+
 
 
 
@@ -384,27 +614,9 @@
         currentRow.find('td:eq(3)').find('input').val(total);
     })
 
+   
 
-
-    //function VatSitting() {
-    //    var vatValue = currentRow1.find('#SelectVAT option:selected').val();
-    //    if (vatValue == 0) {
-    //        var newElement='<div class="row"><div class="col-sm-8"></div><div class="col-sm-2"></div><div class="col-sm-2"> </div></div><div class="row" style="margin-top:3px"><div class="col-sm-8"></div><div class="col-sm-2"></div><div class="col-sm-2" id="AddVAt"></div></div><div class="row" style="margin-top:3px"><div class="col-sm-2">Cutomer Note:</div><div class="col-sm-6"> <input type="text"  id = "CustomerNote"/></div><div class="col-sm-2">Total:</div> <div class="col-sm-2"><input type="text" id="Totalss"/></div></div>';
-    //        $('#vatsitting').append(newElement);
-    //    }
-
-    //    if (vatValue == 6) {
-    //        var newElement = '<hr/><div class="row"><div class="col-sm-8"></div><div class="col-sm-2">Sub Total:</div><div class="col-sm-2"> <input type="text"  id="SubTotal"/> </div></div><div class="row" style="margin-top:3px"><div class="col-sm-8"></div><div class="col-sm-2">Vat6%:</div><div class="col-sm-2" id="AddVAt"> <input type="text"  id = "Vat"/></div></div><div class="row" style="margin-top:3px"><div class="col-sm-2"></div><div class="col-sm-6"></div><div class="col-sm-2">Total:</div> <div class="col-sm-2"><input type="text" id="Totalss"/></div></div>';
-    //        $('#vatsitting').append(newElement);
-    //    }
-    //    if (vatValue == 21) {
-    //        var newElement = '<hr/><div class="row"><div class="col-sm-8"></div><div class="col-sm-2">Sub Total:</div><div class="col-sm-2"> <input type="text"  id="SubTotal"/> </div></div><div class="row" style="margin-top:3px"><div class="col-sm-8"></div><div class="col-sm-2">Va25%:</div><div class="col-sm-2" id="AddVAt"> <input type="text"  id = "Vat"/></div></div><div class="row" style="margin-top:3px"><div class="col-sm-2"></div><div class="col-sm-6"></div><div class="col-sm-2">Total:</div> <div class="col-sm-2"><input type="text" id="Totalss"/></div></div>';
-    //        $('#vatsitting').append(newElement);
-    //    }
-
-    //  console.log(vatValue);
-    //  alert(vatValue);
-    //}
+   
 </script>
 
 
