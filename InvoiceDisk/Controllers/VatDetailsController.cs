@@ -17,7 +17,7 @@ namespace InvoiceDisk.Controllers
         private InvoiceDiskEntities db = new InvoiceDiskEntities();
 
         // GET: api/VatDetails
-        public IQueryable<VATDetailsModel> GetVatDetailsTables()
+        public IQueryable<VatDetailsTable> GetVatDetailsTables()
         {
             return db.VatDetailsTables;
         }

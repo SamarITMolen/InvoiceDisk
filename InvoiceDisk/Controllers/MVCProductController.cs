@@ -40,7 +40,7 @@ namespace InvoiceDisk.Controllers
                 return Json(ProductList, JsonRequestBehavior.AllowGet);
             }
             
-            return View("~/Views/Shared/pages-error-500.cshtml");
+            return View("");
         }
 
         [HttpGet]
