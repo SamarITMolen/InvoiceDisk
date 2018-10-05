@@ -21,6 +21,7 @@ namespace InvoiceDisk.Controllers
         {
             return db.ProductTables;
         }
+               
 
         // GET: api/Product/5
         [ResponseType(typeof(ProductTable))]

@@ -332,9 +332,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>VATDetailsModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\VatDetailsTable.cs">
-      <DependentUpon>VATDetailsModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -748,6 +745,7 @@
     <Content Include="Views\MVCContacts\Index.cshtml" />
     <Content Include="Views\MVCContacts\AddOrEdit.cshtml" />
     <Content Include="Views\MVCQutation\AddOrEdit.cshtml" />
+    <Content Include="Views\Shared\StatusCode501.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
