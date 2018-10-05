@@ -1,0 +1,66 @@
+﻿@model IEnumerable<InvoiceDisk.Models.MVCSalesModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a href="@Url.Action("AddOrEdit","MVCSales")" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>Create New</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Id
+        </th>
+        <th>
+           Invoice Number
+        </th>
+        <th>
+           Ref Number
+        </th>
+        <th>
+           Invoice Date
+        </th>
+        <th>
+          Due Date
+        </th>
+      
+        <th>
+           Total Amount
+        </th>      
+       
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SalesInvoiceId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SalesInvoiceNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SalesRefNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ISalesnvoiceDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SalesDueDate)
+        </td>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.SalesTotalAmount)
+        </td>
+       
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

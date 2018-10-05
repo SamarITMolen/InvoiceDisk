@@ -189,10 +189,12 @@
     <Compile Include="Controllers\MVCContactsController.cs" />
     <Compile Include="Controllers\MVCProductController.cs" />
     <Compile Include="Controllers\MVCQutationController.cs" />
+    <Compile Include="Controllers\MVCSalesController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\QutationController.cs" />
     <Compile Include="Controllers\QutationDetailController.cs" />
     <Compile Include="Controllers\QutationDetailsController.cs" />
+    <Compile Include="Controllers\SalesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -242,6 +244,8 @@
     <Compile Include="Models\MVCProductModel.cs" />
     <Compile Include="Models\MVCQutationDetailsModel.cs" />
     <Compile Include="Models\MVCQutationModel.cs" />
+    <Compile Include="Models\MVCSalesDetailsModel.cs" />
+    <Compile Include="Models\MVCSalesViewModel.cs" />
     <Compile Include="Models\MVCVatDetailsModel.cs" />
     <Compile Include="Models\ProductModel1.Context.cs">
       <AutoGen>True</AutoGen>
@@ -298,6 +302,25 @@
       <DependentUpon>QutationModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MVCQutationViewModel.cs" />
+    <Compile Include="Models\MVCSalesModel.cs" />
+    <Compile Include="Models\SalesDetailsModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SalesDetailsModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SalesDetailsModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SalesDetailsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SalesDetailsModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SalesDetailsModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SalesDetailsTable.cs">
+      <DependentUpon>SalesDetailsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SalesModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -599,6 +622,16 @@
       <DependentUpon>QutationModel.edmx</DependentUpon>
       <LastGenOutput>QutationModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\SalesDetailsModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SalesDetailsModel.edmx</DependentUpon>
+      <LastGenOutput>SalesDetailsModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\SalesDetailsModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SalesDetailsModel.edmx</DependentUpon>
+      <LastGenOutput>SalesDetailsModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Models\SalesModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>SalesModel.edmx</DependentUpon>
@@ -686,6 +719,13 @@
     <Content Include="Models\SalesModel.edmx.diagram">
       <DependentUpon>SalesModel.edmx</DependentUpon>
     </Content>
+    <EntityDeploy Include="Models\SalesDetailsModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SalesDetailsModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\SalesDetailsModel.edmx.diagram">
+      <DependentUpon>SalesDetailsModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
@@ -745,6 +785,8 @@
     <Content Include="Views\MVCContacts\AddOrEdit.cshtml" />
     <Content Include="Views\MVCQutation\AddOrEdit.cshtml" />
     <Content Include="Views\Shared\StatusCode501.cshtml" />
+    <Content Include="Views\MVCSales\Index.cshtml" />
+    <Content Include="Views\MVCSales\AddOrEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

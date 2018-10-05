@@ -13,7 +13,7 @@
           <Property Name="SalesInvoiceNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="SalesRefNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="ISalesnvoiceDate" Type="date" />
-          <Property Name="SalesDueDate" Type="nchar" MaxLength="10" />
+          <Property Name="SalesDueDate" Type="date" />
           <Property Name="SalesPayementTerm" Type="int" />
           <Property Name="SalesSubtotal" Type="float" />
           <Property Name="SalesDiscount" Type="float" />
@@ -41,7 +41,7 @@
           <Property Name="SalesInvoiceNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SalesRefNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ISalesnvoiceDate" Type="DateTime" Precision="0" />
-          <Property Name="SalesDueDate" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="SalesDueDate" Type="DateTime" Precision="0" />
           <Property Name="SalesPayementTerm" Type="Int32" />
           <Property Name="SalesSubtotal" Type="Double" />
           <Property Name="SalesDiscount" Type="Double" />
@@ -53,7 +53,7 @@
           <Property Name="UserId" Type="Int32" />
           <Property Name="CompanyId" Type="Int32" />
         </EntityType>
-        <EntityContainer Name="InvoiceDiskEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SalesEntities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="SalesTables" EntityType="Self.SalesTable" />
         </EntityContainer>
       </Schema>
@@ -61,7 +61,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SalesModelStoreContainer" CdmEntityContainer="InvoiceDiskEntities1">
+        <EntityContainerMapping StorageEntityContainer="SalesModelStoreContainer" CdmEntityContainer="SalesEntities2">
           <EntitySetMapping Name="SalesTables">
             <EntityTypeMapping TypeName="SalesModel.SalesTable">
               <MappingFragment StoreEntitySet="SalesTable">

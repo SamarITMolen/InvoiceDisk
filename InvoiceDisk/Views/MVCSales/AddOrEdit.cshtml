@@ -1,0 +1,313 @@
+﻿@model InvoiceDisk.Models.MVCSalesViewModel
+
+@{
+    ViewBag.Title = "AddOrEdit";
+}
+
+<body class="well">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10" style="background-color:white;margin-top:50px">
+                   @{
+
+                        var Contectdatas = ViewBag.Contentdata;
+                        var CompanyDatas = ViewBag.Companydata;
+                    }       
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-11" style="margin-top:20px">
+                        <img src="@Url.Content(CompanyDatas.CompanyLogo)" class="img-responsive" id="targetImg" style="height:100px; width:100px;border:none" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-3">
+                        <h5>@CompanyDatas.ComapanyName</h5>
+                        <h5>@CompanyDatas.CompanyAddress</h5>
+                        <h5>@CompanyDatas.CompanyPhone</h5>
+                        <h5>@CompanyDatas.CompanyEmail</h5>
+                    </div>
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4" style="margin-top:10px">
+                        <h5>@Contectdatas.ContactName</h5>
+                        <h5>@Contectdatas.ContactAddress</h5>
+                        <h5>@Contectdatas.BillingEmail</h5>
+                        <h5>@Contectdatas.BillingVatTRN</h5>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-11">
+                        <h4 style="color:skyblue">Sales Invoice</h4>
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+
+
+                                <div class="row">
+                                    <div class="col-sm-2">Invoice Date:</div>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(model => model.ISalesnvoiceDate, new { htmlAttributes = new { style = "width:300px", id = "ISalesnvoiceDate" } })
+                                        @Html.ValidationMessageFor(model => model.ISalesnvoiceDate, "", new { @class = "text-danger" })
+
+                                    </div>
+                                    <div class="col-sm-6"></div>
+                                </div>
+
+                                <div class="row" style="margin-top:3px">
+                                    <div class="col-sm-2">Invoice Number:</div>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(model => model.SalesInvoiceNumber, new { htmlAttributes = new { style = "width:300px", id = "SalesInvoiceNumber" } })
+                                        @Html.ValidationMessageFor(model => model.SalesInvoiceNumber, "", new { @class = "text-danger" })
+
+                                    </div>
+                                    <div class="col-sm-6"></div>
+                                </div>
+
+                                <div class="row" style="margin-top:3px">
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <div class="col-sm-4">Invoice period:</div>
+                                            <div class="col-sm-4">
+                                                @Html.EditorFor(model => model.ISalesnvoiceDate, new { htmlAttributes = new { style = "font-size:small;width:150px", id = "ISalesnvoiceDate", title = "Sales  Invoice Date" } })
+                                                @Html.ValidationMessageFor(model => model.ISalesnvoiceDate, "", new { @class = "text-danger" })
+
+                                            </div>
+
+                                            <div class="col-sm-4">
+                                                @Html.EditorFor(model => model.SalesDueDate, new { htmlAttributes = new { style = "font-size:small;width:150px", id = "SalesDueDate", title = " Sales Due Date" } })
+                                                @Html.ValidationMessageFor(model => model.SalesDueDate, "", new { @class = "text-danger" })
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6"></div>
+                                </div>
+
+                                <div class="row" style="margin-top:3px">
+                                    <div class="col-sm-2">Refrence Number:</div>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(model => model.SalesRefNumber, new { htmlAttributes = new { style = "width:300px", id = "SalesRefNumber" } })
+                                        @Html.ValidationMessageFor(model => model.SalesRefNumber, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="col-sm-6"></div>
+                                </div>
+
+                                <div class="row" style="margin-top:3px">
+                                    <div class="col-sm-2"><a href="#"> Add Discount:</a></div>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(model => model.SalesDiscountAmount, new { htmlAttributes = new { style = "width:300px", id = "SalesDiscountAmount" } })
+                                        @Html.ValidationMessageFor(model => model.SalesDiscountAmount, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="col-sm-6"></div>
+                                </div>
+
+                                <div class="row" style="margin-top:3px">
+                                    <div class="col-sm-2"><a href="#"> Add VAT:</a></div>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(model => model.SalesVat, new { htmlAttributes = new { style = "width:300px", id = "SalesVat" } })
+                                        @Html.ValidationMessageFor(model => model.SalesVat, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="col-sm-6"></div>
+                                </div>
+
+
+
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                
+
+                                <div class="row">
+                                    <table class="table" id="MainSalesTable">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th class="col-sm-4">
+                                                    Decription
+                                                </th>
+                                                <th class="col-sm-2">
+                                                    Quantity
+                                                </th>
+                                                <th class="col-sm-2">
+                                                    Price
+                                                </th>
+                                                <th class="col-sm-2">
+                                                    Total
+                                                </th>
+                                                <th class="col-sm-1">
+                                                    Vat
+                                                </th>
+                                                <th class="col-sm-1">
+                                                    Action
+                                                </th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody class="tbody">
+                                            <tr id="mainrow">
+                                                <td>
+                                                    @*@Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })*@
+
+                                                    <select id="SelectProductSales" class="Salesproduct form-control"></select>
+
+                                                </td>
+                                                <td>
+                                                    @Html.EditorFor(model => model.SalesQunatity, new { htmlAttributes = new { @class = "Salesquantity form-control", id = "SalesQunatity" } })
+                                                    @Html.ValidationMessageFor(model => model.SalesQunatity, "", new { @class = "text-danger" })
+
+                                                    @*<input type="text" id="Quantity" class=" form-control" />*@
+                                                </td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-euro"></i></span>
+                                                        @Html.EditorFor(model => model.SalesItemRate, new { htmlAttributes = new { @class = "Salesrate form-control", id = "SalesItemRate" } })
+                                                        @Html.ValidationMessageFor(model => model.SalesItemRate, "", new { @class = "text-danger" })
+
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    @*<input type="text"  maxlength="50000"/>*@
+
+                                                    @Html.EditorFor(model => model.SalesTotal, new { htmlAttributes = new { @readonly = "readonly", @class = "SalesFTotal form-control", id = "SalesTotal" } })
+                                                    @Html.ValidationMessageFor(model => model.SalesTotal, "", new { @class = "text-danger" })
+                                                </td>
+                                                <td>
+                                                    <div class="form-control">
+                                                        <select id="SelectSalesVAT" class="SelectSalesVAT">
+                                                            <option>0</option>
+                                                            <option>6</option>
+                                                            <option>21</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <input type="button" id="addSales" value="add" style="width:80px" class="btn btn-success" />
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+
+                                    <div id="SalesOrderItems">
+                                        <table class="table table-responsive" id="SalesOrderDetailsItems"></table>
+                                        <span id="SalesOrderItemError" style="color:red"></span>
+                                    </div>
+
+
+
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SalesDueDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.SalesDueDate, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.SalesDueDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SalesPayementTerm, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.SalesPayementTerm, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.SalesPayementTerm, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SalesSubtotal, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.SalesSubtotal, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.SalesSubtotal, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SalesDiscount, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.SalesDiscount, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.SalesDiscount, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SalesDiscountAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.SalesDiscountAmount, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.SalesDiscountAmount, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SalesTotalAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.SalesTotalAmount, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.SalesTotalAmount, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SalesCustomerNote, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.SalesCustomerNote, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.SalesCustomerNote, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.AddedDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.AddedDate, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.AddedDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CompanyId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.CompanyId, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.CompanyId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Create" class="btn btn-default" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>        
+
+
+               
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+
+   
+        </div>
+</body>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

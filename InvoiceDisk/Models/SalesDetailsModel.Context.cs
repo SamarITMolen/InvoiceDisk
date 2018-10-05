@@ -13,10 +13,10 @@ namespace InvoiceDisk.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class SalesEntities2 : DbContext
+    public partial class SalesDetailsEntities : DbContext
     {
-        public SalesEntities2()
-            : base("name=SalesEntities2")
+        public SalesDetailsEntities()
+            : base("name=SalesDetailsEntities")
         {
         }
     
@@ -25,6 +25,6 @@ namespace InvoiceDisk.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<SalesTable> SalesTables { get; set; }
+        public virtual DbSet<SalesDetailsTable> SalesDetailsTables { get; set; }
     }
 }
