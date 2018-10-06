@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
-  
+
     @Scripts.Render("~/bundles/modernizr")
-     
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -41,7 +41,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-   
+
     @RenderSection("scripts", required: false)
 
 </body>
@@ -50,25 +50,27 @@
 
 <script>
     var currentRow1 = "";
-    var r="";
+    var r = "";
     $(document).ready(function () {
         $("#CompanyListTable").dataTable();
-       
+
         function myFunction() {
             document.getElementById('CurrentDate').value = Date();
         }
+
+        $(document).on('change', '#orderdetailsitems .VAT', function () {
+            currentRow1 = $(this).closest("tr");
+            calculatevat();
+            SUMOFALLPRODUCT();
+            sumofGrandModel();
+
+        });
 
         LoadProduct();
 
         $("#add").click(function () {
 
             currentRow1 = $(this).closest("tr");
-
-            //if ($("#SelectVAT").val() != "" )
-            //{
-            //    $("#AddVAt").append('<input type="text" name="txt" />').addClass($("#SelectVAT").val());
-            //}
-
 
             var isAllValid = true;
             if ($("#SelectProductQutation").val() == "0") {
@@ -77,7 +79,7 @@
             }
 
             if (isAllValid) {
-                debugger;
+
                 var $newRow = $("#mainrow").clone().removeAttr('id');
                 $('.product', $newRow).val($("#SelectProductQutation").val());
                 $('.VAT', $newRow).val($("#SelectVAT").val());
@@ -88,9 +90,9 @@
                 //Remove id attribute from new clone row
 
                 $("#SelectProductQutation,#Quantity,#Rate,#FTotal,#SelectVAT", $newRow).removeAttr('id');
-               
+
                 $('span.error', $newRow).remove();
-                
+
                 $('#orderdetailsitems').append($newRow);
 
                 $('#SelectProductQutation').val('0');
@@ -102,53 +104,50 @@
                     $('#orderItemError').text('');
                 }
 
-                calucteVatFunction();
-                
+                calculatevat();
+
             }
-
-            //else
-            //{
-
-            //}
-
-            //if ($('#txtLevel').val().trim() == "") {
-            //    $('#txtLevel').css('border-color', 'Red');
-            //    isValid = false;
-            //}
-            //else {
-            //    $('#txtLevel').css('border-color', 'lightgrey');
-            //}
-
-           
-            });
-
-      //  });
+        });
 
 
-        function calucteVatFunction() {
 
+        function calculatevat() {
+            debugger;
             if ($('#orderdetailsitems tr').length == 0) {
                 $('#btwo').text('0.00');
-                 $('#BTW6').text('0.00');
-                 $('#BTW21').text('0.00');
+                $('#BTW6').text('0.00');
+                $('#BTW21').text('0.00');
             }
             else {
-
-                var sum = 0;
-                var vatValue = currentRow1.find('#SelectVAT option:selected').val();
-                if (vatValue == 0) {
-                    $('#btwo').text('0.00');
-                }
-
-                if (vatValue == 6) {
-                    var sum6 = 0;
-                    var total6 = 0;
+                
+                    var sum0 = 0;
+                    var total0 = 0;
                     $('#orderdetailsitems tr').each(function () {
-                        $('#BTW6').text();
-                        debugger;
+                        $('#BTW0').text();
+
                         r = $(this).closest('tr');
                         var value = r.find('.VAT  option:selected').val();
-                        if (r.find('.VAT  option:selected').val() == 6) {
+                        if (r.find('.VAT  option:selected').val() == 0) {
+                            total0 = r.find('td:eq(3)').find('input').val();
+                            if (!isNaN(total0) && total0.length != 0) {
+                                sum0 += parseInt(total0);
+                            }
+                            var totalvat0 = parseFloat(sum0 / 100 * 6 + sum0 - sum0);
+                            var totalr = Math.round(totalvat0, 2);
+                            $('#BTW0').text(totalvat0.toFixed(2));
+                        }
+                        else {
+                            $('#BTW0').text('0.00');
+                        }
+                    })
+                }
+
+                    var sum6 = 0;
+                    var total6 = 0;
+                    $('#orderdetailsitems tr').each(function () {                   
+                      var  r = $(this).closest('tr');
+                        var value = r.find('.VAT  option:selected').val();
+                        if (r.find('.VAT  option:selected').val() == 6) {                        
                             total6 = r.find('td:eq(3)').find('input').val();
                             if (!isNaN(total6) && total6.length != 0) {
                                 sum6 += parseInt(total6);
@@ -157,49 +156,88 @@
                             var totalr = Math.round(totalvat6, 2);
                             $('#BTW6').text(totalvat6.toFixed(2));
                         }
-                        else {
-                            $('#BTW6').text('0.00');
-                        }
+                        
                     })
-                }
-                if (vatValue == 21) {
+                
+
+
+
                     var sum21 = 0;
                     var total21 = 0;
                     $('#orderdetailsitems tr').each(function () {
-                        $('#BTW21').text();
+                        //$('#BTW21').text();
                         var r = $(this).closest('tr');
                         var value = r.find('.VAT  option:selected').val();
                         if (r.find('.VAT  option:selected').val() == 21) {
+
                             total21 = r.find('td:eq(3)').find('input').val();
                             if (!isNaN(total21) && total21.length != 0) {
                                 sum21 += parseInt(total21);
                             }
                             var totalvat21 = parseFloat(sum21 / 100 * 21 + sum21 - sum21);
-                            var totalr = Math.round(totalvat21, 2);
-                            $('#BTW21').text(totalr);
+                           
+                            $('#BTW21').text(totalvat21);
                         }
-                        else {
-                            $('#BTW21').text('0.00');
-                        }
-
+                       
                     })
-
+                    RowCounte();
                 }
+            
+
+            //SUMOFALLPRODUCT();
+           /// sumofGrandModel();
+            
+        
+
+        function RowCounte() {
+
+            var rowCount6 = 0;
+            var rowCount21 = 0;
+            var rowCount0 = 0;
+
+            $('#orderdetailsitems tr td').each(function () {
+
+                var EquationResult = $(this).find('.VAT').val();
+
+                if (EquationResult == 6)
+                {
+                    rowCount6++;
+                }
+                else if(EquationResult == 21)
+                {
+                    rowCount21++;
+                }
+                else if(EquationResult ==0)
+                {
+                    rowCount0++
+                }                
+            })
+
+            if(rowCount0 == 0)
+            {
+                $("#btwo").text('0.00');
+            }
+            if (rowCount6 == 0) {
+                $("#BTW6").text('0.00');
+            }
+            if (rowCount21 == 0) {
+                $("#BTW21").text('0.00');
             }
         }
 
+
         $('#orderdetailsitems').on('click', '.remove', function () {
-            debugger;
+
             var currentRow = $(this).closest('tr');
             var vat = currentRow.find('.VAT  option:selected').val();
             var Total = currentRow.find('.FTotal').val();
             if (vat == 6) {
                 var totalvat6 = parseInt(Total / 100) * 6 + (Total - Total);
-               
+
                 var BTW6 = $('#BTW6').text();
                 $('#BTW6').text();
-                $('#BTW6').text(parseInt(BTW6-totalvat6));
-     
+                $('#BTW6').text(parseInt(BTW6 - totalvat6));
+
             }
             if (vat == 21) {
                 var currentRow = $(this).closest('tr');
@@ -215,11 +253,6 @@
                 }
             }
             $(this).parents('tr').remove();
-                
-           
-            //calucteVatFunction();
-
-
         });
 
 
@@ -360,7 +393,7 @@
 
 
 
-    </script>
+
 
 
 @*<script>
@@ -381,8 +414,6 @@
     </script>*@
 
 
-
-<script>
     function LoadProduct() {
         $("#SelectProductQutation").find("option").remove();
         $("#SelectProductQutation").prepend("<option value=0>" + 'Select Item' + "</option>");
@@ -410,10 +441,7 @@
     }
 
 
-</script>
 
-
-<script>
 
     $('#Rate').keyup(function () {
         currentRow1 = $(this).closest("tr");
@@ -422,28 +450,29 @@
         var Price = $(this).val();
         var total = quantity * Price;
         currentRow.find('td:eq(3)').find('input').val(total);
-        var sum = 0;    
+        var sum = 0;
         var vatValue = currentRow1.find('#SelectVAT option:selected').val();
         if (vatValue == 0) {
             $('#btwo').text('0.00');
         }
+
         if (vatValue == 6) {
             var sum6 = 0;
             var total6 = 0;
             $('#orderdetailsitems tr').each(function () {
-                debugger;
                 r = $(this).closest('tr');
                 var value = r.find('.VAT  option:selected').val();
                 if (r.find('.VAT  option:selected').val() == 6) {
                     total6 = r.find('td:eq(3)').find('input').val();
                     if (!isNaN(total6) && total6.length != 0) {
-                        sum6 += parseInt(total6);
+                        sum6 += parseFloat(total6);
                     }
                     var totalvat6 = parseFloat(sum6 / 100 * 6 + sum6 - sum6);
-                    
                     $('#BTW6').text(totalvat6.toFixed(2));
-                }             
+                }
             })
+
+          
         }
 
 
@@ -451,29 +480,58 @@
             var sum21 = 0;
             var total21 = 0;
             $('#orderdetailsitems tr').each(function () {
-                debugger;
                 r = $(this).closest('tr');
                 var value = r.find('.VAT  option:selected').val();
                 if (r.find('.VAT  option:selected').val() == 21) {
                     total21 = r.find('td:eq(3)').find('input').val();
                     if (!isNaN(total21) && total21.length != 0) {
-                        sum21 += parseInt(total21);
+                        sum21 += parseFloat(total21);
                     }
                     var totalvat21 = parseFloat(sum21 / 100 * 21 + sum21 - sum21);
                     $('#BTW21').text(totalvat21.toFixed(2));
                 }
 
             })
-
-          
-
         }
 
+
+        SUMOFALLPRODUCT();
+        sumofGrandModel();
     })
 
+    function SUMOFALLPRODUCT() {
+        var sum = 0;
+        $('#orderdetailsitems tr').each(function () {
+            var row = $(this).closest('tr');
+            var total = row.find('td:eq(3)').find('.FTotal ').val();
+            if (!isNaN(total) && total.length != 0) {
+                sum += parseFloat(total);
+            }
+            $('#TotalBTW').text(sum.toFixed(2));
+            $('#SubTotal').text(sum.toFixed(2));
+
+        })
+    }
+
+    function sumofGrandModel() {
+     
+        var btw6=0, btw21, totalbtw=0, grandtotal = 0;
+         btw6 = parseFloat($('#BTW6').text());
+         btw21 = parseFloat($('#BTW21').text());
+         totalbtw = parseFloat($('#TotalBTW').text());
+         btw6 = isNaN(btw6) ? 0 : btw6;
+         btw21 = isNaN(btw21) ? 0 : btw21;
+         totalbtw = isNaN(totalbtw) ? 0 : totalbtw;
+         grandtotal = parseFloat(btw6) + parseFloat(btw21) + parseFloat(totalbtw);
+         var t = parseFloat(grandtotal);
+         $('#gtotal').text(t.toFixed(2));
+         //
+         //if (!isNaN(grandtotal) && grandtotal.length != 0) { 
+    }
+
     $(document).on('keyup', '#orderdetailsitems .rate', function () {
-        debugger;
-       var currentRow1 = $(this).closest("tr");
+
+        var currentRow1 = $(this).closest("tr");
         var currentRow = $(this).closest("tr");
         var quantity = currentRow.find("td:eq(1)").find('input').val(); // get current row 1st TD value
         var Price = $(this).val();
@@ -488,7 +546,7 @@
             var sum6 = 0;
             var total6 = 0;
             $('#orderdetailsitems tr').each(function () {
-                debugger;
+
                 r = $(this).closest('tr');
                 var value = r.find('.VAT  option:selected').val();
                 if (r.find('.VAT  option:selected').val() == 6) {
@@ -497,7 +555,7 @@
                         sum6 += parseInt(total6);
                     }
                     var totalvat6 = parseFloat(sum6 / 100 * 6 + sum6 - sum6);
-                   
+
                     $('#BTW6').text(totalvat6.toFixed(2));
                 }
             })
@@ -508,7 +566,7 @@
             var sum21 = 0;
             var total21 = 0;
             $('#orderdetailsitems tr').each(function () {
-                debugger;
+
                 r = $(this).closest('tr');
                 var value = r.find('.VAT  option:selected').val();
                 if (r.find('.VAT  option:selected').val() == 21) {
@@ -519,24 +577,17 @@
                     var totalvat21 = parseFloat(sum21 / 100 * 21 + sum21 - sum21);
                     $('#BTW21').text(totalvat21.toFixed(2));
                 }
-
             })
-
-
-
         }
+        SUMOFALLPRODUCT();
+        sumofGrandModel();
     });
 
 
 
-
-
-
-
-    var vatValue=0;
+    var vatValue = 0;
     $(document).on('keyup', '#orderdetailsitems .quantity ', function () {
-        debugger;
-       
+
         var currentRow = $(this).closest("tr");
         var quantity = currentRow.find("td:eq(1)").find('input').val(); // get current row 1st TD value
         var Price = $(this).val();
@@ -551,7 +602,7 @@
             var sum6 = 0;
             var total6 = 0;
             $('#orderdetailsitems tr').each(function () {
-                debugger;
+
                 var r = $(this).closest('tr');
                 var value = r.find('.VAT  option:selected').val();
                 if (r.find('.VAT  option:selected').val() == 6) {
@@ -578,8 +629,8 @@
             var sum21 = 0;
             var total21 = 0;
             $('#orderdetailsitems tr').each(function () {
-                debugger;
-               var r = $(this).closest('tr');
+
+                var r = $(this).closest('tr');
                 var value = r.find('.VAT  option:selected').val();
                 if (r.find('.VAT  option:selected').val() == 21) {
                     total21 = r.find('td:eq(2)').find('input').val();
@@ -600,11 +651,8 @@
         }
     });
 
-
-
-
-
-
+    
+   
 
     $('#Quantity').keyup(function () {
         var currentRow = $(this).closest("tr");
@@ -614,10 +662,12 @@
         currentRow.find('td:eq(3)').find('input').val(total);
     })
 
-   
 
-   
+
+ 
+
 </script>
+
 
 
 
