@@ -54,5 +54,75 @@ namespace InvoiceDisk.Controllers
                 return View(response.Content.ReadAsAsync<MVCSalesViewModel>().Result);
             }
         }
+
+
+
+
+        [HttpPost]
+        public JsonResult Save(MVCSalesViewModel MVCSaleViewModel)
+        {
+            bool Status = false;
+            #region            
+            try
+            {
+                MVCSalesModel mvcSalesModel = new MVCSalesModel();
+
+                if (ModelState.IsValid)
+                {
+                    mvcSalesModel.SalesInvoiceNumber = MVCSaleViewModel.SalesInvoiceNumber.ToString();
+                    mvcSalesModel.CompanyId = 2;
+                    mvcSalesModel.UserId = 1;
+                    mvcSalesModel.SalesRefNumber = MVCSaleViewModel.SalesRefNumber.ToString();
+                    mvcSalesModel.ISalesnvoiceDate = Convert.ToDateTime(MVCSaleViewModel.ISalesnvoiceDate);
+                    mvcSalesModel.SalesDueDate = Convert.ToDateTime(MVCSaleViewModel.SalesDueDate);
+                    mvcSalesModel.SalesSubtotal = Convert.ToDouble(MVCSaleViewModel.SalesSubtotal);
+                    mvcSalesModel.SalesDiscountAmount = Convert.ToDouble(MVCSaleViewModel.SalesDiscountAmount);
+                    mvcSalesModel.SalesTotalAmount = Convert.ToDouble(MVCSaleViewModel.SalesTotal);
+                    mvcSalesModel.SalesCustomerNote = MVCSaleViewModel.SalesCustomerNote.ToString();
+                    
+
+                    var response = GlobalVeriables.WebApiClient.PostAsJsonAsync("SalesID", mvcSalesModel).Result;
+
+                    IEnumerable<string> headerValues;
+                    var userId = string.Empty;
+
+                    var Salesid = "";
+                    if (response.Headers.TryGetValues("Salesid", out headerValues))
+                    {
+                        Salesid = headerValues.FirstOrDefault();
+                    }
+
+                    List<SalesDetailsTable> SalesDetailsList = MVCSaleViewModel.SalesDetailslist;
+
+
+                    foreach (SalesDetailsTable SDTList in SalesDetailsList)
+                    {
+                        SalesDetailsTable SaleDetailsTable = new SalesDetailsTable();
+                        SaleDetailsTable.SalesItemId = Convert.ToInt32(SDTList.SalesItemId);
+                        SaleDetailsTable.SalesInvoiceId = Convert.ToInt32(Salesid);
+                        SaleDetailsTable.SalesDescription = SDTList.SalesDescription;
+                        SaleDetailsTable.SalesQunatity = SDTList.SalesQunatity;
+                        SaleDetailsTable.SalesItemRate = Convert.ToDouble(SDTList.SalesItemRate);
+                        SaleDetailsTable.SalesTotal = Convert.ToDouble(SDTList.SalesTotal);
+                        SaleDetailsTable.SalesVat = Convert.ToDouble(SDTList.SalesVat);
+                        HttpResponseMessage responsses = GlobalVeriables.WebApiClient.PostAsJsonAsync("SalesDetails", SaleDetailsTable).Result;
+                    }
+
+                    List<MVCVatDetailsModel> mvcVatDetailsList = new List<MVCVatDetailsModel>();
+
+
+                    Status = true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
+            }
+
+            #endregion
+            return new JsonResult { Data = new { Status = Status } };
+        }
+
     }
 }

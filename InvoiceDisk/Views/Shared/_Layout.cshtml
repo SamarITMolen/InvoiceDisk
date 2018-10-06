@@ -50,6 +50,7 @@
 
 <script>
     var currentRow1 = "";
+    var currentSaleRow1 = "";
     var r="";
     $(document).ready(function () {
         $("#CompanyListTable").dataTable();
@@ -75,9 +76,16 @@
                 isAllValid = false;
                 alert("Please select Item");
             }
-
+            //else if ($('#Quantity').val().trim() == "") {
+            //    $('#Quantity').css('border-color', 'Red');
+            //    isAllValid = false;
+            //}
+            //else {
+            //    $('#Quantity').css('border-color', 'lightgrey');
+            //}
+              
             if (isAllValid) {
-                debugger;
+             
                 var $newRow = $("#mainrow").clone().removeAttr('id');
                 $('.product', $newRow).val($("#SelectProductQutation").val());
                 $('.VAT', $newRow).val($("#SelectVAT").val());
@@ -120,11 +128,55 @@
             //}
 
            
-            });
-
-      //  });
+        });
 
 
+        //Add Sale Rows to Details Sale Table
+        $("#addSales").click(function () {
+
+            currentSaleRow1 = $(this).closest("tr");
+
+            var isAllValid = true;
+            if ($("#SelectProductSales").val() == "0") {
+                isAllValid = false;
+                alert("Please select Item");
+            }
+
+            if (isAllValid) {
+
+                var $newRow = $("#SalesMainRow").clone().removeAttr('Sid');
+                $('.product', $newRow).val($("#SelectProductSales").val());
+                $('.VAT', $newRow).val($("#SelectSalesVAT").val());
+
+                //Replace add button with remove button
+                $("#addSales", $newRow).addClass('removeSaleRow').val('Remove').removeClass('btn-success').addClass('btn-danger');
+
+                //Remove id attribute from new clone row
+
+                $("#SelectProductSales,#Salesquantity,#SalesRate,#SalesFTotal,#SelectSalesVAT", $newRow).removeAttr('Sid');
+
+                $('span.errorsale', $newRow).remove();
+
+                debugger;
+                $('#SalesOrderDetailsItems').append($newRow);
+
+                $('#SelectProductSales').val('0');
+                $('#Salesquantity').val('');
+                $('#SalesRate').empty();
+                $('#SalesFTotal').val('');
+                $('#SelectSalesVAT').val('0');
+
+                if ($('#SalesOrderItemError').text != '') {
+                    $('#SalesOrderItemError').text('');
+                }
+
+                //calucteVatFunction();
+
+            }           
+        });     
+
+
+        //Calculation from Qutation 
         function calucteVatFunction() {
 
             if ($('#orderdetailsitems tr').length == 0) {
@@ -145,7 +197,7 @@
                     var total6 = 0;
                     $('#orderdetailsitems tr').each(function () {
                         $('#BTW6').text();
-                        debugger;
+                      
                         r = $(this).closest('tr');
                         var value = r.find('.VAT  option:selected').val();
                         if (r.find('.VAT  option:selected').val() == 6) {
@@ -188,6 +240,9 @@
             }
         }
 
+
+        //Remove row  from Qutation details lIst
+
         $('#orderdetailsitems').on('click', '.remove', function () {
             debugger;
             var currentRow = $(this).closest('tr');
@@ -223,6 +278,42 @@
         });
 
 
+        //Remove Row From Sale Details List
+
+        $('#orderdetailsitems').on('click', '.removeSaleRow', function () {
+               
+            var currentSaleRow1 = $(this).closest('tr');
+            var vat = currentSaleRow1.find('.SelectSalesVAT  option:selected').val();
+            var Total = currentSaleRow1.find('.FTotal').val();
+            if (vat == 6) {
+                var totalvat6 = parseInt(Total / 100) * 6 + (Total - Total);
+
+                var BTW6 = $('#BTW6').text();
+                $('#BTW6').text();
+                $('#BTW6').text(parseInt(BTW6 - totalvat6));
+
+            }
+            if (vat == 21) {
+                var currentRow = $(this).closest('tr');
+                var vat21 = currentRow.find('.VAT  option:selected').val();
+                var Total21 = currentRow.find('.FTotal').val();
+                if (vat == 21) {
+                    var totalvat21 = parseFloat(Total21 / 100) * 21 + (Total21 - Total21);
+
+                    var BTW21 = $('#BTW21').text();
+                    $('#BTW21').text();
+                    $('#BTW21').text(parseFloat(BTW21 - totalvat21));
+
+                }
+            }
+            $(this).parents('tr').remove();
+
+
+            //calucteVatFunction();
+
+
+        }); 
+        
         $("#Submit").click(function () {
 
             var isAllValid = true;
@@ -344,6 +435,98 @@
         });
     });
 
+
+    //Re
+
+
+
+    $("#SubmitSale").click(function () {
+
+        var isAllSalesValid = true;
+        $('#SalesOrderItemError').text('');
+
+        var Saleslist = [];
+        var SaleserrorItemCount = 0;
+        $('#SalesOrderDetailsItems tbody tr').each(function (index, ele) {
+
+            if ($('#SelectProductSales', this).val() == '0' ||
+                (parseInt($('.Salesquantity', this).val()) || 0) == 0 ||
+                $('.SalesRate', this).val() == "" ||
+                isNaN($('.SalesRate', this).val())
+                ) {
+                SaleserrorItemCount++;
+                $(this).addClass('errorsale');
+            }
+            else {
+                var SaleOrderItem = {
+                    SalesItemId: $('select.Salesproduct', this).val(),
+                    SalesQunatity: parseInt($('.Salesquantity', this).val()),
+                    SalesItemRate: parseFloat($('.SalesRate', this).val()),
+                    SalesTotal: parseFloat($('.SalesFTotal', this).val()),
+                    SalesVat: parseFloat($('.SelectSalesVAT', this).val())
+                }
+                Saleslist.push(SaleOrderItem);
+            }
+        });
+
+       
+        if (SaleserrorItemCount > 0) {
+            $("#SalesOrderItemError").text(SaleserrorItemCount + "Invalid entry in order itme list.");
+            isAllSalesValid = false;
+        }
+
+        if (Saleslist.length == 0) {
+
+            $("#SalesOrderItemError").text("At least one order item required.");
+            isAllSalesValid = false;
+        }
+
+
+        if (isAllSalesValid) {
+            $(this).val("please wait...");
+            var SaleItemObj = {
+
+                SalesInvoiceNumber: $('#SalesInvoiceNumber').val(),
+                SalesRefNumber: $('#SalesRefNumber').val(),
+                ISalesnvoiceDate: $('#ISalesnvoiceDate').val(),
+                SalesDueDate: $('#SalesDueDate').val(),
+                SalesSubtotal: $('#SalesSubtotal').val(),
+                SalesDiscountAmount: $('#SalesDiscountAmount').val(),
+
+                //SalesVat: $('#Vat').val(),
+                SalesTotal: $('#SalesTotal').val(),
+                SalesCustomerNote: $('#SalesCustomerNote').val(),
+                SalesDetailslist: Saleslist
+
+            };
+            $.ajax({
+                url: "/MVCSales/Save",
+                data: JSON.stringify(SaleItemObj),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result != 0) {
+                        alert('Successfully saved');
+                        Saleslist = [];
+                        $('#SalesInvoiceNumber,#SalesRefNumber,#SalesSubtotal,#SalesDiscountAmount,#SalesTotal,#SalesCustomerNote').val('');
+                        $('#SalesOrderDetailsItems').empty();
+                        $("#SubmitSale").val('Save');
+                    }
+
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+
+            });
+          
+
+        }
+
+    });
+ 
+
     $(function () {
         $(".datepicker").datepicker({
             dateFormat: "dd-mm-yy",
@@ -384,8 +567,14 @@
 
 <script>
     function LoadProduct() {
+
+        //Load Product to Qutation
         $("#SelectProductQutation").find("option").remove();
         $("#SelectProductQutation").prepend("<option value=0>" + 'Select Item' + "</option>");
+
+        //Load Product to Sales
+        $("#SelectProductSales").find("option").remove();
+        $("#SelectProductSales").prepend("<option value=0>" + 'Select Item' + "</option>");
 
         $.ajax({
             url: "/MVCProduct/GetProduct",
@@ -398,6 +587,7 @@
                 $.each(data, function (key, item) {
 
                     $('#SelectProductQutation').append($('<option></option>').val(item.ProductId).html(item.ProductName));
+                    $('#SelectProductSales').append($('<option></option>').val(item.ProductId).html(item.ProductName));
 
                 });
 

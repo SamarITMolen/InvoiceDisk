@@ -147,31 +147,24 @@
                                             </tr>
                                         </thead>
                                         <tbody class="tbody">
-                                            <tr id="mainrow">
-                                                <td>
-                                                    @*@Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })*@
-
+                                            <tr id="SalesMainRow">
+                                                <td>                                                  
                                                     <select id="SelectProductSales" class="Salesproduct form-control"></select>
 
                                                 </td>
                                                 <td>
                                                     @Html.EditorFor(model => model.SalesQunatity, new { htmlAttributes = new { @class = "Salesquantity form-control", id = "SalesQunatity" } })
-                                                    @Html.ValidationMessageFor(model => model.SalesQunatity, "", new { @class = "text-danger" })
-
-                                                    @*<input type="text" id="Quantity" class=" form-control" />*@
+                                                    @Html.ValidationMessageFor(model => model.SalesQunatity, "", new { @class = "text-danger" })                                                  
                                                 </td>
                                                 <td>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="glyphicon glyphicon-euro"></i></span>
-                                                        @Html.EditorFor(model => model.SalesItemRate, new { htmlAttributes = new { @class = "Salesrate form-control", id = "SalesItemRate" } })
+                                                        @Html.EditorFor(model => model.SalesItemRate, new { htmlAttributes = new { @class = "SalesRate form-control", id = "SalesItemRate" } })
                                                         @Html.ValidationMessageFor(model => model.SalesItemRate, "", new { @class = "text-danger" })
 
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    @*<input type="text"  maxlength="50000"/>*@
-
                                                     @Html.EditorFor(model => model.SalesTotal, new { htmlAttributes = new { @readonly = "readonly", @class = "SalesFTotal form-control", id = "SalesTotal" } })
                                                     @Html.ValidationMessageFor(model => model.SalesTotal, "", new { @class = "text-danger" })
                                                 </td>
@@ -191,123 +184,131 @@
 
                                     </table>
 
-                                    <div id="SalesOrderItems">
-                                        <table class="table table-responsive" id="SalesOrderDetailsItems"></table>
-                                        <span id="SalesOrderItemError" style="color:red"></span>
+                                    <div class="row">
+                                        <div id="SalesOrderItems">
+                                            <table class="table table-responsive" id="SalesOrderDetailsItems">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="col-sm-4">
+                                                            
+                                                        </th>
+                                                        <th class="col-sm-2">
+                                                           
+                                                        </th>
+                                                        <th class="col-sm-2">
+                                                           
+                                                        </th>
+                                                        <th class="col-sm-2">
+                                                            
+                                                        </th>
+                                                        <th class="col-sm-1">
+                                                            
+                                                        </th>
+                                                        <th class="col-sm-1">
+                                                            
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                            
+                                          
+
+                                            <span id="SalesOrderItemError" style="color:red"></span>
+                                        </div>
+
                                     </div>
-
-
 
                                 </div>
 
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.SalesDueDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.SalesDueDate, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.SalesDueDate, "", new { @class = "text-danger" })
+                                <hr />
+
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                    </div>
+                                    <div class="col-sm-2">Sub Total:</div>
+                                    <div class="col-sm-2">
+                                        <label id="SubTotal"></label>                                      
+                                        @Html.ValidationMessageFor(model => model.SalesSubtotal, "", new { @class = "text-danger", id = "SalesSubtotal" })
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.SalesPayementTerm, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.SalesPayementTerm, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.SalesPayementTerm, "", new { @class = "text-danger" })
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                    </div>
+                                    <div class="col-sm-2">Total excel BTW:</div>
+                                    <div class="col-sm-2">
+                                        <label id="SalesTotalBTW"></label>
+                                       
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.SalesSubtotal, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.SalesSubtotal, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.SalesSubtotal, "", new { @class = "text-danger" })
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                    </div>
+                                    <div class="col-sm-2">BTW0%:</div>
+                                    <div class="col-sm-2">
+                                        <label id="Salesbtwo"></label>
+                                        
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.SalesDiscount, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.SalesDiscount, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.SalesDiscount, "", new { @class = "text-danger" })
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                    </div>
+                                    <div class="col-sm-2">BTW 6%:</div>
+                                    <div class="col-sm-2">
+                                        <label id="SalesBTW6"></label>                                       
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.SalesDiscountAmount, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.SalesDiscountAmount, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.SalesDiscountAmount, "", new { @class = "text-danger" })
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                    </div>
+                                    <div class="col-sm-2">BTW 21%:</div>
+                                    <div class="col-sm-2">
+                                        <label id="SalesBTW21"></label>                                       
                                     </div>
                                 </div>
-
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.SalesTotalAmount, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.SalesTotalAmount, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.SalesTotalAmount, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.SalesCustomerNote, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.SalesCustomerNote, new { htmlAttributes = new { @class = "form-control" } })
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-2">Customer Note:</div>
+                                    <div class="col-sm-6">
+                                        @Html.TextAreaFor(model => model.SalesCustomerNote, new { htmlAttributes = new { @class = "form-control", id = "SalesCustomerNote" } })
                                         @Html.ValidationMessageFor(model => model.SalesCustomerNote, "", new { @class = "text-danger" })
                                     </div>
-                                </div>
+                                    <div class="col-sm-2">Total:</div>
+                                    <div class="col-sm-2">
+                                        @Html.LabelFor(Model => Model.SalesTotal, new { htmlAttributes = new { id = "SalesTotal" } })
 
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.AddedDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.AddedDate, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.AddedDate, "", new { @class = "text-danger" })
+                              <div class="row">
+                                    <div class="col-sm-12">
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
+                                <hr />
 
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.CompanyId, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.CompanyId, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.CompanyId, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-md-offset-2 col-md-10">
-                                        <input type="submit" value="Create" class="btn btn-default" />
-                                    </div>
+                                <div style="padding:10px 0;text-align:right">
+                                    <input id="SubmitSale" type="button" value="Save" class="btn btn-warning" style="padding:10px 20px" />
                                 </div>
                             </div>
                         }
                     </div>
-                </div>        
-
-
-               
-            </div>
-            <div class="col-sm-1"></div>
+                </div>                  
+            </div>   
+            
+            <div class="col-sm-1"></div>           
         </div>
-
-   
+      </div>
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10">
+            @Html.ActionLink("Back to List", "Index")
         </div>
+        <div class="col-sm-1"></div>
+    </div>
 </body>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+

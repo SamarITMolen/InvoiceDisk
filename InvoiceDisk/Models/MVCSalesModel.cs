@@ -11,7 +11,7 @@ namespace InvoiceDisk.Models
         public string SalesInvoiceNumber { get; set; }
         public string SalesRefNumber { get; set; }
         public Nullable<System.DateTime> ISalesnvoiceDate { get; set; }
-        public string SalesDueDate { get; set; }
+        public Nullable<System.DateTime> SalesDueDate { get; set; }
         public Nullable<int> SalesPayementTerm { get; set; }
         public Nullable<double> SalesSubtotal { get; set; }
         public Nullable<double> SalesDiscount { get; set; }

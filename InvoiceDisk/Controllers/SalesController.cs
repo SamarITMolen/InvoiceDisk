@@ -72,17 +72,20 @@ namespace InvoiceDisk.Controllers
 
         // POST: api/Sales
         [ResponseType(typeof(SalesTable))]
-        public IHttpActionResult PostSalesTable(SalesTable salesTable)
+        public HttpResponseMessage PostSalesTable([FromBody] SalesTable salesTable)
         {
-            if (!ModelState.IsValid)
+            using (SalesEntities2 entities = new SalesEntities2())
             {
-                return BadRequest(ModelState);
+                entities.SalesTables.Add(salesTable);
+                entities.SaveChanges();
+
+                var massage = Request.CreateResponse(HttpStatusCode.Created, salesTable);
+                massage.Headers.Location = new Uri(Request.RequestUri + salesTable.SalesInvoiceId.ToString());
+                massage.Content.Headers.Add("SalesID", salesTable.SalesInvoiceId.ToString());
+                massage.RequestMessage.Headers.Add("SalesID", salesTable.SalesInvoiceId.ToString());
+                return massage;
+
             }
-
-            db.SalesTables.Add(salesTable);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = salesTable.SalesInvoiceId }, salesTable);
         }
 
         // DELETE: api/Sales/5

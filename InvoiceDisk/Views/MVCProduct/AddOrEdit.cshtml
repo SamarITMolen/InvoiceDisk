@@ -43,9 +43,15 @@
                     <hr />
                     <div class="row">
                         <div class="col-sm-2">Type:</div>
-                        <div class="col-sm-4">
-                            @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                        <div class="col-sm-4" >
+                            @*@Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })*@
+                            @*@Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })*@
+                            @Html.DropDownList("Type", new List<SelectListItem>
+                                {
+                                    new SelectListItem { Text = "Good", Value = "Good", Selected=true},
+                                    new SelectListItem { Text = "Services", Value = "Services"}
+                                }, "Select Type", new { @class = "form-control" })
+
                         </div>
                         <div class="col-sm-2">Opening Quantity:</div>
                         <div class="col-sm-4">
