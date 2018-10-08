@@ -14,7 +14,8 @@
                     var Contectdatas = ViewBag.Contentdata;
                     var CompanyDatas = ViewBag.Companydata;
                 }
-               
+
+
                 <div class="row">
                     <div class="col-sm-1"></div>
                     <div class="col-sm-11" style="margin-top:20px">
@@ -280,9 +281,20 @@
                                       <span class="form-inline">&euro;</span><label id="gtotal"></label>
 
                                     </div>
-                                </div>                                   
-                          
-                               <div class="row">
+                                </div>
+                                
+
+                                <div class="row" style="margin-top:3px">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-6">
+                                       
+                                    </div>
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-2">
+                                        
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-sm-12">
                                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                     </div>

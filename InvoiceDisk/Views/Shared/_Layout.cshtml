@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
-
     @Scripts.Render("~/bundles/modernizr")
+    @*<link href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>*@
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -41,7 +41,6 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-
     @RenderSection("scripts", required: false)
 
 </body>
@@ -52,7 +51,6 @@
     var currentRow1 = "";
     var r = "";
     $(document).ready(function () {
-        $("#CompanyListTable").dataTable();
 
         function myFunction() {
             document.getElementById('CurrentDate').value = Date();
@@ -158,11 +156,7 @@
                     var totalr = Math.round(totalvat6, 2);
                     $('#BTW6').text(totalvat6.toFixed(2));
                 }
-
             })
-
-
-
 
             var sum21 = 0;
             var total21 = 0;
@@ -199,7 +193,7 @@
 
             $('#orderdetailsitems tr td').each(function () {
 
-               
+
                 var EquationResult = $(this).find('.VAT').val();
 
                 if (EquationResult == 6) {
@@ -263,7 +257,7 @@
             SUMOFALLPRODUCT();
             sumofGrandModel();
             //reset all totals
-            if ($('#orderdetailsitems tr').length == 0) {            
+            if ($('#orderdetailsitems tr').length == 0) {
                 $('#SubTotal').text('');
                 $('#TotalBTW').text('');
                 $('#gtotal').text('');
@@ -680,58 +674,110 @@
 
 
 <script>
-        $(document).ready(function () {
-            $.ajax({
-                url: 'Company/Index1',
-                method: 'post',
-                dataType: 'json',
-                success: function (data) {
-                    $('#datatable').dataTable({
-                        paging: true,
-                        sort: true,
-                        searching: true,
-                        scrollY: 200,
-                        data: data,
-                        columns: [
-                            { 'data': 'Id' },
-                            { 'data': 'FirstName' },
-                            { 'data': 'LastName' },
-                            { 'data': 'Gender' },
-                            { 'data': 'JobTitle' },
-                            {
-                                'data': 'WebSite',
-                                'sortable': false,
-                                'searchable': false,
-                                'render': function (webSite) {
-                                    if (!webSite) {
-                                        return 'N/A';
-                                    }
-                                    else {
-                                        return '<a href=' + webSite + '>'
-                                            + webSite.substr(0, 10) + '...' + '</a>';
-                                    }
-                                }
-                            },
-                            {
-                                'data': 'Salary',
-                                'render': function (salary) {
-                                    return "$" + salary;
-                                }
-                            },
-                            {
-                                'data': 'HireDate',
-                                'render': function (jsonDate) {
-                                    var date = new Date(parseInt(jsonDate.substr(6)));
-                                    var month = date.getMonth() + 1;
-                                    return month + "/" + date.getDate() + "/" + date.getFullYear();
-                                }
-                            }
-                        ]
-                    });
-                }
-            });
+    $(document).ready(function () {
+        $("#CompanyListTable").DataTable({
+            "processing": true, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": false, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "search":true,
+            "ajax": {
+                "url": "/Company/Index1",
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columns": [
+                    { "data": "CompanyId", "name": "CompanyId", "autoWidth": true },
+                    { "data": "ComapanyName", "name": "ComapanyName", "autoWidth": true },
+                    { "data": "CompanyAddress", "name": "CompanyAddress", "autoWidth": true },
+                    { "data": "CompanyPhone", "name": "CompanyPhone", "autoWidth": true },
+                    { "data": "CompanyCell", "name": "CompanyCell", "autoWidth": true },
+                    { "data": "CompanyEmail", "name": "CompanyEmail", "autoWidth": true },
+                   { "data": "CompanyTRN", "name": "CompanyTRN", "autoWidth": true },
+                   {
+                       'data': 'CompanyLogo',
+                       render: function (logo) {
+                           if (logo) {
+                               return '<img height="25px" width="25px" src="' + logo + '" />'
+                           }
+                           else { return 'No Image'; }
+                       }
+                   },
+                  {
+                      render: function (data, type, row) {
+                          return '<a href="#" class="btn btn-info btn-xs" data-id="Id" onclick="Edit(' + row.CompanyId + ')"><i class="glyphicon glyphicon-pencil "></i></a>|<a href="#" class="btn btn-danger btn-xs" onclick="DeleteCompany(' + row.CompanyId + ')"><i class="glyphicon glyphicon-trash"></i></a>|<a href="#" class="btn btn-success btn-xs" onclick="Delete(' + row.CompanyId + ')"><i class="glyphicon glyphicon-eye-open"></i></a>'
+                      }
+                  }
+
+            ]
         });
+    });
+
+
+
+
+
+
+
+
+
+
+
+    $(document).ready(function () {
+       
+        $("#ContactListTable").DataTable({
+            "processing": true, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": false, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "search": true,
+            "ajax": {
+                "url": "/MVCContacts/GetContactList",
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columns": [
+                    { "data": "ContactsId", "name": "ContactsId", "autoWidth": true },
+                    { "data": "ContactName", "name": "ContactName", "autoWidth": true },
+                    { "data": "ContactAddress", "name": "ContactAddress", "autoWidth": true },
+                    { "data": "Type", "name": "Type", "autoWidth": true },
+                    { "data": "BillingPersonName", "name": "BillingPersonName", "autoWidth": true },
+                    { "data": "BillingCompanyName", "name": "BillingCompanyName", "autoWidth": true },
+                    { "data": "BillingVatTRN", "name": "BillingVatTRN", "autoWidth": true },
+                    { "data": "BillingState", "name": "BillingState", "autoWidth": true },
+                    {
+                      render: function (data, type, row) {
+                          return '<a href="#" class="btn btn-info btn-xs" data-id="Id" onclick="Edit(' + row.ContactsId + ')"><i class="glyphicon glyphicon-pencil "></i></a>|<a href="#" class="btn btn-danger btn-xs" onclick="DeleteCompany(' + row.ContactsId + ')"><i class="glyphicon glyphicon-trash"></i></a>|<a href="#" class="btn btn-success btn-xs" onclick="Delete(' + row.ContactsId + ')"><i class="glyphicon glyphicon-eye-open"></i></a>'
+                      }
+                  }
+
+                   //{
+                   //    'data': 'CompanyLogo',
+                   //    render: function (logo) {
+                   //        if (logo) {
+                   //            return '<img height="25px" width="25px" src="' + logo + '" />'
+                   //        }
+                   //        else { return 'No Image'; }
+                   //    }
+                   //},
+                  //{
+                  //    render: function (data, type, row) {
+                  //        return '<a href="#" class="btn btn-info btn-xs" data-id="Id" onclick="Edit(' + row.CompanyId + ')"><i class="glyphicon glyphicon-pencil "></i></a>|<a href="#" class="btn btn-danger btn-xs" onclick="DeleteCompany(' + row.CompanyId + ')"><i class="glyphicon glyphicon-trash"></i></a>|<a href="#" class="btn btn-success btn-xs" onclick="Delete(' + row.CompanyId + ')"><i class="glyphicon glyphicon-eye-open"></i></a>'
+                  //    }
+                  //}
+
+            ]
+        });
+    });
+
+
+
 </script>
+
+
+    
+
+    
 
 
 

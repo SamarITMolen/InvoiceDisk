@@ -1,5 +1,4 @@
-﻿@model IEnumerable<InvoiceDisk.Models.MVCContactsModel>
-
+﻿
 @{
     ViewBag.Title = "Index";
 }
@@ -9,77 +8,42 @@
 <p>
     <a href="@Url.Action("AddOrEdit","MVCContacts")" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>Create New</a>
 </p>
-<table class="table">
-    <tr>
-        <th>
-          Id
-        </th>
-        <th>
-         Name
-        </th>
-        <th>
-         Address
-        </th>
-      
-        <th>
-           Type
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BillingPersonName)
-        </th>
-        <th>
-          Company Name
-        </th>
-       
-      
-        <th>
-        Billing TRN
-        </th>
-     
-      
-        <th>
-            @Html.DisplayNameFor(Model => Model.Status)
-        </th>
-       
-        <th>Action</th>
-    </tr>
+<table class="table" id="ContactListTable">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Address
+            </th>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ContactsId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ContactName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ContactAddress)
-        </td>
-      
-        <td>
-            @Html.DisplayFor(modelItem => item.Type)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BillingPersonName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BillingCompanyName)
-        </td>
-        
-        <td>
-            @Html.DisplayFor(modelItem => item.BillingVatTRN)
-        </td>      
-      
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            <a href="@Url.Action("AddOrEdit","MVCContacts",new { id = item.ContactsId})" class="btn btn-info"> <i style="color:yellow" class="glyphicon glyphicon-pencil"></i>Edit</a> |
-            <a onclick="Delete(@item.ContactsId)" class="btn btn-info"> <i style="color:red" class="glyphicon glyphicon-trash"></i>Delete</a> |
-            <a href="@Url.Action("Details","MVCContacts",new { id = item.ContactsId})" class="btn btn-info"> <i style="color:yellow" class="glyphicon glyphicon-forward"></i>Details</a> 
-        </td>
-    </tr>
-}
+            <th>
+                Type
+            </th>
+            <th>
+                BillingPersonName
+            </th>
+            <th>
+                Company Name
+            </th>
+            <th>
+                Billing TRN
+            </th>
+
+            <th>
+                Status
+            </th>
+
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
 
 </table>
 
@@ -88,7 +52,7 @@
 @section scripts{
     <script>
 
-        
+       
         $(function () {
             var successMessage = '@TempData["SuccessMessage"]'                                       
                
@@ -117,6 +81,12 @@
 
             },null);
         }
+
+
+
+
+
+
     </script>
 
 }

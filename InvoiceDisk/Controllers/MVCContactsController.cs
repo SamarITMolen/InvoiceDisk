@@ -13,26 +13,44 @@ namespace InvoiceDisk.Controllers
         // GET: MVCContacts
         public ActionResult Index()
         {
-           
+          
             return View();
         }
 
 
         [HttpPost]
-        public ActionResult Index1()
+        public JsonResult GetContactList()
         {
+            IEnumerable<MVCContactsModel> ContactsList;
             try
             {
-                IEnumerable<MVCContactsModel> ContactsList;
+                var draw = Request.Form.GetValues("draw").FirstOrDefault();
+                var start = Request.Form.GetValues("start").FirstOrDefault();
+                var length = Request.Form.GetValues("length").FirstOrDefault();
+                var sortColumn = Request.Form.GetValues("columns[" +
+                Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
+                var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+                int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+                int totalRecords = 0;
+
                 HttpResponseMessage response = GlobalVeriables.WebApiClient.GetAsync("Contacts").Result;
                 ContactsList = response.Content.ReadAsAsync<IEnumerable<MVCContactsModel>>().Result;
-                return Json(ContactsList,JsonRequestBehavior.AllowGet);
+                int recordsTotal = recordsTotal = ContactsList.Count();
+
+
+
+
+                var data = ContactsList.Skip(skip).Take(pageSize).ToList();
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                ex.ToString();
+                Response.Write(ex.ToString());
             }
-            return View();
+
+            return Json(null, JsonRequestBehavior.AllowGet);
+           
         }
 
 

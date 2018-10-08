@@ -10,7 +10,6 @@
 </p>
 
 
-
 <table class="table" id="CompanyListTable">
     <thead class="table-heading table-responsive" style="background-color:black;color:white">
         <tr>
@@ -33,10 +32,10 @@
                Email
             </th>
             <th>
-               Logo
+               TRN
             </th>
             <th>
-               TRN 
+              Logo
             </th>
             <th>Action</th>
            
@@ -44,15 +43,10 @@
         </thead>   
     <tbody>
 
+   
     </tbody>
 
 </table>
-
-
-
-
-
-
 
 @section scripts{
     <script>
@@ -66,13 +60,10 @@
             successMessage = '';
         });
 
-        function Delete(id)
+        function DeleteCompany(id)
         {
-
-            alertify.confirm('Company Information','Are you sure to delete this record ?',function(){
-            
+            alertify.confirm('Company Information','Are you sure to delete this record ?',function(){           
                 window.location.href = '@Url.Action("Delete","Company")/'+id;
-
             },null);
         }
 </script>
