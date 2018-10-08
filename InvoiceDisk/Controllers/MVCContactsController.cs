@@ -13,12 +13,20 @@ namespace InvoiceDisk.Controllers
         // GET: MVCContacts
         public ActionResult Index()
         {
+           
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult Index1()
+        {
             try
             {
                 IEnumerable<MVCContactsModel> ContactsList;
                 HttpResponseMessage response = GlobalVeriables.WebApiClient.GetAsync("Contacts").Result;
                 ContactsList = response.Content.ReadAsAsync<IEnumerable<MVCContactsModel>>().Result;
-                return View(ContactsList);
+                return Json(ContactsList,JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

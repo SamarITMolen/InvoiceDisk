@@ -16,7 +16,6 @@ namespace InvoiceDisk.Controllers
         {
             return View();
         }
-
        
 
         //MVCQutation/AddOrEdit
@@ -24,7 +23,7 @@ namespace InvoiceDisk.Controllers
         [HttpGet]
         public ActionResult AddOrEdit(int id = 0)
         {
-            int contectId = 1;
+            int contectId = 3;
             HttpResponseMessage response = GlobalVeriables.WebApiClient.GetAsync("Contacts/" + contectId.ToString()).Result;
             MVCContactsModel contectmodel  = response.Content.ReadAsAsync<MVCContactsModel>().Result;
 

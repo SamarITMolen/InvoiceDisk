@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PurchaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="PurchaseOrderTable">
+          <Key>
+            <PropertyRef Name="PurchaseOrderID" />
+          </Key>
+          <Property Name="PurchaseOrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PurchaseID" Type="nvarchar" MaxLength="50" />
+          <Property Name="PurchaseDate" Type="date" />
+          <Property Name="PurchaseDueDate" Type="date" />
+          <Property Name="PurchaseRefNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="PurchaseSubTotal" Type="float" />
+          <Property Name="PurchaseDiscountPercenteage" Type="float" />
+          <Property Name="PurchaseDiscountAmount" Type="float" />
+          <Property Name="PurchaseVatPercentage" Type="float" />
+          <Property Name="PurchaseTotoalAmount" Type="float" />
+          <Property Name="PurchaseVenderNote" Type="nvarchar" MaxLength="300" />
+          <Property Name="Status" Type="nvarchar" MaxLength="10" />
+          <Property Name="CompanyId" Type="int" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="AddedDate" Type="date" />
+        </EntityType>
+        <EntityContainer Name="PurchaseModelStoreContainer">
+          <EntitySet Name="PurchaseOrderTable" EntityType="Self.PurchaseOrderTable" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PurchaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="PurchaseOrderTable">
+          <Key>
+            <PropertyRef Name="PurchaseOrderID" />
+          </Key>
+          <Property Name="PurchaseOrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PurchaseID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PurchaseDate" Type="DateTime" Precision="0" />
+          <Property Name="PurchaseDueDate" Type="DateTime" Precision="0" />
+          <Property Name="PurchaseSubTotal" Type="Double" />
+          <Property Name="PurchaseDiscountPercenteage" Type="Double" />
+          <Property Name="PurchaseDiscountAmount" Type="Double" />
+          <Property Name="PurchaseVatPercentage" Type="Double" />
+          <Property Name="PurchaseTotoalAmount" Type="Double" />
+          <Property Name="PurchaseVenderNote" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="AddedDate" Type="DateTime" Precision="0" />
+          <Property Name="PurchaseRefNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="PurchaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PurchaseOrderTables" EntityType="Self.PurchaseOrderTable" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PurchaseModelStoreContainer" CdmEntityContainer="PurchaseEntities">
+          <EntitySetMapping Name="PurchaseOrderTables">
+            <EntityTypeMapping TypeName="PurchaseModel.PurchaseOrderTable">
+              <MappingFragment StoreEntitySet="PurchaseOrderTable">
+                <ScalarProperty Name="PurchaseRefNumber" ColumnName="PurchaseRefNumber" />
+                <ScalarProperty Name="PurchaseOrderID" ColumnName="PurchaseOrderID" />
+                <ScalarProperty Name="PurchaseID" ColumnName="PurchaseID" />
+                <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
+                <ScalarProperty Name="PurchaseDueDate" ColumnName="PurchaseDueDate" />
+                <ScalarProperty Name="PurchaseSubTotal" ColumnName="PurchaseSubTotal" />
+                <ScalarProperty Name="PurchaseDiscountPercenteage" ColumnName="PurchaseDiscountPercenteage" />
+                <ScalarProperty Name="PurchaseDiscountAmount" ColumnName="PurchaseDiscountAmount" />
+                <ScalarProperty Name="PurchaseVatPercentage" ColumnName="PurchaseVatPercentage" />
+                <ScalarProperty Name="PurchaseTotoalAmount" ColumnName="PurchaseTotoalAmount" />
+                <ScalarProperty Name="PurchaseVenderNote" ColumnName="PurchaseVenderNote" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

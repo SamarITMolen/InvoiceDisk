@@ -188,9 +188,12 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MVCContactsController.cs" />
     <Compile Include="Controllers\MVCProductController.cs" />
+    <Compile Include="Controllers\MVCPurchaseController.cs" />
     <Compile Include="Controllers\MVCQutationController.cs" />
     <Compile Include="Controllers\MVCSalesController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\PurchaseController.cs" />
+    <Compile Include="Controllers\PurchaseOrderDetailsController.cs" />
     <Compile Include="Controllers\QutationController.cs" />
     <Compile Include="Controllers\QutationDetailController.cs" />
     <Compile Include="Controllers\QutationDetailsController.cs" />
@@ -243,6 +246,9 @@
     <Compile Include="Models\MVCCompanyModel.cs" />
     <Compile Include="Models\MVCContactsModel.cs" />
     <Compile Include="Models\MVCProductModel.cs" />
+    <Compile Include="Models\MVCPurchaseOrderDetailsModel.cs" />
+    <Compile Include="Models\MVCPurchaseOrderModel.cs" />
+    <Compile Include="Models\MVCPurchaseViewModel.cs" />
     <Compile Include="Models\MVCQutationDetailsModel.cs" />
     <Compile Include="Models\MVCQutationModel.cs" />
     <Compile Include="Models\MVCSalesDetailsModel.cs" />
@@ -265,6 +271,42 @@
     </Compile>
     <Compile Include="Models\ProductTable.cs">
       <DependentUpon>ProductModel1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PurchaseModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PurchaseModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PurchaseModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PurchaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PurchaseModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PurchaseModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PurchaseOrderDetailsModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PurchaseOrderDetailsModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PurchaseOrderDetailsModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PurchaseOrderDetailsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PurchaseOrderDetailsModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PurchaseOrderDetailsModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PurchaseOrderDetailsTable.cs">
+      <DependentUpon>PurchaseOrderDetailsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PurchaseOrderTable.cs">
+      <DependentUpon>PurchaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\QutationDetailsModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -603,6 +645,26 @@
       <DependentUpon>ProductModel1.edmx</DependentUpon>
       <LastGenOutput>ProductModel1.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\PurchaseModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PurchaseModel.edmx</DependentUpon>
+      <LastGenOutput>PurchaseModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\PurchaseModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PurchaseModel.edmx</DependentUpon>
+      <LastGenOutput>PurchaseModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\PurchaseOrderDetailsModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PurchaseOrderDetailsModel.edmx</DependentUpon>
+      <LastGenOutput>PurchaseOrderDetailsModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\PurchaseOrderDetailsModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PurchaseOrderDetailsModel.edmx</DependentUpon>
+      <LastGenOutput>PurchaseOrderDetailsModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Models\QutationDetailsModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>QutationDetailsModel.edmx</DependentUpon>
@@ -727,6 +789,20 @@
     <Content Include="Models\SalesDetailsModel.edmx.diagram">
       <DependentUpon>SalesDetailsModel.edmx</DependentUpon>
     </Content>
+    <EntityDeploy Include="Models\PurchaseModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>PurchaseModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\PurchaseModel.edmx.diagram">
+      <DependentUpon>PurchaseModel.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\PurchaseOrderDetailsModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>PurchaseOrderDetailsModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\PurchaseOrderDetailsModel.edmx.diagram">
+      <DependentUpon>PurchaseOrderDetailsModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
@@ -788,6 +864,8 @@
     <Content Include="Views\Shared\StatusCode501.cshtml" />
     <Content Include="Views\MVCSales\Index.cshtml" />
     <Content Include="Views\MVCSales\AddOrEdit.cshtml" />
+    <Content Include="Views\MVCPurchase\Index.cshtml" />
+    <Content Include="Views\MVCPurchase\AddOrEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
