@@ -223,6 +223,7 @@
     <Compile Include="Models\ContactsTable.cs">
       <DependentUpon>ContactsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataTableAjaxPostModel.cs" />
     <Compile Include="Models\DBModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

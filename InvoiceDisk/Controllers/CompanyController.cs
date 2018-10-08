@@ -21,16 +21,77 @@ namespace InvoiceDisk.Controllers
         }
 
         // GET: Company ReturnJson
-        [HttpGet]
+
+
+
+
+        
+
+
+         [HttpPost]
         public ActionResult Index1()
         {
             try
             {
+                var draw = Request.Form.GetValues("draw").FirstOrDefault();
+                var start = Request.Form.GetValues("start").FirstOrDefault();
+                var length = Request.Form.GetValues("length").FirstOrDefault();
+                var sortColumn = Request.Form.GetValues("columns[" +
+                Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
+                var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+                int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+                int totalRecords = 0;
+
                 IEnumerable<MVCCompanyModel> CompanyList;
                 HttpResponseMessage respose = GlobalVeriables.WebApiClient.GetAsync("CompanyInformations").Result;
                 CompanyList = respose.Content.ReadAsAsync<IEnumerable<MVCCompanyModel>>().Result;
+                
+                switch (sortColumn)
+                {                  
+                    case "ComapanyName":
+                        CompanyList = CompanyList.OrderBy(c => c.ComapanyName);
+                        break;
+                    case "CompanyAddress":
+                        CompanyList = CompanyList.OrderBy(c => c.CompanyAddress);
+                        break;
+                    case "CompanyPhone":
+                        CompanyList = CompanyList.OrderBy(c => c.CompanyPhone);
+                        break;
 
-                return Json(CompanyList, JsonRequestBehavior.AllowGet);
+                    case "CompanyCell":
+                        CompanyList = CompanyList.OrderBy(c => c.CompanyCell);
+                        break;
+
+                    case "CompanyEmail":
+                        CompanyList = CompanyList.OrderBy(c => c.CompanyEmail);
+                        break;
+
+                    case "CompanyTRN":
+                        if (sortColumnDir == "des")
+                        {
+                            CompanyList = CompanyList.OrderByDescending(c => c.CompanyTRN);
+                        }
+                        else
+                        {
+                          CompanyList = CompanyList.OrderBy(c => c.CompanyTRN);
+                        }
+                       
+                        break;
+                      
+                    default:
+                        CompanyList = CompanyList.OrderByDescending(c => c.CompanyId);
+                        break;
+            }
+
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
+                //{
+                //    var v = CompanyList.OrderBy(c=>c.);
+
+                //}
+                int recordsTotal =  recordsTotal = CompanyList.Count();
+                var data = CompanyList.Skip(skip).Take(pageSize).ToList();
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
