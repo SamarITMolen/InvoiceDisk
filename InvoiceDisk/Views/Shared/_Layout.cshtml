@@ -51,8 +51,8 @@
 <script>
     var currentRow1 = "";
     var r = "";
-    $(document).ready(function () {
-        $("#CompanyListTable").dataTable();
+    //$(document).ready(function () {
+    //    $("#CompanyListTable").dataTable();
 
         function myFunction() {
             document.getElementById('CurrentDate').value = Date();
@@ -375,7 +375,7 @@
             }
 
         });
-    });
+ 
 
     $(function () {
         $(".datepicker").datepicker({
@@ -389,29 +389,6 @@
 
         });
     });
-
-
-
-
-
-
-
-@*<script>
-    $(function(){
-        $('#addMore').on('click', function() {
-            var data = $("#maintableQutation tr:eq(1)").clone(true).appendTo("#maintableQutation");
-                  data.find("input").val('');
-         });
-         $(document).on('click', '.remove', function() {
-             var trIndex = $(this).closest("tr").index();
-                if(trIndex>1) {
-                 $(this).closest("tr").remove();
-               } else {
-                 alert("Sorry!! Can't remove first row!");
-               }
-          });
-    });
-    </script>*@
 
 
     function LoadProduct() {
@@ -439,9 +416,6 @@
 
         });
     }
-
-
-
 
     $('#Rate').keyup(function () {
         currentRow1 = $(this).closest("tr");
@@ -583,8 +557,6 @@
         sumofGrandModel();
     });
 
-
-
     var vatValue = 0;
     $(document).on('keyup', '#orderdetailsitems .quantity ', function () {
 
@@ -652,8 +624,6 @@
     });
 
     
-   
-
     $('#Quantity').keyup(function () {
         var currentRow = $(this).closest("tr");
         var quantity = $(this).val();  // get current row 1st TD value
@@ -662,10 +632,52 @@
         currentRow.find('td:eq(3)').find('input').val(total);
     })
 
+</script>
 
 
- 
 
+<script>
+    $(document).ready(function () {
+        debugger;
+
+            $.ajax({
+                url: 'Company/Index1',
+                method: 'Get',
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    $('#CompanyListTable').dataTable({
+                        paging: true,
+                        sort: true,
+                        searching: true,
+                        scrollY: 200,
+                        data: data,
+                        columns: [
+                            { 'data': 'CompanyId' },
+                            { 'data': 'ComapanyName' },
+                            { 'data': 'CompanyAddress' },
+                            { 'data': 'CompanyPhone' },
+                            { 'data': 'CompanyCell' },
+                            { 'data': 'CompanyEmail' },
+                            {
+                                'data': 'CompanyLogo',
+                                'sortable': false,
+                                'searchable': false,
+                                'render': function (Logo) {
+                                    if (!Logo) {
+                                        return 'N/A';
+                                    }
+                                    else {
+                                        return '<img src="' + data.CompanyLogo + '" />';
+                                    }
+                                }
+                            },
+
+                        ]
+                    });
+                }
+            });
+        });
 </script>
 
 

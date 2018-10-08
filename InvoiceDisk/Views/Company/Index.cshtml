@@ -1,5 +1,4 @@
-﻿@model IEnumerable<InvoiceDisk.Models.MVCCompanyModel>
-
+﻿
 @{
     ViewBag.Title = "Index";
 }
@@ -13,7 +12,7 @@
 
 
 <table class="table" id="CompanyListTable">
-    <thead class="table-heading" style="background-color:black;color:white">
+    <thead class="table-heading table-responsive" style="background-color:black;color:white">
         <tr>
             <th>
                ID
@@ -42,50 +41,15 @@
             <th>Action</th>
            
         </tr>
-        </thead>
+        </thead>   
+    <tbody>
 
-   
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CompanyId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ComapanyName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CompanyAddress)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CompanyPhone)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CompanyCell)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CompanyEmail)
-                </td>
-                <td>
-                    @*if(item.CompanyLogo != "")*@
-                    <img src="@Url.Content(item.CompanyLogo)" class="img-responsive" id="targetImg" style="height:50px; width:50px;border:none" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CompanyTRN)
-                </td>
-              
-                <td>                  
-
-                    <a href="@Url.Action("AddOrEdit","Company",new { id = item.CompanyId})" class="btn btn-info" > <i style="color:yellow" class="glyphicon glyphicon-pencil"></i>Edit</a> |
-                    <a onclick="Delete(@item.CompanyId)" class="btn btn-info"> <i style="color:red" class="glyphicon glyphicon-trash"></i>Delete</a> |
-                    <a href="@Url.Action("Details","Company",new { id = item.CompanyId})" class="btn btn-info"> <i style="color:yellow" class="glyphicon glyphicon-forward"></i>Details</a> 
-                  
-                </td>
-            </tr>
-        }
-
+    </tbody>
 
 </table>
+
+
+
 
 
 
@@ -114,3 +78,6 @@
 </script>
     
     }
+
+
+

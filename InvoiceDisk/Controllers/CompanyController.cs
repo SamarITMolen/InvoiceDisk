@@ -16,13 +16,21 @@ namespace InvoiceDisk.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            return View();
+
+        }
+
+        // GET: Company ReturnJson
+        [HttpGet]
+        public ActionResult Index1()
+        {
             try
             {
                 IEnumerable<MVCCompanyModel> CompanyList;
                 HttpResponseMessage respose = GlobalVeriables.WebApiClient.GetAsync("CompanyInformations").Result;
                 CompanyList = respose.Content.ReadAsAsync<IEnumerable<MVCCompanyModel>>().Result;
 
-                return View(CompanyList);
+                return Json(CompanyList, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
