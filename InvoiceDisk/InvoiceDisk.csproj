@@ -195,6 +195,7 @@
     <Compile Include="Controllers\QutationDetailController.cs" />
     <Compile Include="Controllers\QutationDetailsController.cs" />
     <Compile Include="Controllers\SalesController.cs" />
+    <Compile Include="Controllers\SalesDetailsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

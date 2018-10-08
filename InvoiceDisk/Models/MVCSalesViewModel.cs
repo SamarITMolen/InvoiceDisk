@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -10,8 +11,13 @@ namespace InvoiceDisk.Models
         public int? SalesInvoiceId { get; set; }
         public string SalesInvoiceNumber { get; set; }
         public string SalesRefNumber { get; set; }
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        [DataType(DataType.Date)]
         public Nullable<System.DateTime> ISalesnvoiceDate { get; set; }
-        public string SalesDueDate { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        [DataType(DataType.Date)]
+        public Nullable<System.DateTime> SalesDueDate { get; set; }
         public Nullable<int> SalesPayementTerm { get; set; }
         public Nullable<double> SalesSubtotal { get; set; }
         public Nullable<double> SalesDiscount { get; set; }
@@ -30,6 +36,8 @@ namespace InvoiceDisk.Models
         public Nullable<double> SalesItemRate { get; set; }
         public Nullable<double> SalesTotal { get; set; }
         public Nullable<double> SalesVat { get; set; }
-       
+
+        public List<SalesDetailsTable> SalesDetailslist { get; set; }
+
     }
 }

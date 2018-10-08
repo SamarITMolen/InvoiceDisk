@@ -38,7 +38,7 @@ namespace InvoiceDisk.Models
         public Nullable<double> Rate { get; set; }
         public Nullable<double> Total { get; set; }
         public List<QutationDetailsTable> QutationDetailslist { get; set; }
-        public List<MVCVatDetailsModel> mvcVatDetailsList { get; set; }
+        //public List<MVCVatDetailsModel> mvcVatDetailsList { get; set; }
 
     }
 }
