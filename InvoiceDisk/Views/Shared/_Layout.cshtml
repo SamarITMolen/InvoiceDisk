@@ -676,12 +676,62 @@
         currentRow.find('td:eq(3)').find('input').val(total);
     })
 
-
-
-
-
 </script>
 
+
+<script>
+        $(document).ready(function () {
+            $.ajax({
+                url: 'Company/Index1',
+                method: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    $('#datatable').dataTable({
+                        paging: true,
+                        sort: true,
+                        searching: true,
+                        scrollY: 200,
+                        data: data,
+                        columns: [
+                            { 'data': 'Id' },
+                            { 'data': 'FirstName' },
+                            { 'data': 'LastName' },
+                            { 'data': 'Gender' },
+                            { 'data': 'JobTitle' },
+                            {
+                                'data': 'WebSite',
+                                'sortable': false,
+                                'searchable': false,
+                                'render': function (webSite) {
+                                    if (!webSite) {
+                                        return 'N/A';
+                                    }
+                                    else {
+                                        return '<a href=' + webSite + '>'
+                                            + webSite.substr(0, 10) + '...' + '</a>';
+                                    }
+                                }
+                            },
+                            {
+                                'data': 'Salary',
+                                'render': function (salary) {
+                                    return "$" + salary;
+                                }
+                            },
+                            {
+                                'data': 'HireDate',
+                                'render': function (jsonDate) {
+                                    var date = new Date(parseInt(jsonDate.substr(6)));
+                                    var month = date.getMonth() + 1;
+                                    return month + "/" + date.getDate() + "/" + date.getFullYear();
+                                }
+                            }
+                        ]
+                    });
+                }
+            });
+        });
+</script>
 
 
 
