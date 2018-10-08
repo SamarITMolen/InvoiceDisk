@@ -579,12 +579,10 @@
             })
         }
 
-
         if (vatValue == 21) {
             var sum21 = 0;
             var total21 = 0;
             $('#orderdetailsitems tr').each(function () {
-
                 r = $(this).closest('tr');
                 var value = r.find('.VAT  option:selected').val();
                 if (r.find('.VAT  option:selected').val() == 21) {
@@ -632,24 +630,17 @@
                 }
 
             })
-
-
-
         }
-
-
 
         if (vatValue == 21) {
             var sum21 = 0;
             var total21 = 0;
             $('#orderdetailsitems tr').each(function () {
-
                 var r = $(this).closest('tr');
                 var value = r.find('.VAT  option:selected').val();
                 if (r.find('.VAT  option:selected').val() == 21) {
                     total21 = r.find('td:eq(2)').find('input').val();
                     var quantit = r.find('td:eq(1)').find('input').val();
-
                     totalvat21 = parseFloat(quantit * total21);
                     //if (!isNaN(total21) && total21.length != 0) {
                     //    sum21 += parseInt(total21);
@@ -657,15 +648,9 @@
                     var totalvat21 = parseFloat(totalvat21 / 100 * 21 + totalvat21 - totalvat21);
                     $('#BTW21').text(totalvat21.toFixed(2));
                 }
-
             })
-
-
-
         }
     });
-
-
 
 
     $('#Quantity').keyup(function () {
@@ -675,9 +660,6 @@
         var total = quantity * Price;
         currentRow.find('td:eq(3)').find('input').val(total);
     })
-
-
-
 
 
 </script>
