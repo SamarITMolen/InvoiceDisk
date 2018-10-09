@@ -676,7 +676,11 @@
 <script>
     $(document).ready(function () {
         $("#CompanyListTable").DataTable({
-            "processing": true, // for show progress bar
+            // "processing": true, // for show progress bar
+            processing: true,
+            "language": {
+                "processing": $('#loader').append("<img  src='../images/XtaS.gif' width='100px' height='60px' />"),  //add a loading image,simply putting tag.
+            },
             "serverSide": true, // for process server side
             "filter": false, // this is for disable filter (search box)
             "orderMulti": false, // for disable multiple column at once
@@ -727,11 +731,13 @@
     $(document).ready(function () {
        
         $("#ContactListTable").DataTable({
-            "processing": true, // for show progress bar
+
+            //"processing": true, // for show progress bar
             "serverSide": true, // for process server side
             "filter": false, // this is for disable filter (search box)
             "orderMulti": false, // for disable multiple column at once
             "searchable": true,
+           
             "ajax": {
                 "url": "/MVCContacts/GetContactList",
                 "type": "POST",
@@ -748,7 +754,7 @@
                     { "data": "BillingState", "name": "BillingState", "autoWidth": true },
                     {
                       render: function (data, type, row) {
-                          return '<a href="#" class="btn btn-info btn-xs" data-id="Id" onclick="Edit(' + row.ContactsId + ')"><i class="glyphicon glyphicon-pencil "></i></a>|<a href="#" class="btn btn-danger btn-xs" onclick="DeleteCompany(' + row.ContactsId + ')"><i class="glyphicon glyphicon-trash"></i></a>|<a href="#" class="btn btn-success btn-xs" onclick="Delete(' + row.ContactsId + ')"><i class="glyphicon glyphicon-eye-open"></i></a>'
+                          return '<a href="" class="btn btn-info btn-xs" data-id="Id" onclick="Edit(' + row.ContactsId + ')"><i class="glyphicon glyphicon-pencil "></i></a>|<a href="" class="btn btn-danger btn-xs" onclick="DeleteCompany(' + row.ContactsId + ')"><i class="glyphicon glyphicon-trash"></i></a>|<a href="" class="btn btn-success btn-xs" onclick="Delete(' + row.ContactsId + ')"><i class="glyphicon glyphicon-eye-open"></i></a>'
                       }
                   }
 
@@ -771,6 +777,11 @@
         });
     });
 
+
+
+    function Edit(companyId) {
+        window.location.href = "Company/AddOrEdit/" + companyId;
+    }
 
 
 </script>

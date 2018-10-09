@@ -616,6 +616,7 @@
     <Content Include="images\flags\YE.png" />
     <Content Include="images\logo-mini.svg" />
     <Content Include="images\logo.svg" />
+    <Content Include="images\XtaS.gif" />
     <Content Include="Models\ContactsModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ContactsModel.edmx</DependentUpon>
