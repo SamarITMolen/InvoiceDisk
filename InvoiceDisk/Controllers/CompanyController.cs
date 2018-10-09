@@ -25,30 +25,45 @@ namespace InvoiceDisk.Controllers
 
 
 
-        
 
 
-         [HttpPost]
+
+        [HttpPost]
         public ActionResult Index1()
         {
             try
             {
                 var draw = Request.Form.GetValues("draw").FirstOrDefault();
                 var start = Request.Form.GetValues("start").FirstOrDefault();
+
                 var length = Request.Form.GetValues("length").FirstOrDefault();
                 var sortColumn = Request.Form.GetValues("columns[" +
                 Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
                 var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
                 int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                string search = Request.Form.GetValues("search[value]")[0];
                 int skip = start != null ? Convert.ToInt32(start) : 0;
-                int totalRecords = 0;
-
+               
                 IEnumerable<MVCCompanyModel> CompanyList;
                 HttpResponseMessage respose = GlobalVeriables.WebApiClient.GetAsync("CompanyInformations").Result;
                 CompanyList = respose.Content.ReadAsAsync<IEnumerable<MVCCompanyModel>>().Result;
-                
+
+                if (!string.IsNullOrEmpty(search) && !string.IsNullOrWhiteSpace(search))
+                {
+                    // Apply search  on multiple field  
+                CompanyList = CompanyList.Where(p => p.CompanyId.ToString().Contains(search) ||
+                p.ComapanyName.ToLower().Contains(search.ToLower()) ||
+                p.CompanyAddress.ToString().ToLower().Contains(search.ToLower()) ||
+                p.CompanyPhone.Contains(search.ToLower()) ||
+                p.CompanyCell.Contains(search.ToLower()) ||
+                p.CompanyEmail.ToString().ToLower().Contains(search.ToLower()) ||
+                p.CompanyTRN.Contains(search.ToLower())).ToList();               
+            }
+
+               
+
                 switch (sortColumn)
-                {                  
+                {
                     case "ComapanyName":
                         CompanyList = CompanyList.OrderBy(c => c.ComapanyName);
                         break;
@@ -68,28 +83,21 @@ namespace InvoiceDisk.Controllers
                         break;
 
                     case "CompanyTRN":
-                        if (sortColumnDir == "des")
-                        {
-                            CompanyList = CompanyList.OrderByDescending(c => c.CompanyTRN);
-                        }
-                        else
-                        {
-                          CompanyList = CompanyList.OrderBy(c => c.CompanyTRN);
-                        }
                        
+                            CompanyList = CompanyList.OrderBy(c => c.CompanyTRN);                       
                         break;
-                      
+
                     default:
                         CompanyList = CompanyList.OrderByDescending(c => c.CompanyId);
                         break;
-            }
+                }
 
                 //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
                 //{
                 //    var v = CompanyList.OrderBy(c=>c.);
 
                 //}
-                int recordsTotal =  recordsTotal = CompanyList.Count();
+                int recordsTotal = recordsTotal = CompanyList.Count();
                 var data = CompanyList.Skip(skip).Take(pageSize).ToList();
                 return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data }, JsonRequestBehavior.AllowGet);
             }
@@ -107,7 +115,7 @@ namespace InvoiceDisk.Controllers
         {
             if (id == 0)
             {
-               
+
                 return View(new MVCCompanyModel());
             }
             else
@@ -136,7 +144,7 @@ namespace InvoiceDisk.Controllers
                     filename = Path.Combine(Server.MapPath("~/Images/"), filename);
                     file.SaveAs(filename);
                 }
-                
+
                 if (CompnayModel.CompanyId == null)
                 {
 
@@ -162,7 +170,7 @@ namespace InvoiceDisk.Controllers
                 TempData["SuccessMessage"] = "Delete Successfully";
                 return RedirectToAction("Index");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ex.ToString();
             }
@@ -177,7 +185,7 @@ namespace InvoiceDisk.Controllers
                 HttpResponseMessage response = GlobalVeriables.WebApiClient.GetAsync("CompanyInformations/" + id.ToString()).Result;
                 return View(response.Content.ReadAsAsync<MVCCompanyModel>().Result);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ex.ToString();
             }

@@ -733,10 +733,15 @@
         $("#ContactListTable").DataTable({
 
             //"processing": true, // for show progress bar
+            processing: true,
+            "language": {
+                "processing": $('#loaderMvcConatc').append("<img  src='../images/XtaS.gif' width='100px' height='60px' />"),  //add a loading image,simply putting tag.
+            },
+            searching: true,
             "serverSide": true, // for process server side
             "filter": false, // this is for disable filter (search box)
             "orderMulti": false, // for disable multiple column at once
-            "searchable": true,
+           
            
             "ajax": {
                 "url": "/MVCContacts/GetContactList",
