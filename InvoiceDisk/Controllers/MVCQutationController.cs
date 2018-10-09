@@ -26,6 +26,7 @@ namespace InvoiceDisk.Controllers
 
             try
             {
+                #region
                 var draw = Request.Form.GetValues("draw").FirstOrDefault();
                 var start = Request.Form.GetValues("start").FirstOrDefault();
 
@@ -38,19 +39,32 @@ namespace InvoiceDisk.Controllers
                 string search = Request.Form.GetValues("search[value]")[0];
                 int skip = start != null ? Convert.ToInt32(start) : 0;
 
-               
+
                 HttpResponseMessage respose = GlobalVeriables.WebApiClient.GetAsync("Qutation").Result;
                 quationList = respose.Content.ReadAsAsync<IEnumerable<MVCQutationModel>>().Result;
+                quationList = quationList.Where(c => c.QutationDate.ToString() == "10/9/2018");
+                if (!string.IsNullOrEmpty(search) && !string.IsNullOrWhiteSpace(search))
+                {
+                    // Apply search  on multiple field  
+                    quationList = quationList.Where(p => p.QutationID.ToString().Contains(search) ||
+                    p.Qutation_ID.ToLower().Contains(search.ToLower()) ||
+                    p.RefNumber.ToLower().ToString().ToLower().Contains(search.ToLower()) ||
+                    p.QutationDate.Equals(search) ||
+                    p.DiscountAmount.ToString().ToLower().Contains(search.ToLower()) ||
+                    p.Status.ToLower().ToString().Contains(search.ToLower())).ToList();
+                }
 
                 int recordsTotal = recordsTotal = quationList.Count();
                 var data = quationList.Skip(skip).Take(pageSize).ToList();
                 return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data }, JsonRequestBehavior.AllowGet);
+                #endregion
             }
             catch (Exception ex)
             {
-                ex.ToString();
+              return  Json(ex.ToString(), JsonRequestBehavior.AllowGet);
+                
             }
-            return Json(null, JsonRequestBehavior.AllowGet);
+            
      }
        
         
