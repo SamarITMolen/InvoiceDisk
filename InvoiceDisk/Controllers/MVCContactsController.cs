@@ -43,12 +43,43 @@ namespace InvoiceDisk.Controllers
                     // Apply search  on multiple field  
                     ContactsList = ContactsList.Where(p => p.ContactsId.ToString().Contains(search) ||
                     p.ContactName.ToLower().Contains(search.ToLower()) ||
-                    p.BillingCountry.ToString().ToLower().Contains(search.ToLower()) ||
-                    p.BillingCity.Contains(search.ToLower()) ||
-                    p.Type.Contains(search.ToLower()) ||
-                    p.BillingCompanyName.ToString().ToLower().Contains(search.ToLower()) ||
+                    p.BillingCountry.ToLower().ToString().ToLower().Contains(search.ToLower()) ||
+                    p.BillingCity.ToLower().Contains(search.ToLower()) ||
+                    p.Type.ToLower().Contains(search.ToLower()) ||
+                    p.ContactAddress.ToLower().ToString().Contains(search.ToLower())||                  
+                    p.BillingCompanyName.ToLower().ToString().ToLower().Contains(search.ToLower()) ||
                     p.BillingVatTRN.Contains(search.ToLower())).ToList();
                 }
+
+
+                switch (sortColumn)
+                {
+                    case "ContactName":
+                        ContactsList = ContactsList.OrderBy(c => c.ContactName);
+                        break;
+                    case "Type":
+                        ContactsList = ContactsList.OrderBy(c => c.Type);
+                        break;
+                    
+
+                    case "BillingPersonName":
+                        ContactsList = ContactsList.OrderBy(c => c.BillingPersonName);
+                        break;
+
+                    case "BillingCompanyName":
+                        ContactsList = ContactsList.OrderBy(c => c.BillingCompanyName);
+                        break;
+
+                    case "BillingVatTRN":
+
+                        ContactsList = ContactsList.OrderBy(c => c.BillingVatTRN);
+                        break;
+
+                    default:
+                        ContactsList = ContactsList.OrderByDescending(c => c.ContactsId);
+                        break;
+                }
+
 
                 int recordsTotal = recordsTotal = ContactsList.Count();
                 var data = ContactsList.Skip(skip).Take(pageSize).ToList();
