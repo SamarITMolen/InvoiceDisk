@@ -10,6 +10,12 @@ namespace InvoiceDisk.Controllers
 {
     public class MVCSalesController : Controller
     {
+
+
+        public ActionResult Index2()
+        {
+            return View();
+        }
         // GET: MVCSales
         public ActionResult Index()
         {
