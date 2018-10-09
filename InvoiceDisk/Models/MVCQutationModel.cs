@@ -10,8 +10,8 @@ namespace InvoiceDisk.Models
         public int? QutationID { get; set; }
         public string Qutation_ID { get; set; }
         public string RefNumber { get; set; }
-        public Nullable<System.DateTime> QutationDate { get; set; }
-        public Nullable<System.DateTime> DueDate { get; set; }
+        public Nullable<DateTime> QutationDate { get; set; }
+        public Nullable<DateTime> DueDate { get; set; }
         public Nullable<double> SubTotal { get; set; }
         public Nullable<double> DiscountAmount { get; set; }       
         public Nullable<double> TotalAmount { get; set; }
