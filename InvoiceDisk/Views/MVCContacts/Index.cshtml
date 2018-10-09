@@ -10,6 +10,8 @@
 </p>
 
 <table class="table" id="ContactListTable">
+   
+        
     <thead>
         <tr>
             <th>
@@ -42,9 +44,7 @@
             <th>Action</th>
         </tr>
     </thead>
-    <tbody>
-
-    </tbody>
+    <tbody></tbody>
 
 </table>
 <div id="loaderMvcConatc"></div>
@@ -54,34 +54,31 @@
 @section scripts{
     <script>
 
-       
+
         $(function () {
-            var successMessage = '@TempData["SuccessMessage"]'                                       
-               
-            if(successMessage != '')
-            {
+            var successMessage = '@TempData["SuccessMessage"]'
+
+            if (successMessage != '') {
                 alertify.success(successMessage);
 
-             
+
             }
 
-            if(successMessage != '')
-            {
+            if (successMessage != '') {
                 successMessage = '';
-                delete('@TempData["SuccessMessage"]');
+                delete ('@TempData["SuccessMessage"]');
             }
-             
+
         });
-       
 
-        function Delete(id)
-        {
 
-            alertify.confirm('Company Information','Are you sure to delete this record ?',function(){
+        function Delete(id) {
 
-                window.location.href = '@Url.Action("Delete","MVCContacts")/'+id;
+            alertify.confirm('Company Information', 'Are you sure to delete this record ?', function () {
 
-            },null);
+                window.location.href = '@Url.Action("Delete","MVCContacts")/' + id;
+
+            }, null);
         }
 
 

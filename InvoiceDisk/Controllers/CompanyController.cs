@@ -43,25 +43,21 @@ namespace InvoiceDisk.Controllers
                 int pageSize = length != null ? Convert.ToInt32(length) : 0;
                 string search = Request.Form.GetValues("search[value]")[0];
                 int skip = start != null ? Convert.ToInt32(start) : 0;
-               
+
                 IEnumerable<MVCCompanyModel> CompanyList;
                 HttpResponseMessage respose = GlobalVeriables.WebApiClient.GetAsync("CompanyInformations").Result;
                 CompanyList = respose.Content.ReadAsAsync<IEnumerable<MVCCompanyModel>>().Result;
-
                 if (!string.IsNullOrEmpty(search) && !string.IsNullOrWhiteSpace(search))
                 {
                     // Apply search  on multiple field  
-                CompanyList = CompanyList.Where(p => p.CompanyId.ToString().Contains(search) ||
-                p.ComapanyName.ToLower().Contains(search.ToLower()) ||
-                p.CompanyAddress.ToString().ToLower().Contains(search.ToLower()) ||
-                p.CompanyPhone.Contains(search.ToLower()) ||
-                p.CompanyCell.Contains(search.ToLower()) ||
-                p.CompanyEmail.ToString().ToLower().Contains(search.ToLower()) ||
-                p.CompanyTRN.Contains(search.ToLower())).ToList();               
-            }
-
-               
-
+                    CompanyList = CompanyList.Where(p => p.CompanyId.ToString().Contains(search) ||
+                    p.ComapanyName.ToLower().Contains(search.ToLower()) ||
+                    p.CompanyAddress.ToString().ToLower().Contains(search.ToLower()) ||
+                    p.CompanyPhone.Contains(search.ToLower()) ||
+                    p.CompanyCell.Contains(search.ToLower()) ||
+                    p.CompanyEmail.ToString().ToLower().Contains(search.ToLower()) ||
+                    p.CompanyTRN.Contains(search.ToLower())).ToList();
+                }
                 switch (sortColumn)
                 {
                     case "ComapanyName":
@@ -83,8 +79,8 @@ namespace InvoiceDisk.Controllers
                         break;
 
                     case "CompanyTRN":
-                       
-                            CompanyList = CompanyList.OrderBy(c => c.CompanyTRN);                       
+
+                        CompanyList = CompanyList.OrderBy(c => c.CompanyTRN);
                         break;
 
                     default:
