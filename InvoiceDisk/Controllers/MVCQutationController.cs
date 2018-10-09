@@ -22,11 +22,29 @@ namespace InvoiceDisk.Controllers
         [HttpPost]
         public JsonResult IndexQutation()
         {
+            IEnumerable<MVCQutationModel> quationList;
+
             try
             {
-                IEnumerable<MVCQutationModel> CompanyList;
+                var draw = Request.Form.GetValues("draw").FirstOrDefault();
+                var start = Request.Form.GetValues("start").FirstOrDefault();
+
+                var length = Request.Form.GetValues("length").FirstOrDefault();
+                var sortColumn = Request.Form.GetValues("columns[" +
+                Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
+                var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+                int pageSize = length != null ? Convert.ToInt32(length) : 0;
+
+                string search = Request.Form.GetValues("search[value]")[0];
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+
+               
                 HttpResponseMessage respose = GlobalVeriables.WebApiClient.GetAsync("Qutation").Result;
-                CompanyList = respose.Content.ReadAsAsync<IEnumerable<MVCQutationModel>>().Result;
+                quationList = respose.Content.ReadAsAsync<IEnumerable<MVCQutationModel>>().Result;
+
+                int recordsTotal = recordsTotal = quationList.Count();
+                var data = quationList.Skip(skip).Take(pageSize).ToList();
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

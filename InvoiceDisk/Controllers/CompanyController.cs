@@ -47,6 +47,7 @@ namespace InvoiceDisk.Controllers
                 IEnumerable<MVCCompanyModel> CompanyList;
                 HttpResponseMessage respose = GlobalVeriables.WebApiClient.GetAsync("CompanyInformations").Result;
                 CompanyList = respose.Content.ReadAsAsync<IEnumerable<MVCCompanyModel>>().Result;
+
                 if (!string.IsNullOrEmpty(search) && !string.IsNullOrWhiteSpace(search))
                 {
                     // Apply search  on multiple field  
