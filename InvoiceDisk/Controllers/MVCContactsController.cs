@@ -42,7 +42,7 @@ namespace InvoiceDisk.Controllers
                 {
                     // Apply search  on multiple field  
                     ContactsList = ContactsList.Where(p => p.ContactsId.ToString().Contains(search) ||
-                    p.BillingCompanyName.ToLower().Contains(search.ToLower()) ||
+                    p.ContactName.ToLower().Contains(search.ToLower()) ||
                     p.BillingCountry.ToString().ToLower().Contains(search.ToLower()) ||
                     p.BillingCity.Contains(search.ToLower()) ||
                     p.Type.Contains(search.ToLower()) ||
