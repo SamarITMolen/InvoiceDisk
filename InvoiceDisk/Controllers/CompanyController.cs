@@ -21,18 +21,17 @@ namespace InvoiceDisk.Controllers
         }
 
         // GET: Company ReturnJson
-
-
-
-
-
-
-
+        
         [HttpPost]
         public ActionResult Index1()
         {
+
             try
             {
+                IEnumerable<MVCCompanyModel> CompanyList;
+                HttpResponseMessage respose = GlobalVeriables.WebApiClient.GetAsync("CompanyInformations").Result;
+                CompanyList = respose.Content.ReadAsAsync<IEnumerable<MVCCompanyModel>>().Result;
+
                 var draw = Request.Form.GetValues("draw").FirstOrDefault();
                 var start = Request.Form.GetValues("start").FirstOrDefault();
 
@@ -44,9 +43,7 @@ namespace InvoiceDisk.Controllers
                 string search = Request.Form.GetValues("search[value]")[0];
                 int skip = start != null ? Convert.ToInt32(start) : 0;
 
-                IEnumerable<MVCCompanyModel> CompanyList;
-                HttpResponseMessage respose = GlobalVeriables.WebApiClient.GetAsync("CompanyInformations").Result;
-                CompanyList = respose.Content.ReadAsAsync<IEnumerable<MVCCompanyModel>>().Result;
+               
                 if (!string.IsNullOrEmpty(search) && !string.IsNullOrWhiteSpace(search))
                 {
                     // Apply search  on multiple field  

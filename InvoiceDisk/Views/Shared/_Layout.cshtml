@@ -346,43 +346,7 @@
                         alert(errormessage.responseText);
                     }
 
-                });
-
-                //console.log(data)
-
-
-
-                //$.ajax({
-                //    url: "/MVCQutation/Save",
-                //    traditional: true,
-                //    type: "POST",
-                //    contentType: false, // Not to set any content header
-                //    processData: false, //
-                //    data: data,
-                //    success: function (status)
-                //    {
-                //        if (status != 0)
-                //        {
-                //            alert('Successfully saved');
-                //            list = [];
-                //            $('#Qutation_ID,#RefNumber,#SubTotal,#DiscountAmount,#Vat,#TotalAmount,#CustomerNote').val('');
-                //            $('#orderdetailsitems').empty();
-                //            $("#Submit").val('Save');
-                //        }
-                //        else
-                //        {
-                //            alert('Error');
-                //        }
-                //        $('#Submit').text('Save');
-                //    },
-                //    error: function(error)
-                //    {
-                //        console.log(error);
-                //        $('#Submit').text('Save');
-                //    }
-
-
-                //});
+                });           
 
             }
 
@@ -720,14 +684,6 @@
 
 
 
-
-
-
-
-
-
-
-
     $(document).ready(function () {
        
         $("#ContactListTable").DataTable({
@@ -781,8 +737,6 @@
             ]
         });
     });
-
-
 
     function Edit(companyId) {
         window.location.href = "Company/AddOrEdit/" + companyId;
