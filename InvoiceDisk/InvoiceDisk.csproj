@@ -870,6 +870,7 @@
     <Content Include="Views\MVCSales\AddOrEdit.cshtml" />
     <Content Include="Views\MVCPurchase\Index.cshtml" />
     <Content Include="Views\MVCPurchase\AddOrEdit.cshtml" />
+    <Content Include="Views\MVCQutation\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

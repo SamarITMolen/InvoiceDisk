@@ -16,8 +16,26 @@ namespace InvoiceDisk.Controllers
         {
             return View();
         }
-       
 
+        //MVCQutation/Return Json
+
+        [HttpPost]
+        public JsonResult IndexQutation()
+        {
+            try
+            {
+                IEnumerable<MVCQutationModel> CompanyList;
+                HttpResponseMessage respose = GlobalVeriables.WebApiClient.GetAsync("Qutation").Result;
+                CompanyList = respose.Content.ReadAsAsync<IEnumerable<MVCQutationModel>>().Result;
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
+            }
+            return Json(null, JsonRequestBehavior.AllowGet);
+     }
+       
+        
         //MVCQutation/AddOrEdit
 
         [HttpGet]
