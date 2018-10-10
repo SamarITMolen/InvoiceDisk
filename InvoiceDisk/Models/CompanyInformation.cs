@@ -14,7 +14,7 @@ namespace InvoiceDisk.Models
     
     public partial class CompanyInformation
     {
-        public int? CompanyId { get; set; }
+        public int CompanyId { get; set; }
         public string ComapanyName { get; set; }
         public string CompanyAddress { get; set; }
         public string CompanyPhone { get; set; }
@@ -27,5 +27,9 @@ namespace InvoiceDisk.Models
         public string CompanyCity { get; set; }
         public string CompanyState { get; set; }
         public string CompanyCountry { get; set; }
+        public Nullable<int> AddedBy { get; set; }
+        public Nullable<System.DateTime> AddedDate { get; set; }
+    
+        public virtual UserTable UserTable { get; set; }
     }
 }

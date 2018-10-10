@@ -383,6 +383,12 @@
     <Compile Include="Models\SalesTable.cs">
       <DependentUpon>SalesModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserAuthorityTable.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserTable.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\VATDetailsModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1021,6 +1027,7 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="CustomScript\CompanyScript.js" />
+    <Content Include="CustomScript\ContactsScript.js" />
     <Content Include="dist\css\pages\bootstrap-switch.css" />
     <Content Include="dist\css\pages\breadcrumb-page.css" />
     <Content Include="dist\css\pages\chat-app-page.css" />
