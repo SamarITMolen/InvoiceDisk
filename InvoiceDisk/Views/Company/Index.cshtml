@@ -1,76 +1,74 @@
 ﻿
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/ILayout.cshtml";
 }
 
-<h2 style="color:skyblue">Company List</h2>
+<div class="row">
 
-<p>
-    <a href="@Url.Action("AddOrEdit","Company")" class="btn btn-default"><i class="glyphicon glyphicon-plus"></i>Create New</a>
-</p>
+    <div class="well fc-bg">
+        <h2 style="color:skyblue">Company List</h2>
+    </div>
+</div>
+
+
+
+<a href="@Url.Action("AddOrEdit","Company")" class="btn btn-sm btn-info"><i class="fa fa-plus-circle"></i>Create New</a>
 
 
 <table class="table" id="CompanyListTable">
-    <thead class="table-heading table-responsive" style="background-color:black;color:white">
+    <thead>
         <tr>
             <th>
-               ID
+                ID
             </th>
             <th>
-            Name
+                Name
             </th>
             <th>
-              Address
+                Address
             </th>
             <th>
-              Phone
+                Phone
             </th>
             <th>
-              Cell
+                Cell
             </th>
             <th>
-               Email
+                Email
             </th>
             <th>
-               TRN
+                TRN
             </th>
             <th>
-              Logo
+                Logo
             </th>
             <th>Action</th>
-           
+
         </tr>
-        </thead>   
-    <tbody>
-    </tbody>
+    </thead>
+    <tbody></tbody>
 </table>
-<div id="loader"></div>
+
 
 @section scripts{
     <script>
         $(function () {
             var successMessage = '@TempData["SuccessMessage"]'
-            if(successMessage != '')
-            {
+            if (successMessage != '') {
                 alertify.success(successMessage);
-                
+
             }
             successMessage = '';
         });
 
-        function DeleteCompany(id)
-        {
-            alertify.confirm('Company Information','Are you sure to delete this record ?',function(){           
-                window.location.href = '@Url.Action("Delete","Company")/'+id;
-            },null);
-        }
+       
+
+    </script>
 
 
-
-
-</script>
-    
     }
+
 
 
 
