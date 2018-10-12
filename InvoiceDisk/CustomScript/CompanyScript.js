@@ -4,12 +4,10 @@
 $(document).ready(function () {
     $("#CompanyListTable").DataTable({
         // "processing": true, // for show progress bar
-       
         processing: true,
         "language": {
             "processing": $('#loader').append("<img src='../images/XtaS.gif' width='100px' height='60px' />"),  //add a loading image,simply putting tag.
         },
-
         "serverSide": true, // for process server side
         "filter": false, // this is for disable filter (search box)
         "orderMulti": false, // for disable multiple column at once
@@ -39,7 +37,7 @@ $(document).ready(function () {
                },
               {
                   render: function (data, type, row) {
-                      return '<a href="#" class="btn btn-info btn-sm" data-id="Id" onclick="Edit(' + row.CompanyId + ')"><i class="fa fa-pencil"></i></a>|<a href="#" class="btn btn-danger btn-sm" onclick="DeleteCompany(' + row.CompanyId + ')"><i class="fa fa-trash"></i></a>|<a href="#" class="btn btn-success btn-sm" onclick="Delete(' + row.CompanyId + ')"><i class="fa fa-eye"></i></a>'
+                      return '<a href="#" class="btn btn-info btn-sm" data-id="Id" onclick="ComapnyEdit(' + row.CompanyId + ')"><i class="fa fa-pencil"></i></a>|<a href="#" class="btn btn-danger btn-sm" onclick="DeleteCompany(' + row.CompanyId + ')"><i class="fa fa-trash"></i></a>|<a href="#" class="btn btn-success btn-sm" onclick="Delete(' + row.CompanyId + ')"><i class="fa fa-eye"></i></a>'
                   }
               }
 
@@ -50,8 +48,8 @@ $(document).ready(function () {
 
 //Company edit function
 
-function Edit(companyId) {
-    window.location.href = "/Company/AddOrEdit/" + companyId;
+function ComapnyEdit(companyId) {
+    window.location.href = "AddOrEdit/" + companyId;
 }
 
 
@@ -71,10 +69,10 @@ function DeleteCompany(id) {
       function (isConfirm) {
           if (isConfirm) {
               window.location.href = "Company/Delete/" + id;
-              swal("Deleted!", "Your imaginary file has been deleted!", "success");
+              swal("Deleted!", "Your company file has been deleted!", "success");
           }
           else {
-              swal("Cancelled", "Your imaginary file is safe :)", "error");
+              swal("Cancelled", "Your company file is safe :)", "error");
           }
       });
 
