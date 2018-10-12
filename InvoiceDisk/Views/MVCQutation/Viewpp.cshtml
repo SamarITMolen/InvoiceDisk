@@ -1,0 +1,456 @@
+﻿@model InvoiceDisk.Models.MVCQutationViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@{
+    ViewBag.Title = "AddOrEdit";
+}
+
+<html>
+<head>
+    <title>
+
+    </title>
+
+    <script src="~/assets/node_modules/jquery/jquery-3.2.1.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="~/assets/node_modules/popper/popper.min.js"></script>
+    <script src="~/assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="~/dist/js/perfect-scrollbar.jquery.min.js"></script>
+    <!--Wave Effects -->
+    <script src="~/dist/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="~/dist/js/sidebarmenu.js"></script>
+    <!--stickey kit -->
+    <script src="~/assets/node_modules/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <script src="~/assets/node_modules/sparkline/jquery.sparkline.min.js"></script>
+    <!--Custom JavaScript -->
+
+    <script src="~/dist/js/custom.min.js"></script>
+    <script src="~/assets/node_modules/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/assets/node_modules/datatables/dataTables.bootstrap.js"></script>
+    <script src="~/assets/node_modules/sweetalert/jquery.sweet-alert.custom.js"></script>
+    <script src="~/assets/node_modules/sweetalert/sweetalert.min.js"></script>
+</head>
+<body>
+
+</body>
+</html>
+
+
+<body class="well">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10" style="background-color:white;margin-top:50px">
+                @{
+
+                    var Contectdatas = ViewBag.Contentdata;
+                    var CompanyDatas = ViewBag.Companydata;
+                    var quation = ViewBag.QutationDat;
+                }
+
+
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-11" style="margin-top:20px">
+                        @*<img src="" class="img-responsive" id="targetImg" style="height:100px; width:100px;border:none" />*@
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-3">
+                        <h5>@CompanyDatas.ComapanyName</h5>
+                        <h5>@CompanyDatas.CompanyAddress</h5>
+                        <h5>@CompanyDatas.CompanyPhone</h5>
+                        <h5>@CompanyDatas.CompanyEmail</h5>
+
+
+
+
+                    </div>
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4" style="margin-top:10px">
+                        <h5>@Contectdatas.ContactName</h5>
+                        <h5>@Contectdatas.ContactAddress</h5>
+                        <h5>@Contectdatas.BillingEmail</h5>
+                        <h5>@Contectdatas.BillingVatTRN</h5>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-11">
+                        <h4 style="color:skyblue">Qutation Invoice</h4>
+
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+
+                                <div class="row">
+                                    <div class="col-sm-2">Invoice Date:</div>
+                                    <div class="col-sm-4">
+                                        <label>@quation.QutationDate</label>
+
+                                    </div>
+                                    <div class="col-sm-6"></div>
+                                </div>
+
+                                <div class="row" style="margin-top:3px">
+                                    <div class="col-sm-2">Invoice Number:</div>
+                                    <div class="col-sm-4">
+                                        <label>@quation.Qutation_ID</label>
+                                    </div>
+                                    <div class="col-sm-6"></div>
+                                </div>
+
+                                <div class="row" style="margin-top:3px">
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <div class="col-sm-4">Invoice period:</div>
+                                            <div class="col-sm-4">
+                                                <label>@quation.QutationDate</label>
+                                            </div>
+
+                                            <div class="col-sm-4">
+                                                <label>@quation.DueDate</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6"></div>
+                                </div>
+
+                                <div class="row" style="margin-top:3px">
+                                    <div class="col-sm-2">Refrence Number:</div>
+                                    <div class="col-sm-4">
+                                        <label>@quation.RefNumber</label>
+
+                                    </div>
+                                    <div class="col-sm-6"></div>
+                                </div>
+
+                                <div class="row" style="margin-top:3px">
+                                    <div class="col-sm-2"><a href="#"> Add VAT:</a></div>
+                                    <div class="col-sm-4">
+
+                                    </div>
+                                    <div class="col-sm-6"></div>
+                                </div>
+
+                                <div class="row">
+                                    <table class="table" id="maintableQutation">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th class="col-sm-4">
+                                                    Decription
+                                                </th>
+                                                <th class="col-sm-2">
+                                                    Quantity
+                                                </th>
+                                                <th class="col-sm-2">
+                                                    Price
+                                                </th>
+                                                <th class="col-sm-2">
+                                                    Total
+                                                </th>
+                                                <th class="col-sm-1">
+                                                    Vat
+                                                </th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody class="tbody">
+                                            @foreach (var item in ViewBag.QutationDatailsList)
+                                            {
+                                                <tr>
+                                                    <td>@item.Description</td>
+                                                    <td>@item.Quantity</td>
+                                                    <td>@item.Rate</td>
+                                                    <td>@item.Total</td>
+                                                    <td>@item.Vat</td>
+
+                                                </tr>
+                                            }
+                                        </tbody>
+
+                                    </table>
+
+                                    <div id="OrderItems">
+                                        <table class="table table-responsive" id="orderdetailsitems"></table>
+                                        <span id="orderItemError" style="color:red"></span>
+                                    </div>
+
+
+                                </div>
+
+                                <hr />
+
+
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                    </div>
+                                    <div class="col-sm-2">Sub Total:</div>
+                                    <div class="col-sm-2">
+                                        <label id="SubTotal">@quation.SubTotal</label>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                    </div>
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-2">
+                                        <label id="TotalBTW"></label>
+
+                                    </div>
+                                </div>
+
+
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-2">Customer Note:</div>
+                                    <div class="col-sm-6">
+                                        <label>@quation.CustomerNote</label>
+                                    </div>
+                                    <div class="col-sm-2">Total:</div>
+                                    <div class="col-sm-2">
+                                        <span class="form-inline">&euro;</span><label id="gtotal">@quation.TotalAmount</label>
+
+                                    </div>
+                                </div>
+
+                                <div class="row" style="margin-top:3px">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-6">
+
+                                    </div>
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-2">
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+                                    </div>
+                                </div>
+                                <hr />
+
+                                <div style="padding:10px 0;text-align:right">
+                                    <input id="Submit" type="button" value="Save" class="btn btn-warning" style="padding:10px 20px" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-1"></div>
+
+        </div>
+    </div>
+</body>
+
+
+@*<div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-6" style="background-color:white;margin-top:0px">
+        @{
+
+            var Contectdatas = ViewBag.Contentdata;
+            var CompanyDatas = ViewBag.Companydata;
+            var quation = ViewBag.QutationDat;
+        }
+
+
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-6" style="margin-top:0px">
+                <img src="@Url.Content(CompanyDatas.CompanyLogo)" class="img-responsive" id="targetImg" style="height:100px; width:100px;border:none" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3">
+                <h5>@CompanyDatas.ComapanyName</h5>
+                <h5>@CompanyDatas.CompanyAddress</h5>
+                <h5>@CompanyDatas.CompanyPhone</h5>
+                <h5>@CompanyDatas.CompanyEmail</h5>
+
+            </div>
+
+            <div class="col-sm-4" style="margin-top:0px">
+                <h5>@Contectdatas.ContactName</h5>
+                <h5>@Contectdatas.ContactAddress</h5>
+                <h5>@Contectdatas.BillingEmail</h5>
+                <h5>@Contectdatas.BillingVatTRN</h5>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-6">
+                <h4 style="color:skyblue">Qutation Invoice</h4>
+
+                <div class="form-horizontal">
+
+                    <div class="row">
+                        <div class="col-sm-2">Invoice Date:</div>
+                        <div class="col-sm-4">
+                            <label>@quation.QutationDate</label>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:3px">
+                        <div class="col-sm-2">Invoice Number:</div>
+                        <div class="col-sm-4">
+                            <label>@quation.Qutation_ID</label>
+                        </div>
+                        <div class="col-sm-6"></div>
+                    </div>
+                    <div class="row" style="margin-top:3px">
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-4">Invoice period:</div>
+                                <div class="col-sm-4">
+                                    <label>@quation.QutationDate</label>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <label>@quation.DueDate</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6"></div>
+                    </div>
+
+                    <div class="row" style="margin-top:3px">
+                        <div class="col-sm-2">Refrence Number:</div>
+                        <div class="col-sm-4">
+                            <label>@quation.RefNumber</label>
+
+                        </div>
+                        <div class="col-sm-6"></div>
+                    </div>
+
+                    <div class="row" style="margin-top:3px">
+                        <div class="col-sm-2"><a href="#"> Add VAT:</a></div>
+                        <div class="col-sm-4">
+
+                        </div>
+                        <div class="col-sm-6"></div>
+                    </div>
+
+                    <div class="row">
+                        <table class="table" id="maintableQutation">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th class="col-sm-4">
+                                        Decription
+                                    </th>
+                                    <th class="col-sm-2">
+                                        Quantity
+                                    </th>
+                                    <th class="col-sm-2">
+                                        Price
+                                    </th>
+                                    <th class="col-sm-2">
+                                        Total
+                                    </th>
+                                    <th class="col-sm-1">
+                                        Vat
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody class="tbody">
+                                @foreach (var item in ViewBag.QutationDatailsList)
+                                {
+                                    <tr>
+                                        <td>@item.Description</td>
+                                        <td>@item.Quantity</td>
+                                        <td>@item.Rate</td>
+                                        <td>@item.Total</td>
+                                        <td>@item.Vat</td>
+
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+
+                        <div id="OrderItems">
+                            <table class="table table-responsive" id="orderdetailsitems"></table>
+                            <span id="orderItemError" style="color:red"></span>
+                        </div>
+
+
+                    </div>
+
+                    <hr />
+
+
+                    <div class="row">
+                        <div class="col-sm-8">
+                        </div>
+                        <div class="col-sm-2">Sub Total:</div>
+                        <div class="col-sm-2">
+                            <label id="SubTotal">@quation.SubTotal</label>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-8">
+                        </div>
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-2">
+                            <label id="TotalBTW"></label>
+
+                        </div>
+                    </div>
+
+
+                    <hr />
+                    <div class="row">
+                        <div class="col-sm-2">Customer Note:</div>
+                        <div class="col-sm-6">
+                            <label>@quation.CustomerNote</label>
+                        </div>
+                        <div class="col-sm-2">Total:</div>
+                        <div class="col-sm-2">
+                            <span class="form-inline">&euro;</span><label id="gtotal">@quation.TotalAmount</label>
+
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top:3px">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-6">
+
+                        </div>
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-2">
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col-sm-1"></div>
+
+</div>*@

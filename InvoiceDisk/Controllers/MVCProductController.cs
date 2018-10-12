@@ -14,22 +14,90 @@ namespace InvoiceDisk.Controllers
         public ActionResult Index()
         {
 
+            return View();
+        }
+
+
+        public ActionResult GetProductlist()
+        {
+
+
             IEnumerable<MVCProductModel> ProductList;
-            HttpResponseMessage response = GlobalVeriables.WebApiClient.GetAsync("Product").Result;
-            ProductList = response.Content.ReadAsAsync<IEnumerable<MVCProductModel>>().Result;
+
             try
             {
-               
-                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                var draw = Request.Form.GetValues("draw").FirstOrDefault();
+                var start = Request.Form.GetValues("start").FirstOrDefault();
+
+                var length = Request.Form.GetValues("length").FirstOrDefault();
+                var sortColumn = Request.Form.GetValues("columns[" +
+                Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
+                var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+                int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                string search = Request.Form.GetValues("search[value]")[0];
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+
+                HttpResponseMessage response = GlobalVeriables.WebApiClient.GetAsync("Product").Result;
+                ProductList = response.Content.ReadAsAsync<IEnumerable<MVCProductModel>>().Result;
+
+                if (!string.IsNullOrEmpty(search) && !string.IsNullOrWhiteSpace(search))
                 {
-                    return View(ProductList);
+                    // Apply search  on multiple field  
+                    ProductList = ProductList.Where(p => p.ProductId.ToString().Contains(search) ||
+                     p.ProductName.ToLower().Contains(search.ToLower()) ||
+                     p.Description.ToString().ToLower().Contains(search.ToLower()) ||
+                     p.SalePrice.ToString().Contains(search.ToLower()) ||
+                     p.PurchasePrice.ToString().Contains(search) ||
+                     p.Type.ToString().ToLower().Contains(search.ToLower()) ||
+                     p.OpeningQuantity.ToString().Contains(search.ToLower())).ToList();
                 }
-                else
+                switch (sortColumn)
                 {
-                    return View("~/Views/Shared/StatusCode501.cshtml");
+                    case "ProductId":
+                        ProductList = ProductList.OrderBy(c => c.ProductId);
+                        break;
+                    case "ProductName":
+                        ProductList = ProductList.OrderBy(c => c.ProductName);
+                        break;
+                    case "Description":
+                        ProductList = ProductList.OrderBy(c => c.Description);
+                        break;
+
+                    case "SalePrice":
+                        ProductList = ProductList.OrderBy(c => c.SalePrice);
+                        break;
+
+                    case "PurchasePrice":
+                        ProductList = ProductList.OrderBy(c => c.PurchasePrice);
+                        break;
+
+                    case "Type":
+
+                        ProductList = ProductList.OrderBy(c => c.Type);
+                        break;
+
+                    case "OpeningQuantity":
+
+                        ProductList = ProductList.OrderBy(c => c.OpeningQuantity);
+                        break;
+
+
+                    default:
+                        ProductList = ProductList.OrderByDescending(c => c.ProductId);
+                        break;
                 }
+
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
+                //{
+                //    var v = CompanyList.OrderBy(c=>c.);
+
+                //}
+                int recordsTotal = recordsTotal = ProductList.Count();
+                var data = ProductList.Skip(skip).Take(pageSize).ToList();
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data }, JsonRequestBehavior.AllowGet);
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ex.ToString();
             }
@@ -48,7 +116,7 @@ namespace InvoiceDisk.Controllers
             {
                 return Json(ProductList, JsonRequestBehavior.AllowGet);
             }
-            
+
             return View();
         }
 

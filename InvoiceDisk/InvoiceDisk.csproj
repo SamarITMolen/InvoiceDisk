@@ -49,6 +49,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.1.6.4\lib\net40\Rotativa.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -184,6 +188,8 @@
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\CompanyInformationsController.cs" />
     <Compile Include="Controllers\ContactsController.cs" />
+    <Compile Include="Controllers\EmailController.cs" />
+    <Compile Include="Controllers\ExamplePDFController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MVCContactsController.cs" />
@@ -242,6 +248,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DBModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\EmailModel.cs" />
+    <Compile Include="Models\Example.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MVCCompanyModel.cs" />
@@ -1314,6 +1322,7 @@
       <DependentUpon>VATDetailsModel.edmx</DependentUpon>
       <LastGenOutput>VATDetailsModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\alertify.js" />
     <Content Include="Scripts\alertify.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -1422,6 +1431,7 @@
     <Content Include="dist\css\fonts\materialdesignicons-webfont.ttf" />
     <Content Include="dist\css\fonts\Simple-Line-Icons4c82.ttf" />
     <Content Include="dist\css\fonts\themify.ttf" />
+    <Content Include="App_Browsers\qt.browser" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
@@ -1490,11 +1500,16 @@
     <Content Include="Views\MVCQutation\Index.cshtml" />
     <Content Include="Views\Shared\ILayout.cshtml" />
     <Content Include="Views\MVCSales\Index2.cshtml" />
+    <Content Include="Views\MVCQutation\PrintView.cshtml" />
+    <Content Include="Views\ExamplePDF\Index.cshtml" />
+    <Content Include="Views\MVCQutation\Viewpp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\css\" />
     <Folder Include="Content\js\" />
+    <Folder Include="PDF\" />
+    <Folder Include="Views\Email\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

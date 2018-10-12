@@ -1,15 +1,10 @@
-﻿@model IEnumerable<InvoiceDisk.Models.MVCProductModel>
-
-@{
-    ViewBag.Title = "Index";
-}
-
+﻿
 <h2>Index</h2>
 
 <p>
     <a href="@Url.Action("AddOrEdit","MVCProduct")" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>Create New</a>
 </p>
-<table class="table">
+<table class="table" id="productTable">
 
     <thead class="table-heading" style="background-color:black;color:white">
         <tr>
@@ -42,45 +37,9 @@
         </tr>
 
         </thead>
-    @if (Model != null)
-    {
-        foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SalePrice)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PurchasePrice)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Type)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OpeningQuantity)
-                </td>
+  <tbody>
 
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.AddedDate)
-                </td>
-                <td>
-                    <a href="@Url.Action("AddOrEdit", "MVCProduct", new { id = item.ProductId })" class="btn btn-info"> <i style="color:yellow" class="glyphicon glyphicon-pencil"></i>Edit</a> |
-                    <a onclick="Delete(@item.ProductId)" class="btn btn-info"> <i style="color:red" class="glyphicon glyphicon-trash"></i>Delete</a> |
-                    <a href="@Url.Action("Details", "MVCProduct", new { id = item.ProductId })" class="btn btn-info"> <i style="color:yellow" class="glyphicon glyphicon-forward"></i>Details</a> 
-                </td>
-            </tr>
-        }
-    }
+  </tbody>
 
 </table>
 
@@ -107,6 +66,10 @@
 
             },null);
         }
+
+
+       
+
     </script>
 
 }

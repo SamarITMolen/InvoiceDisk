@@ -4,10 +4,12 @@
 $(document).ready(function () {
     $("#CompanyListTable").DataTable({
         // "processing": true, // for show progress bar
+       
         processing: true,
         "language": {
             "processing": $('#loader').append("<img src='../images/XtaS.gif' width='100px' height='60px' />"),  //add a loading image,simply putting tag.
         },
+
         "serverSide": true, // for process server side
         "filter": false, // this is for disable filter (search box)
         "orderMulti": false, // for disable multiple column at once
@@ -49,7 +51,7 @@ $(document).ready(function () {
 //Company edit function
 
 function Edit(companyId) {
-    window.location.href = "AddOrEdit/" + companyId;
+    window.location.href = "/Company/AddOrEdit/" + companyId;
 }
 
 

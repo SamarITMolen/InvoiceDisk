@@ -335,10 +335,15 @@
                     success: function (result) {
                         if (result != 0) {
                             alert('Successfully saved');
+                            $("#genratePdf").submit();
+
                             list = [];
                             $('#Qutation_ID,#RefNumber,#SubTotal,#DiscountAmount,#Vat,#TotalAmount,#CustomerNote').val('');
                             $('#orderdetailsitems').empty();
                             $("#Submit").val('Save');
+
+
+
                         }
 
                     },
@@ -770,8 +775,8 @@
                            var pattern = /Date\(([^)]+)\)/;//date format from server side
                            var results = pattern.exec(value);
                            var dt = new Date(parseFloat(results[1]));
-
-                           return dt.getDate() + "-" + (dt.getMonth() + 1) + "-" + dt.getFullYear();
+                          
+                           return dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
                        }, "autoWidth": true
                    },
 
@@ -779,17 +784,81 @@
                     { "data": "DiscountAmount", "name": "DiscountAmount", "autoWidth": true },
                     { "data": "Status", "name": "Status", "autoWidth": true },
 
-                    //{
-                    //    render: function (data, type, row) {
-                    //        return '<a href="" class="btn btn-info btn-xs" data-id="Id" onclick="Edit(' + row.ContactsId + ')"><i class="glyphicon glyphicon-pencil "></i></a>|<a href="" class="btn btn-danger btn-xs" onclick="DeleteCompany(' + row.ContactsId + ')"><i class="glyphicon glyphicon-trash"></i></a>|<a href="" class="btn btn-success btn-xs" onclick="Delete(' + row.ContactsId + ')"><i class="glyphicon glyphicon-eye-open"></i></a>'
-                    //    }
-                    //}
+                    {
+                  render: function (data, type, row) {
+                      return '<a href="#" class="btn btn-info btn-sm" data-id="Id" onclick="EditQuatation(' + row.QutationID + ')"><i class="fa fa-pencil"></i></a>|<a href="#" class="btn btn-danger btn-sm" onclick="DeleteCompany(' + row.QutationID + ')"><i class="fa fa-trash"></i></a>|<a href="#" class="btn btn-success btn-sm" onclick="Delete(' + row.QutationID + ')"><i class="fa fa-eye"></i></a>'
+                  }
+              }
+
+            ]
+        });
+
+
+        
+
+    });
+
+
+  
+
+    $(document).ready(function () {
+
+        $("#productTable").DataTable({
+            //"processing": true, // for show progress bar
+            "processing": true,
+            //"language": {
+            //    "processing": $('#loaderQuationList').append("<img  src='../images/XtaS.gif' width='100px' height='60px' />"),  //add a loading image,simply putting tag.
+            //},
+            "searching": true,
+            "serverSide": true, // for process server side
+            "filter": false, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "ajax": {
+                "url": "/MVCProduct/GetProductlist",
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columns": [
+                    { "data": "ProductId", "name": "ProductId", "autoWidth": true },// key for edit delete
+                    { "data": "ProductName", "name": "ProductName", "autoWidth": true },
+                    { "data": "Description", "name": "Description", "autoWidth": true },
+                    { "data": "SalePrice", "name": "SalePrice", "autoWidth": true },
+                    { "data": "PurchasePrice", "name": "PurchasePrice", "autoWidth": true },
+                     { "data": "Type", "name": "Type", "autoWidth": true },
+                     { "data": "OpeningQuantity", "name": "OpeningQuantity", "autoWidth": true },
+                    
+                   {
+                       "data": "AddedDate", "type": "date ",
+                       "render": function (value) {
+                       alert()
+                           if (value === null) return "";
+                           var pattern = /Date\(([^)]+)\)/;//date format from server side
+                           var results = pattern.exec(value);
+                           var dt = new Date(parseFloat(results[1]));
+                          
+                           return dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
+                       }, "autoWidth": true
+                   },
+
+
+                   
+                    {
+                        render: function (data, type, row) {
+                            return '<a href="#" class="btn btn-info btn-xs" data-id="Id" onclick="Edit(' + row.ProductId + ')"><i class="glyphicon glyphicon-pencil"></i></a>|<a href="" class="btn btn-danger btn-xs" onclick="DeleteCompany(' + row.ProductId + ')"><i class="glyphicon glyphicon-trash"></i></a>|<a href="" class="btn btn-success btn-xs" onclick="Delete(' + row.ProductId + ')"><i class="glyphicon glyphicon-eye-open"></i></a>'
+                        }
+                    }
 
 
 
             ]
         });
-    });
+
+    })
+
+
+    function EditQuatation(id) {
+        window.location.href = "/MvcQutation/AddOrEdit/" + id;
+    }
 
 </script>
 

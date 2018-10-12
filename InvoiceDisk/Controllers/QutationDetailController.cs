@@ -21,17 +21,17 @@ namespace InvoiceDisk.Controllers
         {
             return db.QutationDetailsTables;
         }
-
+        
         // GET: api/QutationDetail/5
-        [ResponseType(typeof(QutationDetailsTable))]
+        [ResponseType(typeof( List<QutationDetailsTable>))]
         public IHttpActionResult GetQutationDetailsTable(int id)
         {
-            QutationDetailsTable qutationDetailsTable = db.QutationDetailsTables.Find(id);
+            List<QutationDetailsTable> qutationDetailsTable = new List<QutationDetailsTable>();
+            qutationDetailsTable = db.QutationDetailsTables.ToList().Where(c => c.QutationID == id).ToList();
             if (qutationDetailsTable == null)
             {
                 return NotFound();
             }
-
             return Ok(qutationDetailsTable);
         }
 
