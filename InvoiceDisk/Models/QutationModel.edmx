@@ -15,6 +15,8 @@
           <Property Name="QutationDate" Type="date" />
           <Property Name="DueDate" Type="date" />
           <Property Name="SubTotal" Type="float" />
+          <Property Name="TotalVat6" Type="float" />
+          <Property Name="TotalVat21" Type="float" />
           <Property Name="DiscountAmount" Type="float" />
           <Property Name="TotalAmount" Type="float" />
           <Property Name="CustomerNote" Type="nvarchar" MaxLength="300" />
@@ -47,6 +49,8 @@
           <Property Name="UserId" Type="Int32" />
           <Property Name="CompanyId" Type="Int32" />
           <Property Name="ContactId" Type="Int32" />
+          <Property Name="TotalVat6" Type="Double" />
+          <Property Name="TotalVat21" Type="Double" />
         </EntityType>
         <EntityContainer Name="QutationEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="QutationTables" EntityType="Self.QutationTable" />
@@ -60,6 +64,8 @@
           <EntitySetMapping Name="QutationTables">
             <EntityTypeMapping TypeName="QutationModel.QutationTable">
               <MappingFragment StoreEntitySet="QutationTable">
+                <ScalarProperty Name="TotalVat21" ColumnName="TotalVat21" />
+                <ScalarProperty Name="TotalVat6" ColumnName="TotalVat6" />
                 <ScalarProperty Name="ContactId" ColumnName="ContactId" />
                 <ScalarProperty Name="QutationID" ColumnName="QutationID" />
                 <ScalarProperty Name="Qutation_ID" ColumnName="Qutation_ID" />

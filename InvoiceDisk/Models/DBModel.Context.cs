@@ -26,7 +26,5 @@ namespace InvoiceDisk.Models
         }
     
         public virtual DbSet<CompanyInformation> CompanyInformations { get; set; }
-        public virtual DbSet<UserAuthorityTable> UserAuthorityTables { get; set; }
-        public virtual DbSet<UserTable> UserTables { get; set; }
     }
 }

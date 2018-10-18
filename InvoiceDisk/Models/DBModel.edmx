@@ -25,68 +25,9 @@
           <Property Name="AddedBy" Type="int" />
           <Property Name="AddedDate" Type="date" />
         </EntityType>
-        <EntityType Name="UserAuthorityTable">
-          <Key>
-            <PropertyRef Name="UserAuthorityId" />
-          </Key>
-          <Property Name="UserAuthorityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Authority" Type="varchar" MaxLength="20" />
-          <Property Name="AddedDate" Type="date" />
-          <Property Name="CompanyId" Type="int" />
-        </EntityType>
-        <EntityType Name="UserTable">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserFname" Type="varchar" MaxLength="50" />
-          <Property Name="Insertion" Type="varchar" MaxLength="50" />
-          <Property Name="UserLname" Type="varchar" MaxLength="50" />
-          <Property Name="Username" Type="nvarchar" MaxLength="100" />
-          <Property Name="Password" Type="nvarchar" MaxLength="50" />
-          <Property Name="RememberMe" Type="bit" />
-          <Property Name="Gender" Type="int" />
-          <Property Name="DOB" Type="nvarchar" MaxLength="50" />
-          <Property Name="AddedDate" Type="date" />
-          <Property Name="UserAuthorityID" Type="int" />
-        </EntityType>
-        <Association Name="FK_CompanyInformation_UserTable">
-          <End Role="UserTable" Type="Self.UserTable" Multiplicity="0..1" />
-          <End Role="CompanyInformation" Type="Self.CompanyInformation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserTable">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="CompanyInformation">
-              <PropertyRef Name="AddedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserTable_UserAuthorityTable">
-          <End Role="UserAuthorityTable" Type="Self.UserAuthorityTable" Multiplicity="0..1" />
-          <End Role="UserTable" Type="Self.UserTable" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserAuthorityTable">
-              <PropertyRef Name="UserAuthorityId" />
-            </Principal>
-            <Dependent Role="UserTable">
-              <PropertyRef Name="UserAuthorityID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="InvoiceDiskModelStoreContainer">
           <EntitySet Name="CompanyInformation" EntityType="Self.CompanyInformation" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserAuthorityTable" EntityType="Self.UserAuthorityTable" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserTable" EntityType="Self.UserTable" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_CompanyInformation_UserTable" Association="Self.FK_CompanyInformation_UserTable">
-            <End Role="UserTable" EntitySet="UserTable" />
-            <End Role="CompanyInformation" EntitySet="CompanyInformation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserTable_UserAuthorityTable" Association="Self.FK_UserTable_UserAuthorityTable">
-            <End Role="UserAuthorityTable" EntitySet="UserAuthorityTable" />
-            <End Role="UserTable" EntitySet="UserTable" />
-          </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -110,73 +51,10 @@
           <Property Name="CompanyCountry" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="AddedBy" Type="Int32" />
           <Property Name="AddedDate" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="UserTable" Relationship="InvoiceDiskModel.FK_CompanyInformation_UserTable" FromRole="CompanyInformation" ToRole="UserTable" />
         </EntityType>
         <EntityContainer Name="DBModel" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CompanyInformations" EntityType="Self.CompanyInformation" />
-          <EntitySet Name="UserAuthorityTables" EntityType="InvoiceDiskModel.UserAuthorityTable" />
-          <EntitySet Name="UserTables" EntityType="InvoiceDiskModel.UserTable" />
-          <AssociationSet Name="FK_CompanyInformation_UserTable" Association="InvoiceDiskModel.FK_CompanyInformation_UserTable">
-            <End Role="UserTable" EntitySet="UserTables" />
-            <End Role="CompanyInformation" EntitySet="CompanyInformations" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserTable_UserAuthorityTable" Association="InvoiceDiskModel.FK_UserTable_UserAuthorityTable">
-            <End Role="UserAuthorityTable" EntitySet="UserAuthorityTables" />
-            <End Role="UserTable" EntitySet="UserTables" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="UserAuthorityTable">
-          <Key>
-            <PropertyRef Name="UserAuthorityId" />
-          </Key>
-          <Property Name="UserAuthorityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Authority" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="AddedDate" Type="DateTime" Precision="0" />
-          <Property Name="CompanyId" Type="Int32" />
-          <NavigationProperty Name="UserTables" Relationship="InvoiceDiskModel.FK_UserTable_UserAuthorityTable" FromRole="UserAuthorityTable" ToRole="UserTable" />
-        </EntityType>
-        <EntityType Name="UserTable">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserFname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Insertion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="UserLname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Username" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="RememberMe" Type="Boolean" />
-          <Property Name="Gender" Type="Int32" />
-          <Property Name="DOB" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AddedDate" Type="DateTime" Precision="0" />
-          <Property Name="UserAuthorityID" Type="Int32" />
-          <NavigationProperty Name="CompanyInformations" Relationship="InvoiceDiskModel.FK_CompanyInformation_UserTable" FromRole="UserTable" ToRole="CompanyInformation" />
-          <NavigationProperty Name="UserAuthorityTable" Relationship="InvoiceDiskModel.FK_UserTable_UserAuthorityTable" FromRole="UserTable" ToRole="UserAuthorityTable" />
-        </EntityType>
-        <Association Name="FK_CompanyInformation_UserTable">
-          <End Type="InvoiceDiskModel.UserTable" Role="UserTable" Multiplicity="0..1" />
-          <End Type="InvoiceDiskModel.CompanyInformation" Role="CompanyInformation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserTable">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="CompanyInformation">
-              <PropertyRef Name="AddedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserTable_UserAuthorityTable">
-          <End Type="InvoiceDiskModel.UserAuthorityTable" Role="UserAuthorityTable" Multiplicity="0..1" />
-          <End Type="InvoiceDiskModel.UserTable" Role="UserTable" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserAuthorityTable">
-              <PropertyRef Name="UserAuthorityId" />
-            </Principal>
-            <Dependent Role="UserTable">
-              <PropertyRef Name="UserAuthorityID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -201,33 +79,6 @@
                 <ScalarProperty Name="CompanyCity" ColumnName="CompanyCity" />
                 <ScalarProperty Name="CompanyState" ColumnName="CompanyState" />
                 <ScalarProperty Name="CompanyCountry" ColumnName="CompanyCountry" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserAuthorityTables">
-            <EntityTypeMapping TypeName="InvoiceDiskModel.UserAuthorityTable">
-              <MappingFragment StoreEntitySet="UserAuthorityTable">
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
-                <ScalarProperty Name="Authority" ColumnName="Authority" />
-                <ScalarProperty Name="UserAuthorityId" ColumnName="UserAuthorityId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserTables">
-            <EntityTypeMapping TypeName="InvoiceDiskModel.UserTable">
-              <MappingFragment StoreEntitySet="UserTable">
-                <ScalarProperty Name="UserAuthorityID" ColumnName="UserAuthorityID" />
-                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
-                <ScalarProperty Name="DOB" ColumnName="DOB" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="RememberMe" ColumnName="RememberMe" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="UserLname" ColumnName="UserLname" />
-                <ScalarProperty Name="Insertion" ColumnName="Insertion" />
-                <ScalarProperty Name="UserFname" ColumnName="UserFname" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

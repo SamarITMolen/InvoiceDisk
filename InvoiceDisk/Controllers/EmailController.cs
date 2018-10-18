@@ -16,47 +16,25 @@ namespace InvoiceDisk.Controllers
             return View();
         }
 
-        public static bool email(string p)
+        public static bool email(EmailModel emailmodel)
         {
             bool emailstatus = false;
 
             try
             {
-
-                string  bodyhtml =@"<div class='container'>
-                        <div>
-                       <h3>Dear Mr.samar gul,</h3>
-                       <p>
-                           Here you receive our offer 2 as discussed.
-                           We would like to hear if you agree with this.
-
-                           You will find the offer as an attachment to this email.
-                       </p>
-                       <p>
-                           With kind regards,
-                       </p>
-                       <p>
-                           samar gul
-                           It Molen
-                       </p>
-                       <p>
-                           345465
-                           fuygk @yahoo.com
-                       </p>
-                   </div>
-               </div>";
-
-
+                string  bodyhtml= emailmodel.EmailBody;
                 MailMessage mail = new MailMessage();
                 SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-                mail.From = new MailAddress("samarbudhni@gmail.com");
-                mail.To.Add("sabar2143@gmail.com");
-                mail.Subject = "It Molen Offer Letter";//emailModel.Subject;
+                mail.From = new MailAddress(emailmodel.From);
+                mail.To.Add(emailmodel.ToEmail);
+                mail.Subject = "IT Molen Offer Letter";//emailModel.Subject;
                 mail.Body = bodyhtml;
-                mail.IsBodyHtml = true;
+               // mail.IsBodyHtml = true;
                 //making attachment
                 System.Net.Mail.Attachment attachment;
-                attachment = new System.Net.Mail.Attachment(p);
+
+            
+                attachment = new System.Net.Mail.Attachment(emailmodel.Attachment);
                 mail.Attachments.Add(attachment);
                 //Gmail Port
                 SmtpServer.Port = 587;
@@ -65,7 +43,9 @@ namespace InvoiceDisk.Controllers
                 SmtpServer.EnableSsl = true;
                 SmtpServer.Send(mail);
                 emailstatus = true;
+                mail.DeliveryNotificationOptions = DeliveryNotificationOptions.OnSuccess;
             }
+                      
             catch (Exception)
             {
 

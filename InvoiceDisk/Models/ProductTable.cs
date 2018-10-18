@@ -11,12 +11,10 @@ namespace InvoiceDisk.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
-
-    [Table("ProductTable")]
+    
     public partial class ProductTable
     {
-        public int? ProductId { get; set; }
+        public int ProductId { get; set; }
         public string ProductName { get; set; }
         public string Description { get; set; }
         public Nullable<double> SalePrice { get; set; }

@@ -29,7 +29,5 @@ namespace InvoiceDisk.Models
         public string CompanyCountry { get; set; }
         public Nullable<int> AddedBy { get; set; }
         public Nullable<System.DateTime> AddedDate { get; set; }
-    
-        public virtual UserTable UserTable { get; set; }
     }
 }

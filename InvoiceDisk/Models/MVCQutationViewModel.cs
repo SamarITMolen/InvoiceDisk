@@ -24,12 +24,17 @@ namespace InvoiceDisk.Models
         public Nullable<double> SubTotal { get; set; }
         public Nullable<double> DiscountAmount { get; set; }
         public Nullable<double> Vat { get; set; }
+
+     
+
         public Nullable<double> TotalAmount { get; set; }
         public string CustomerNote { get; set; }
         public string Status { get; set; }
         public Nullable<int> UserId { get; set; }
         public Nullable<int> CompanyId { get; set; }
 
+         public Nullable<float> TotalVat6 { get; set; }
+        public  Nullable<float> TotalVat21 { get; set; }
 
         public int? QutationDetailId { get; set; }
         public Nullable<int> ItemId { get; set; }
@@ -37,6 +42,8 @@ namespace InvoiceDisk.Models
         public Nullable<int> Quantity { get; set; }
         public Nullable<double> Rate { get; set; }
         public Nullable<double> Total { get; set; }
+
+         public string ItemName { get; set; }
         public List<QutationDetailsTable> QutationDetailslist { get; set; }
        
 

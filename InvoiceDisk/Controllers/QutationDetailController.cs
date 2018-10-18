@@ -15,24 +15,37 @@ namespace InvoiceDisk.Controllers
     public class QutationDetailController : ApiController
     {
         private QutationDetailsEntities db = new QutationDetailsEntities();
-
+        InvoiceDiskProductEntities dbp = new InvoiceDiskProductEntities();
         // GET: api/QutationDetail
         public IQueryable<QutationDetailsTable> GetQutationDetailsTables()
         {
             return db.QutationDetailsTables;
         }
-        
+
         // GET: api/QutationDetail/5
-        [ResponseType(typeof( List<QutationDetailsTable>))]
+        [ResponseType(typeof(List<MVCQutationViewModel>))]
         public IHttpActionResult GetQutationDetailsTable(int id)
         {
-            List<QutationDetailsTable> qutationDetailsTable = new List<QutationDetailsTable>();
-            qutationDetailsTable = db.QutationDetailsTables.ToList().Where(c => c.QutationID == id).ToList();
-            if (qutationDetailsTable == null)
+            List<MVCQutationViewModel> qutationDetailsTable = new List<MVCQutationViewModel>();
+            var obj = db.QutationDetailsTables.ToList().Where(c => c.QutationID == id).ToList();
+
+            var query = (from pd in db.QutationDetailsTables
+                         join p in db.ProductTables on pd.ItemId equals p.ProductId
+                         where pd.QutationID == id
+                         select new MVCQutationViewModel { ItemId = pd.ItemId, QutationID = pd.QutationID, Rate = pd.Rate,
+                             Quantity = pd.Quantity, Vat = pd.Vat, ItemName=p.ProductName,
+                             Total=pd.Total, QutationDetailId= pd.QutationDetailId
+                          
+                        }).ToList();
+
+
+
+
+            if (query == null)
             {
                 return NotFound();
             }
-            return Ok(qutationDetailsTable);
+            return Ok(query);
         }
 
         // PUT: api/QutationDetail/5
@@ -54,6 +67,7 @@ namespace InvoiceDisk.Controllers
             try
             {
                 db.SaveChanges();
+                return StatusCode(HttpStatusCode.OK);
             }
             catch (DbUpdateConcurrencyException)
             {

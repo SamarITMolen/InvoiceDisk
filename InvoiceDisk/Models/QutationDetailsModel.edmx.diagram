@@ -6,6 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="f78051fd9aa04ccba5efccdf9ab4ea4f" Name="Diagram1">
         <EntityTypeShape EntityType="QutaionDetailsModel.QutationDetailsTable" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QutaionDetailsModel.ProductTable" Width="1.5" PointX="3.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

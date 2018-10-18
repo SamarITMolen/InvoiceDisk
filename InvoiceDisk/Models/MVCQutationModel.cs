@@ -20,5 +20,9 @@ namespace InvoiceDisk.Models
         public Nullable<int> UserId { get; set; }
         public Nullable<int> CompanyId { get; set; }
         public Nullable<int> ContactId { get; set; }
+        public Nullable<float> TotalVat6 { get; set; }
+        public Nullable<float> TotalVat21 { get; set; }
+
+
     }
 }

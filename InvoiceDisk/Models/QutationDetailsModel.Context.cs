@@ -26,5 +26,6 @@ namespace InvoiceDisk.Models
         }
     
         public virtual DbSet<QutationDetailsTable> QutationDetailsTables { get; set; }
+        public virtual DbSet<ProductTable> ProductTables { get; set; }
     }
 }

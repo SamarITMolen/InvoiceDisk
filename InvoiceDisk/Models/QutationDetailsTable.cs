@@ -14,7 +14,7 @@ namespace InvoiceDisk.Models
     
     public partial class QutationDetailsTable
     {
-        public int? QutationDetailId { get; set; }
+        public int QutationDetailId { get; set; }
         public Nullable<int> ItemId { get; set; }
         public string Description { get; set; }
         public Nullable<int> Quantity { get; set; }
