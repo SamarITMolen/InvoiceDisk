@@ -26,20 +26,70 @@ namespace InvoiceDisk.Controllers
         [ResponseType(typeof(List<MVCQutationViewModel>))]
         public IHttpActionResult GetQutationDetailsTable(int id)
         {
-            List<MVCQutationViewModel> qutationDetailsTable = new List<MVCQutationViewModel>();
-            var obj = db.QutationDetailsTables.ToList().Where(c => c.QutationID == id).ToList();
 
-            var query = (from pd in db.QutationDetailsTables
-                         join p in db.ProductTables on pd.ItemId equals p.ProductId
-                         where pd.QutationID == id
-                         select new MVCQutationViewModel { ItemId = pd.ItemId, QutationID = pd.QutationID, Rate = pd.Rate,
-                             Quantity = pd.Quantity, Vat = pd.Vat, ItemName=p.ProductName,
-                             Total=pd.Total, QutationDetailId= pd.QutationDetailId
-                          
-                        }).ToList();
+            IEnumerable<string> HeaderValue;
+            var QTID ="";
+            if(GlobalVeriables.WebApiClient.DefaultRequestHeaders.TryGetValues("QTID",out HeaderValue))
+            {
+                QTID = HeaderValue.FirstOrDefault();
+            }
+            int QTIDs = (QTID != "" ? Convert.ToInt32(QTID) : 0);
+
+            if (QTIDs != 0)
+            {
+               var query = db.QutationDetailsTables.ToList().Where(c => c.QutationID == QTIDs).ToList();
+
+                return Ok(query);
+            }
+            else
+            {
+
+               // List<MVCQutationViewModel> qutationDetailsTable = new List<MVCQutationViewModel>();
+             //   var obj = db.QutationDetailsTables.ToList().Where(c => c.QutationID == QviewModel.QutationID).ToList();
+
+                 var query = (from pd in db.QutationDetailsTables
+                             join p in db.ProductTables on pd.ItemId equals p.ProductId
+                             where pd.QutationID == id
+                              select new MVCQutationViewModel
+                             {
+                                 ItemId = pd.ItemId,
+                                 QutationID = pd.QutationID,
+                                 Rate = pd.Rate,
+                                 Quantity = pd.Quantity,
+                                 Vat = pd.Vat,
+                                 ItemName = p.ProductName,
+                                 Total = pd.Total,
+                                 QutationDetailId = pd.QutationDetailId
+                             }).ToList();
+                
+
+                if (query == null)
+                {
+                    return NotFound();
+                }
+                return Ok(query);
+            }           
+
+        }
 
 
 
+        // GET: api/QutationDetail
+        [ResponseType(typeof(List<MVCQutationDetailsModel>))]
+        public IHttpActionResult GetQutationDetailsTable(int id, string id1)
+        {
+
+            var query = db.QutationDetailsTables.ToList().Where(c => c.QutationID == id).Select(c => new MVCQutationDetailsModel
+            {
+
+                QutationDetailId = c.QutationDetailId,
+                Quantity = c.Quantity,
+                ItemId = c.ItemId,
+                QutationID = c.QutationID,
+                Rate = c.Rate,
+                Total = c.Total,
+
+            }).ToList();
 
             if (query == null)
             {
@@ -47,6 +97,8 @@ namespace InvoiceDisk.Controllers
             }
             return Ok(query);
         }
+
+
 
         // PUT: api/QutationDetail/5
         [ResponseType(typeof(void))]

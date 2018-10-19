@@ -25,8 +25,8 @@ namespace InvoiceDisk.Models
         public Nullable<double> DiscountAmount { get; set; }
         public Nullable<double> Vat { get; set; }
 
-     
 
+        public bool Isdelete { get; set; }
         public Nullable<double> TotalAmount { get; set; }
         public string CustomerNote { get; set; }
         public string Status { get; set; }

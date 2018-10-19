@@ -19,7 +19,6 @@ namespace InvoiceDisk.Controllers
         public static bool email(EmailModel emailmodel)
         {
             bool emailstatus = false;
-
             try
             {
                 string  bodyhtml= emailmodel.EmailBody;
@@ -28,12 +27,8 @@ namespace InvoiceDisk.Controllers
                 mail.From = new MailAddress(emailmodel.From);
                 mail.To.Add(emailmodel.ToEmail);
                 mail.Subject = "IT Molen Offer Letter";//emailModel.Subject;
-                mail.Body = bodyhtml;
-               // mail.IsBodyHtml = true;
-                //making attachment
-                System.Net.Mail.Attachment attachment;
-
-            
+                mail.Body = bodyhtml;          
+                System.Net.Mail.Attachment attachment; 
                 attachment = new System.Net.Mail.Attachment(emailmodel.Attachment);
                 mail.Attachments.Add(attachment);
                 //Gmail Port
@@ -43,7 +38,7 @@ namespace InvoiceDisk.Controllers
                 SmtpServer.EnableSsl = true;
                 SmtpServer.Send(mail);
                 emailstatus = true;
-                mail.DeliveryNotificationOptions = DeliveryNotificationOptions.OnSuccess;
+            
             }
                       
             catch (Exception)

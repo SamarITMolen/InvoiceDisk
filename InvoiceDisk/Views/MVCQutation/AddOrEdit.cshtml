@@ -139,6 +139,11 @@
                                     </div>
                                     <div class="col-sm-6"></div>
                                 </div>
+
+                                <div id="loadingDiv">
+                                 <img src="~/images/XtaS.gif" />
+                                 </div>
+                                @*<div id="loadingDiv">Please wait while this page loads.</div>*@
                                 <div class="row">
                                     <table class="table" id="orderdetailsitems">
                                         <thead class="thead-dark">
@@ -182,8 +187,8 @@
                                                     </div>
                                                 </td>
                                                 <td>
-
-                                                    @Html.EditorFor(model => model.Total, new { htmlAttributes = new { @readonly = "readonly", @class = " FTotal form-control", id = "FTotal" } })
+                                                   
+                                                    @Html.EditorFor(model => model.Total, new { htmlAttributes = new {@class = " FTotal form-control", id = "FTotal" } })
                                                     @Html.ValidationMessageFor(model => model.Total, "", new { @class = "text-danger" })
                                                 </td>
                                                 <td>
@@ -226,7 +231,7 @@
                                                             <input type="text" class="rate form-control" id="Rate" value="@item.Rate" />
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="FTotal form-control" id="FTotal" value="@item.Total" />
+                                                            <input type="text" class="FTotal form-control" id="FTotal" value="@item.Total"  readonly/>
 
                                                         </td>
                                                         <td>
@@ -244,7 +249,14 @@
                                                         </td>
                                                         <td>
                                                             <input type="hidden" class="QutationDetailId" value="@item.QutationDetailId" />
+
                                                         </td>
+                                                        <td>
+                                                            <input type="hidden" class="QutationID" value="@item.QutationID" />
+
+                                                        </td>
+                                                    
+
                                                     </tr>
                                                 }
                                             }
@@ -534,8 +546,7 @@
                                                     <input type="button" id="add" value="add" style="width:80px" class="btn btn-success" />
 
                                             </tr>
-                                        </tbody>
-                                        s
+                                        </tbody>                                   
                                     </table>
 
                                     <div id="OrderItems">
@@ -635,7 +646,7 @@
                                     <input id="Submit" type="button" value="Save draft" class="btn btn-primary" style="padding:10px 20px" />
                                     <input id="saveEmail" type="button" value="Save + email" class="btn btn-primary" style="padding:10px 20px" />
                                     <input id="savesendbyemail" type="button" value="Save +send by email " class="btn btn-primary" style="padding:10px 20px" />
-                                    <input id="saveprintandsendtoyourself" type="button" value="Save + print and send and send ot yourself" class="btn btn-primary" style="padding:10px 20px" />
+                                    <input id="saveprintandsendtoyourselfsave" type="button" value="Save + print and send and send ot yourself" class="btn btn-primary" style="padding:10px 20px" />
                                 </div>
                             </div>
 
